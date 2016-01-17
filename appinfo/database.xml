@@ -66,4 +66,39 @@
 			</field>
 		</declaration>
 	</table>
+	<table>
+		<name>*dbprefix*passwords_categories</name>
+		<declaration>
+			<field>
+				<name>id</name>
+				<type>integer</type>
+				<notnull>true</notnull>
+				<autoincrement>true</autoincrement>
+				<unsigned>true</unsigned>
+				<primary>true</primary>
+				<length>8</length>
+			</field>
+			<field>
+				<name>user_id</name>
+				<type>text</type>
+				<length>500</length>
+				<default></default>
+				<notnull>true</notnull>
+			</field>
+			<field>
+				<name>category_name</name>
+				<type>text</type>
+				<length>1000</length>
+				<default></default>
+				<notnull>true</notnull>
+			</field>
+			<field>
+				<name>category_colour</name>
+				<type>text</type>
+				<length>6</length>
+				<default>eeeeee</default>
+				<notnull>true</notnull>
+			</field>
+		</declaration>
+	</table>
 </database>
