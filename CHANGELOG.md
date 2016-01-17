@@ -1,4 +1,6 @@
 ####17 - NOT RELEASED YET
+* Added coloured categories! For now, every password can only have one category. This will be fixed in a next release.
+* Changed sorting of values in both passwords and categories by implementing `COLLATE utf8_general_ci` in the database query. This will make e.g. `Händel` appear before `Haydn`, instead of after it (ignoring the accent on `ä`). Really useful for German users who are sorting usernames and categories.
 * Changed width of popup, now wider
 * Fix for sidebar background due to incompatibility with Javascript XMPP Chat app
  
