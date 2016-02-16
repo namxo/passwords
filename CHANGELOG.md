@@ -45,7 +45,7 @@
 * Fix for editing values containing `<` or `>`
 * Language update? Look at [TRANSLATION.js](TRANSLATION.js)
 
-####8.0.14
+####8.0.14 - Sep 28, 2015
 * Added button in trash to permanently delete all passwords in trash bin
 * Auto-select on hover of passwords and usernames, with notification text to copy them with Ctrl+C or Cmd+C (detects system automatically). This is disabled for Android and iOS (of course)
 * Renamed *Creation date* to *Last changed*
@@ -54,7 +54,7 @@
 * Fix for CSV files containing a file extension in uppercase
 * Fix for height of popup title
 
-####8.0.13
+####8.0.13 - Sep 20, 2015
 * Added search icon in search bar, saving another non-whitespaced line on navigation pane
 * Added auto-save in settings, both admin and personal (no more button clicking)
 * Totally rewrote (and fixed) the import function (for CSV files), with added error description for every possible error
@@ -63,7 +63,7 @@
 * Fix for icon not showing on empty trash bin
 * CSS fix for button texts
 
-####8.0.12
+####8.0.12 - Sep 15, 2015
 * Added trash bin: deleted password are now moved to the trash bin, so they can be reverted or permanently deleted (this triggers the ownCloud update screen, since a mandatory database edit to the passwords table will be made)
 * Added option to save old values to the trash bin when editing a website, username or password, so you can look them up when needed
 * Edited strength algorithm. Now emphasizes length better by adding the rounded value of n<sub></sub><sup>x</sup> / 10<sup>x + 1</sup> to the calculated strength, where `n` stands for the amount of characters (i.e. length) and `x` is the power. By using `x = 6`, this gives a more accurate value when passwords are longer than +/- 15 characters and grows exponentially.
@@ -78,33 +78,33 @@
 * Small other bugfixes
 * Add you own language! Strings all sorted out here: [TRANSLATION.js](TRANSLATION.js).
 
-####8.0.11
+####8.0.11 - Aug 11, 2015
 * A new way of editing values with an interactive popup. This will let you use the password generator and is a more easy way of editing.
 * Edited the backup function to make it an export function. These export files are fully compatible with KeePass, 1Password, LastPass and many other password services. Besides, Microsoft Excel can open the exported files natively as well.
 * Small bugfixes
 
-####8.0.10
+####8.0.10 - Aug 7, 2015
 * Added possibility to import passwords from KeePass, 1Password, LastPass, SplashID or every other source, as long as it was exported as CSV. You can set the source columns yourself. 
  * Note: This is **not** less safe than putting in passwords one by one. This is Javascript only, so reading a CSV is practically very similar to typing in new passwords yourself.
 * Added possibility in Personal settings to hide the columns |  a-z  |  A-Z  |  0-9  |  !@#  |
 
-####8.0.9
+####8.0.9 - Aug 3, 2015
 * Bugfix for Firefox: now clicking hidden values and the pencil actually works (`event` was not defined in JS)
 * CSS fix: line-height doesn't change anymore when hovering a hidden password
 
-####8.0.8
+####8.0.8 - Aug 1, 2015
 * Bugfix: some variables were undefined, leading to errors in log
 * Bugfix: hidden values now editable
 * Hidden values are now viewable on mouse hover
 
-####8.0.7
+####8.0.7 - July 30, 2015
 * Added possibility to add notes to a password. These notes are encrypted just as strong as the passwords. 
 * Added possibility to edit every field (website, full address, username, password and notes). Hover over a value and click on the pencil icon to change a value. 
 * Added new icons for the form to add new passwords 
 * No more page refreshing after creating, deleting (or editing) a row or value. All edits are done directly to the loaded table, so the page doesn't need to be refreshed.
 * Other minor fixes
 
-####8.0.6
+####8.0.6 - July 26, 2015
 
 * Thanks to all contributors on GitHub, this is a rather big update. So thanks, you all!
   * Downloadable backup
@@ -125,15 +125,15 @@
 * Minor bug fixes and code cleaning
 * *NOTE: this version works on 8.0.** *and 8.1.**
 
-####8.0.5
+####8.0.5 - July 8, 2015
 * Compatibility with ownCloud 8.1 (this release however works with 8.0 too!)
 
-####8.0.4
+####8.0.4 - July 3, 2015
 * Added German translation
 * Completed Spanish translation
 * Moved search field to navigation page, so this will stay visible when scrolling in a long list
 * Mask passwords (click to view them). This is CSS-only for now, to prevent simple screenshot-theft of passwords. Will be JS-coded later, so passwords will actually load and be decrypted when '*****' is clicked
 * Bug fixes (alignment of table heads, minor other things)
 
-####8.0.3
+####8.0.3 - June 27, 2015
 * Initial release, tested on ownCloud Server 8.0.*
