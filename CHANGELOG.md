@@ -12,6 +12,7 @@
 * Changed width of popup, now wider
 * Fix for sidebar background due to incompatibility with Javascript XMPP Chat app
 * Fix for countdown timer, which did not properly reset on activity
+* Added all release dates to changelog
 * The next release (v18, expected April/May 2016) will contain sharing
  
 ####16.2 - Nov 21, 2015
