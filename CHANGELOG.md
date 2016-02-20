@@ -1,19 +1,20 @@
 ####17 - NOT RELEASED YET
-* Added coloured categories. For now, every password can only have one category. This will be fixed in a next release. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
+* Added coloured categories. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
 * Added filter for categories
 * Added category-specific popup
 * Added a button for directly copying values to clipboard, using [ZeroClipboard](https://github.com/zeroclipboard/ZeroClipboard). This function relies on Flash. Browsers without Flash support with be presented with a popup containing their value.
 * Removed actual values 'beneath' hidden values (`*****`) from cells, improving privacy. By so, hovering a hidden value (like username or password) to view its actual value, is not possible anymore and this function is removed. It also means that column sorting for hidden values will not work anymore (which is redundant anyway). Hiding values can still be set on the users personal page.
-* Changed database format so that password properties (like strength, length, changed date etc., but also categories) will be saved in a hashed, encrypted BLOB format. Database admins will no longer be able to view even the changed date of a password. This improves privacy and greatly reduces the time to load a page too, since Handlebars now loads passwords in conjunction with JSON. This will require users to update their own database data. They will be presented with an update popup (needs to be done only once). After this, the database columns `loginname`, `address` and `creation_date` will be empty and obsolete for those users (but will remain for backwards compatibility).
-* Totally rewrote Javascript, making more use of CSS classes and no more columns numbering
+* Changed database format so that password properties (like strength, length, changed date etc., but also categories) will be saved in a hashed, encrypted BLOB format. Database admins will no longer be able to view even the changed date of a password. This improves privacy and **greatly reduces the time to load a page too**, since Handlebars now loads passwords in conjunction with JSON. This will require users to update their own database data. They will be presented with an update popup (needs to be done only once). After this, the database columns `loginname`, `address` and `creation_date` will be empty and obsolete for those users (but will remain for backwards compatibility).
+* Added URL to sidebar, if available
+* Totally rewrote Javascript, making more use of CSS classes and no more columns numbering (i.e. vanilla JS)
 * Cleansed CSS
 * Removed password colours, improving privacy
 * Changed initial sorting of values in both passwords and categories by forcing `COLLATE utf8_general_ci` on the database query. This will make e.g. `Händel` appear before `Haydn`, instead of after it (ignoring the accent on `ä`). Really useful for German users who are sorting usernames and categories.
 * Changed width of popup, now wider
 * Fix for sidebar background due to incompatibility with Javascript XMPP Chat app
 * Fix for countdown timer, which did not properly reset on activity
-* Added all release dates to changelog
-* The next release (v18, expected April/May 2016) will contain sharing
+* Added all release dates of previous versions to changelog
+* The next release (v18, expected April/May 2016) will contain sharing.
  
 ####16.2 - Nov 21, 2015
 * Now -did- fixed the bug for ownCloud 8.2 and higher
