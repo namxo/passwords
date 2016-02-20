@@ -224,24 +224,25 @@ $(document).ready(function() {
 		}
 	});
 	$('#timer').keyup(function () {
-		if (!isNumeric($('#timer').val())) {
-			OCdialogs.alert(t('passwords', 'Fill in a number between %s and %s').replace('%s', '10').replace('%s', '3599'), t('passwords', 'Use inactivity countdown'), null, true);
-			$('#timer').val(60);
-			settings.setUserKey('timer', 60);
-			return false;
-		}
-		if ($('#timer').val() > 3599) {
-			$('#timer').val(3599);
-		}
-		if ($('#timer').val() < 10) {
-			$('#timer').val(10);
-		}
-		if ($('#timer').val() < 61) {
-			$('#timersettext').text(t('passwords', 'seconds'));
+		if ($('#timer').val() == '') {
+			settings.setUserKey('timer', 0);
 		} else {
-			$('#timersettext').text(t('passwords', 'seconds') + ' (' + int2time($('#timer').val()) + ' ' + t('passwords', 'minutes') + ')');
+			if (!isNumeric($('#timer').val())) {
+				OCdialogs.alert(t('passwords', 'Fill in a number between %s and %s').replace('%s', '10').replace('%s', '3599'), t('passwords', 'Use inactivity countdown'), null, true);
+				$('#timer').val(60);
+				settings.setUserKey('timer', 60);
+				return false;
+			}
+			if ($('#timer').val() > 3599) {
+				$('#timer').val(3599);
+			}
+			if ($('#timer').val() < 61) {
+				$('#timersettext').text(t('passwords', 'seconds'));
+			} else {
+				$('#timersettext').text(t('passwords', 'seconds') + ' (' + int2time($('#timer').val()) + ' ' + t('passwords', 'minutes') + ')');
+			}
+			settings.setUserKey('timer', $('#timer').val());
 		}
-		settings.setUserKey('timer', $('#timer').val());
 	});
 
 });
