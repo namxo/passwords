@@ -1309,6 +1309,9 @@ function formatTable(update_only, rows) {
 			} else {
 				var html_row = '<tr ';
 			}
+			if (row.datechanged == '0000-00-00') {
+				row.datechanged = '1970-01-01'; // UNIX :)
+			}
 			html_row += 'attr_id="' + row.id + '" '
 						+ 'attr_website="' + row.website + '" '
 						+ 'attr_address="' + row.address + '" '
@@ -2560,6 +2563,8 @@ function popUp(title, value, type, address_value, website, username) {
 	if (browserHeight > popupHeight) {
 		document.getElementById("popup").style.top = (browserHeight - popupHeight) / 4 + "px";	
 	}
+
+	$('#popupTitle').click(); // for deactivating the active row
 	
 }
 function trashAllPasswords(Passwords) {
@@ -2754,11 +2759,17 @@ function updateStart(passwords) {
 	var all_success = true;
 
 	for (var i = 0; i < table.rows.length; i++) {
-		// update progress bar
-		$('#update_progress_active').val(i);
-		done = ($('#update_progress_active').val() / $('#update_progress_total').val()) * 100;
-		$('#update_progress_done').css('width', done + '%');
-		$('#update_progress_text').text($('#update_progress_active').val() + ' / ' + $('#update_progress_total').val() + ' (' + Math.round(done) + '%)')
+
+		//setTimeout(function() {
+			// update progress bar
+			$('#update_progress_active').val(i + 1);
+			done = ($('#update_progress_active').val() / $('#update_progress_total').val()) * 100;
+			// if (done == 100) {
+			// 	done = 99; // else people might reload the page manually, without button
+			// }
+			$('#update_progress_done').css('width', done + '%');
+			$('#update_progress_text').text($('#update_progress_active').val() + ' / ' + $('#update_progress_total').val() + ' (' + Math.round(done) + '%)')
+		//}, 500);
 
 		var website = table.rows[i].cells[0].textContent;
 		var loginname = table.rows[i].cells[1].textContent;
@@ -2770,24 +2781,24 @@ function updateStart(passwords) {
 		var deleted = table.rows[i].cells[9].textContent;
 
 		if (loginname != '') {
-			setTimeout(function() {
-				var success = passwords.updateActive(db_id, loginname, website, address, pass, notes, 0, deleted, creation_date);
-				if (!success) {
-					all_success = false;
-				}
-			}, 1000);
+			var success = passwords.updateActive(db_id, loginname, website, address, pass, notes, 0, deleted, creation_date);
+			if (!success) {
+				all_success = false;
+			}
 		}
 	}
 
-	if (all_success) {
-		$('#update_progress').hide();
-		$('#update_done').show();
-		$('#update_done_btn').click(function() {
-			location.reload(true);
-		});
-	} else {
-		OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Passwords'), null, true);
-	}
+	setInterval(function() {
+		if (all_success && done == 100) {
+			$('#update_progress').hide();
+			$('#update_done').show();
+			$('#update_done_btn').click(function() {
+				location.reload(true);
+			});
+		} else if (done == 100) {
+			alert(t('passwords', 'Error: Could not update password.'));
+		}
+	}, 1000);
 
 }
 function updateDone() {
