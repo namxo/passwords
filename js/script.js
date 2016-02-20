@@ -1176,8 +1176,6 @@
 				}
 			});
 		}
-		
-		var view = new View(passwords);
 
 		categories.loadAll().done(function() {
 			renderCategories(categories);
@@ -1417,6 +1415,11 @@ function formatTable(update_only, rows) {
 			if (!row.category || row.category == 0) {
 				html_row += '<td class="icon-category cell_category"></td>';
 			} else {
+				if ($('#CategoriesTableContent').html() == '') {
+					// categories not yet populated, give second to load
+					setTimeout(function() {
+					}, 1000);
+				}
 				$('#CategoriesTableContent tr').each(function() {
 					var cat_id = $(this).find('.catTable_id').text();
 					if (cat_id == row.category) {
