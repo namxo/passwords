@@ -253,7 +253,7 @@ tr.activerow > .orange span {
 	display: none;
 }
 .btn_commands_open{
-	background-image: url('../../../core/img/actions/settings.svg');
+	background-image: url(../../../core/img/actions/settings.svg);
 	background-repeat: no-repeat;
 	background-position: center center;
 	height: 22px !important;
@@ -854,7 +854,7 @@ p#generate_strength_popup {
 	margin-bottom: 20px;
 }
 #sidebarChanged {
-	vertical-align: sub;
+	line-height: 1.1;
 }
 
 #section_categories {
