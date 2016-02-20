@@ -27,7 +27,7 @@
 				<type>text</type>
 				<length>500</length>
 				<default></default>
-				<notnull>true</notnull>
+				<notnull>false</notnull>
 			</field>
 			<field>
 				<name>website</name>
@@ -47,6 +47,12 @@
 				<name>pass</name>
 				<type>blob</type>
 				<notnull>true</notnull>
+			</field>
+			<field>
+				<name>properties</name>
+				<type>blob</type>
+				<default></default>
+				<notnull>false</notnull>
 			</field>
 			<field>
 				<name>notes</name>
