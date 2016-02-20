@@ -2,7 +2,7 @@
 <info>
     <id>passwords</id>
     <name>Passwords</name>
-    <description>This is a Password Manager for viewing, editing and generating passwords. 
+    <description>This is a Password Manager for viewing, editing, categorizing and generating passwords. 
     
     	This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
 
