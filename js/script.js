@@ -374,10 +374,6 @@
 					$('#commands_popup').slideDown(150);
 				});
 
-				//update_pwcount();
-
-				//formatTable(false);
-
 				// colour picker from the great https://github.com/bgrins/spectrum
 				$("#colorpicker").spectrum({
 					color: '#eeeeee',
@@ -1888,41 +1884,6 @@ function strength_str(passw, return_string_only) {
 
 	$("#generate_strength_popup").text($("#generate_strength").text());
 	$("#generate_strength_popup").attr("class", $("#generate_strength").attr("class"));
-
-}
-
-function update_pwcount() {
-
-	$('#emptycontent').hide();
-	$('#emptytrashbin').hide();
-	$('#PasswordsTable').show();
-
-	var table = document.getElementById('PasswordsTableContent');
-	var active = 0;
-	var trash = 0;
-
-	for (var i = 1; i < table.rows.length; i++) {
-		if (table.rows[i].cells[15].textContent == '0') {
-			active = active + 1;
-		}
-		if (table.rows[i].cells[15].textContent == '1') {
-			trash = trash + 1;
-		}
-	}
-
-	$('.menu_passwords_active').text(active);
-	$('.menu_passwords_trashbin').text(trash);
-
-	if ($('#app-settings').attr('active-table') == 'active' && active == 0) {
-		$('#emptycontent').show();
-		$('#PasswordsTable').hide();
-	}
-
-	if ($('#app-settings').attr('active-table') == 'trashbin' && trash == 0) {
-		$('#delete_trashbin').hide();
-		$('#emptytrashbin').show();
-		$('#PasswordsTable').hide();
-	}
 
 }
 function escapeHTML(text) {
