@@ -40,6 +40,10 @@
 		><?php p($l->t('Backup and import')); ?></button>
 	</div>
 	<div id="app-settings-content">
+		<div id="app-settings-editcategories">
+			<button id="editCategories"><?php p($l->t('Edit categories')); ?></button>
+			<hr>
+		</div>
 		<div id="app-settings-trashall">
 			<button id="trashAll"><?php p($l->t('Move all to trash')); ?></button>
 			<p><?php p($l->t('Click to move all active passwords to the trash')); ?>.</p>
