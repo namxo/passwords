@@ -16,18 +16,7 @@ class PasswordMapper extends Mapper {
 	}
 
 	public function findAll($userId) {
-		$sql = 'SELECT * FROM *PREFIX*passwords WHERE user_id = ? ORDER BY LOWER(website) ASC';
+		$sql = 'SELECT * FROM *PREFIX*passwords WHERE user_id = ? ORDER BY LOWER(website) COLLATE utf8_general_ci ASC';
 		return $this->findEntities($sql, [$userId]);
-		// Now, search for shared too on 'oc_share':
-		// $sql = 'SELECT * FROM *PREFIX*passwords WHERE user_id = ? OR id IN (SELECT item_source FROM *PREFIX*share WHERE share_with = ? AND item_type = "password")';
-		// return $this->findEntities($sql, [$userId, $userId]);
 	}
-
-	// public function sharedWith($id) {
-	// 	// @id - id of passwords
-	// 	// @uid - uid of user shared with
-	// 	$sql = 'SELECT item_source AS "id", share_with AS "uid" FROM *PREFIX*share WHERE item_source = ? AND item_type = "password"';
-	// 	return $this->findEntities($sql, [$id]);
-	// }
-
 }
