@@ -18,6 +18,7 @@
 	};
 
 	style('passwords', 'style');
+	style('passwords', 'spectrum'); // colour picker
 
 	// check if secure (https)
 	if (isSecure()) {
@@ -25,7 +26,8 @@
 		script('passwords', 'handlebars');
 		script('passwords', 'script');
 		script('passwords', 'sorttable');
-
+		script('passwords', 'spectrum'); // colour picker
+		script('passwords', 'ZeroClipboard'); // clipboard function
 ?>
 
 	<div id="app">

@@ -12,6 +12,7 @@ class Password extends Entity implements JsonSerializable {
 	protected $website;
 	protected $address;
 	protected $pass;
+	protected $properties;
 	protected $notes;
 	protected $userId;
 	protected $creationDate;
@@ -25,6 +26,7 @@ class Password extends Entity implements JsonSerializable {
 			'website' => $this->website,
 			'address' => $this->address,
 			'pass' => $this->pass,
+			'properties' => $this->properties,
 			'notes' => $this->notes,
 			'creation_date' => $this->creationDate,
 			'deleted' => $this->deleted

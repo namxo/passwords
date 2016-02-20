@@ -4,6 +4,8 @@
 	<input type="text" id="sidebarRow">
 	<p class="" id="sidebarWebsiteHeader"><strong><?php print_unescaped($l->t("Website or company")); ?>:</strong></p>
 	<p class="" id="sidebarWebsite">???</p>
+	<p class="" id="sidebarAddressHeader"><strong><?php print_unescaped($l->t("Full URL")); ?>:</strong></p>
+	<p class="" id="sidebarAddress">???</p>
 	<p class="" id="sidebarUsernameHeader"><strong><?php print_unescaped($l->t("Login name")); ?>:</strong></p>
 	<p class="" id="sidebarUsername">???</p>
 
@@ -16,10 +18,7 @@
 	<p class="leftCol"><?php print_unescaped($l->t("Last changed")); ?>:</p><p class="rightCol" id="sidebarChanged">???</p>
 	<br>
 	<p><?php print_unescaped($l->t("Notes")); ?>:</p>
-	<textarea id="sidebarNotes" disabled>???</textarea>
-	<!-- 
-	Future feature (v17):
+	<textarea id="sidebarNotes" disabled></textarea>
 	<p><?php print_unescaped($l->t("Categories")); ?>:</p>
-	<textarea id="sidebarCategories"></textarea> 
-	-->
+	<textarea id="sidebarCategories" disabled></textarea> 
 </div>

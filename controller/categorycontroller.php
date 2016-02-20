@@ -5,9 +5,9 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
-use OCA\Passwords\Service\PasswordService;
+use OCA\Passwords\Service\CategoryService;
 
-class PasswordController extends Controller {
+class CategoryController extends Controller {
 
 	private $service;
 	private $userId;
@@ -15,7 +15,7 @@ class PasswordController extends Controller {
 	use Errors;
 
 	public function __construct($AppName, IRequest $request,
-								PasswordService $service, $UserId){
+								CategoryService $service, $UserId){
 		parent::__construct($AppName, $request);
 		$this->service = $service;
 		$this->userId = $UserId;
@@ -42,24 +42,11 @@ class PasswordController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 *
-	 * @param string $loginname
-	 * @param string $website
+	 * @param string $category_name
+	 * @param string $category_colour
 	 */
-	public function create($website, $pass, $properties, $deleted) {
-		return $this->service->create($website, $pass, $properties, $deleted, $this->userId);
-	}
-
-	/**
-	 * @NoAdminRequired
-	 *
-	 * @param int $id
-	 * @param string $loginname
-	 * @param string $website
-	 */
-	public function update($id, $website, $pass, $properties, $deleted) {
-		return $this->handleNotFound(function () use ($id, $website, $pass, $properties, $deleted) {
-			return $this->service->update($id, $website, $pass, $properties, $deleted, $this->userId);
-		});
+	public function create($categoryName, $categoryColour) {
+		return $this->service->create($categoryName, $categoryColour, $this->userId);
 	}
 
 	/**

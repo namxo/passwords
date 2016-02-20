@@ -17,7 +17,9 @@
 			<input class="check" type="checkbox" id="hide_passwords"> <?php p($l->t('Hide passwords')); ?>
 		</label>
 		<p>
-			<?php p($l->t("This will show values as '*****', so you will need to click on a value to actually view it. This is useful to prevent others from making screenshots or taking photos of your password list")); ?>.
+			<?php p($l->t("This will show values as '*****', so you will need to click on a value to actually view it. This is useful to prevent others from making screenshots or taking photos of your password list")); ?>. 
+			<br>
+			<?php p($l->t("Note: the search function will not work on hidden values")); ?>.
 		</p>
 		<br>
 	</div>
