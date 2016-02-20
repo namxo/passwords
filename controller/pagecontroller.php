@@ -8,31 +8,32 @@
 
  class PageController extends Controller {
 
-     public function __construct($AppName, IRequest $request){
-         parent::__construct($AppName, $request);
-     }
+	 public function __construct($AppName, IRequest $request){
+		 parent::__construct($AppName, $request);
+	 }
 
-     /**
-      * @NoAdminRequired
-      * @NoCSRFRequired
-      */
-     public function index() {
-         if (substr(\OC_Util::getHumanVersion(), 0, 3) != '8.0') {
+	 /**
+	  * @NoAdminRequired
+	  * @NoCSRFRequired
+	  */
+	 public function index() {
+		 if (substr(\OC_Util::getHumanVersion(), 0, 3) != '8.0') {
 
-            // OC >= 8.1
-            $response = new TemplateResponse('passwords', 'main');
-            $csp = new ContentSecurityPolicy();
-            $csp->addAllowedImageDomain('https://icons.duckduckgo.com');
-            $csp->addAllowedImageDomain('https://www.google.com');
-            $response->setContentSecurityPolicy($csp);
-            return $response;
+			// OC >= 8.1
+			$response = new TemplateResponse('passwords', 'main');
+			$csp = new ContentSecurityPolicy();
+			$csp->addAllowedImageDomain('https://icons.duckduckgo.com');
+			$csp->addAllowedImageDomain('https://www.google.com');
+			$csp->addAllowedObjectDomain('\'self\''); // for clipboard function
+			$response->setContentSecurityPolicy($csp);
+			return $response;
 
-         } else {
+		 } else {
 
-            // OC =< 8.0.4
-            return new TemplateResponse('passwords', 'main');
+			// OC =< 8.0.4
+			return new TemplateResponse('passwords', 'main');
 
-         }
-     }
+		 }
+	 }
 
  }
