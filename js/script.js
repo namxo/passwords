@@ -1209,7 +1209,7 @@ function renderCategories(categories) {
 
 	if (table.rows.length == 0) {
 		$('#emptycategories').show();
-		$('#new_category').append('<p>(' + t('passwords', 'No categories') + ')</p>');
+		$('#new_category').append('<p>(' + t('passwords', 'No categories') + ')</p><br>');
 	} else {
 		$('#emptycategories').hide();
 		var cat_select = '<select>' // for new passwords
