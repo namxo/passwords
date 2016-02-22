@@ -687,6 +687,12 @@
 					var is_restore = $cell.hasClass('icon-history');
 					var active_table = $('#app-settings').attr("active-table");
 					var $row = $cell.closest('tr');
+					var $cmd_buttons = $cell.find('.btn_commands_open');
+
+					if ($cell.html().substr(0, 6) == '******') {
+						$cmd_buttons.click();
+						return false;
+					}
 
 					var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
 
@@ -1374,7 +1380,7 @@ function formatTable(update_only, rows) {
 
 			// start loginname
 			if (hide_usernames) {
-				html_row += '<td type="loginname" sorttable_customkey=' + row.loginname + '>' +
+				html_row += '<td type="loginname" sorttable_customkey=' + row.loginname + ' class="hidden_value">' +
 							'******' + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
@@ -1390,7 +1396,7 @@ function formatTable(update_only, rows) {
 
 			// start password
 			if (hide_passwords) {
-				html_row += '<td type="pass" sorttable_customkey=' + row.pass + '>' +
+				html_row += '<td type="pass" sorttable_customkey=' + row.pass + ' class="hidden_value">' +
 							'******' + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
