@@ -2734,12 +2734,15 @@ function resetTimer(kill_old) {
 		if (settimer == 0 || session_timeout == 0) {
 			$('#PasswordsTable table td').hide();
 		}
-		if (settimer == -1) {
+		if (settimer <= 0) {
 			clearInterval(intervalID);
-			alert(t('passwords', 'You will be logged off due to inactivity of %s seconds.').replace('%s', $('#app-settings').attr('timer')));
+			alert(t('passwords', 'You will be logged off due to inactivity of %s seconds.').replace('%s', $('#app-settings').attr('timer')) 
+					+ '\n\n'
+					+ t('passwords', "You can change the timer settings in the '%s' menu.").replace('%s', t('core', 'Personal'))
+				);
 			window.location = document.getElementById('logout').href;
 		}
-		if (session_timeout == -1) {
+		if (session_timeout <= 0) {
 			alert(t('passwords', 'You will be logged off due to expiration of your session cookie (set to %s minutes).').replace('%s', int2time($('#app-settings').attr('session-timeout'), true)));
 			window.location = document.getElementById('logout').href;
 		}
