@@ -17,6 +17,7 @@
 * Fix for countdown timer, which did not properly reset on activity
 * Fix for strength calculation when password length is 0
 * Added all release dates of previous versions to changelog
+* As ownCloud moves towards PHP 7: all my classes are PHP 7 safe
 * The next release (v18, expected April/May 2016) will contain sharing.
  
 ####16.2 - Nov 21, 2015
