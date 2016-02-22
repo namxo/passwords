@@ -2480,6 +2480,7 @@ function popUp(title, value, type, address_value, website, username) {
 	$('#overlay').remove();
 	$('#popup').remove();
 	$('<div/>', {id: 'overlay'}).appendTo($('#app'));
+	$('#overlay').delay(200).css('opacity', 0.6);
 	$('<div/>', {id: 'popup'}).appendTo($('#app'));
 	$('<div/>', {id: 'popupTitle'}).appendTo($('#popup'));
 	$('<span/>', {text:website}).appendTo($('#popupTitle'));
@@ -2596,13 +2597,13 @@ function popUp(title, value, type, address_value, website, username) {
 	$('#popupTitle').click(); // for deactivating the active row
 }
 function removePopup() {
-	$('#overlay').hide(300);
-	$('#popup').hide(300);
+	$('#overlay').css('opacity', 0);
+	$('#popup').hide(200);
 	$('#popup').css('top', '0');
 	setTimeout(function() {
 		$('#overlay').remove();
 		$('#popup').remove();
-	}, 400);
+	}, 300);
 }
 function trashAllPasswords(Passwords) {
 
