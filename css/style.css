@@ -823,8 +823,6 @@ p#generate_strength_popup {
 #sidebarNotes,
 #sidebarCategories {
 	width: 90%;
-	height: 100px;
-	color: #000 !important;
 	background: transparent !important;
 	resize: none;
 	border: 0 !important;
@@ -832,6 +830,8 @@ p#generate_strength_popup {
 }
 #sidebarNotes {
 	font-style: italic;
+	height: 1000px;
+	margin-left: 10px;
 }
 #sidebarNotes:hover,
 #sidebarCategories:hover {
@@ -900,7 +900,7 @@ h2 {
 }
 .category_colorpicker {
 	background: #eee !important;
-	border: 1px solid #999 !important;
+	border: 1px solid #555 !important;
 	margin-top: -5px !important;
 }
 .sp-replacer.sp-light.category_colorpicker {
