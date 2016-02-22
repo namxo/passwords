@@ -313,7 +313,9 @@
 					passwords: this._passwords.getAll()
 				});
 
-				html_passwords_serialize = html_passwords_serialize.replace(/&quot;/g, '"');
+
+				// decode HTML: convert (&quot;) to (") and (&amp;) to (&) and so forth
+				html_passwords_serialize = $('<textarea/>').html(html_passwords_serialize).text();
 				var rows = html_passwords_serialize.split('<br>');
 
 				//$('#PasswordsTableContent').html(html_passwords_serialize);
@@ -541,7 +543,7 @@
 
 						var success = passwords.updateActive($('#cmd_id').val(), $('#cmd_loginname').val(), $('#cmd_website').val(), $('#cmd_address').val(), $('#cmd_pass').val(), $('#cmd_notes').val(), $('#cmd_category').val(), $('#cmd_deleted').val());
 						if (success) {
-							//var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+							var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
 							var view = new View(passwords);
 							passwords.loadAll().done(function() {
 								view.renderContent();
@@ -1026,7 +1028,7 @@
 						var source_passwords = $('#template-passwords-serialize').html();
 						var template_passwords = Handlebars.compile(source_passwords);
 						var html_passwords_serialize = template_passwords({
-							passwords: this._passwords.getAll()
+							passwords: passwords.getAll()
 						});
 						html_passwords_serialize = html_passwords_serialize.replace(/&quot;/g, '"');
 						var rows = html_passwords_serialize.split('<br>');
@@ -1293,13 +1295,25 @@ function formatTable(update_only, rows) {
 
 		for (var i = 0; i < rows.length - 1; i++) {
 
-			var activeRow = rows[i].trim();
-			activeRow = activeRow.replace(/\n/g, '\\n');
-		
+			var thisRow = rows[i].trim();
+
+			// escape line feed (for notes):
+			thisRow = thisRow.replace(/\n/g, '\\n');
+			// escape backslash:
+			thisRow = thisRow.replace(/\\/g, '\\\\');
+
 			try {
-				var row = JSON.parse('{' + activeRow + '}');
-			} catch	(e) {
-				alert(e + ' (row ' + i + '):\n{' + activeRow + '}');
+				var row = JSON.parse('{' + thisRow + '}');
+			} catch	(e1) {
+				try {
+					// error possibly due to quotation mark,
+					// so escape it and try again:
+					thisRow = escapeJSON(thisRow);
+					var row = JSON.parse('{' + thisRow + '}');
+				} catch (e2) {
+					alert(e1 + ' (row ' + i + '):\n{' + thisRow + '}');
+					continue;
+				}
 			}
 			
 			if (row.deleted == 1) {
@@ -1316,7 +1330,7 @@ function formatTable(update_only, rows) {
 						+ 'attr_loginname="' + row.loginname + '" '
 						+ 'attr_pass="' + row.pass + '" '
 						+ 'attr_category="' + (row.category || '0') + '" '
-						+ 'attr_notes="' + row.notes + '" '
+						+ 'attr_notes="' + row.notes.replace(/\\n/g, '\n') + '" '
 						+ 'attr_datechanged="' + row.datechanged + '" '
 						+ 'attr_strength="' + strength_int2str(row.strength) + '" '
 						+ 'attr_length="' + row.length + '" '
@@ -1898,6 +1912,23 @@ function escapeHTML(text) {
 	} else {
 		return text;
 	}
+}
+function escapeJSON(text) {
+
+	// unquote element names and values first
+	text = text.replace(/", "/g, ',!@#0123 ');
+	text = text.replace(/" : "/g, ' :!@#0123 ');
+	text = text.substr(1);
+	text = text.replace(/.$/g, '');
+	// now escape HTML characters (in usernames, passwords, notes)
+	text = $('<textarea/>').text(text).html();
+	text = text.replace(/\"/g, '&quot;');
+	// and change string back to valid JSON
+	text = text.replace(/,!@#0123 /g, '", "');
+	text = text.replace(/ :!@#0123 /g, '" : "');
+	text = '"' + text + '"';
+
+	return text;
 }
 function isUrl(url) {
 
@@ -2618,7 +2649,7 @@ function showSidebar($row) {
 
 	$('#sidebarLength').text($row.attr('attr_length'));
 
-	$('#sidebarStrength').text($row.attr('attr_strength'));
+	$('#sidebarStrength').text($row.attr('attr_strength') + ' (' + strength_func($row.attr('attr_pass')) + ')');
 
 	$('#sidebarStrength').attr('class', strength_str2class($row.attr('attr_strength')));
 	$('#sidebarStrength').addClass('rightCol');
@@ -2706,11 +2737,11 @@ function resetTimer(kill_old) {
 		if (settimer == -1) {
 			clearInterval(intervalID);
 			alert(t('passwords', 'You will be logged off due to inactivity of %s seconds.').replace('%s', $('#app-settings').attr('timer')));
-			//window.location = document.getElementById('logout').href;
+			window.location = document.getElementById('logout').href;
 		}
 		if (session_timeout == -1) {
 			alert(t('passwords', 'You will be logged off due to expiration of your session cookie (set to %s minutes).').replace('%s', int2time($('#app-settings').attr('session-timeout'), true)));
-			//window.location = document.getElementById('logout').href;
+			window.location = document.getElementById('logout').href;
 		}
 	}, 1000);
 
