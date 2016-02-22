@@ -15,6 +15,7 @@ OC.L10N.register(
 	"Are you sure?" : "Estàs segur?",
 	"As the URL was changed, this page will now reload." : "Com la URL ha canviat, es recarregarà la pàgina.",
 	"August" : "agost",
+	"Back to passwords" : "Tornar a les contrasenyes",
 	"Backup and import" : "Backup i importació",
 	"Block app when not connected to %s using a secured connection" : "Bloquejar aplicació quan no es connecti a %s amb una connexió segura",
 	"Cancel" : "Cancel·lar",
