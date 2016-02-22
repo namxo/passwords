@@ -190,6 +190,7 @@ OC.L10N.register(
 	"When the password date exceeds the limit for the green colour, the password will become orange or red too" : "Cuando la fecha de una contraseña supera el límite para el color verde, la contraseña será naranja o roja",
 	"with user name" : "con nombre de usuario",
 	"Yes" : "Sí",
+	"You can change the timer settings in the '%s' menu." : "Puedes cambiar la configuración del cronómetro en el menú '%s'",
 	"You will be logged off automatically when this countdown reaches 0" : "Tu sesión expirará automáticamente cuando esta cuenta llegue a 0",
 	"You will be logged off due to expiration of your session cookie (set to %s minutes)." : "Tu sesión expirará automáticamente cuando la cookie de sesión caduque (establecida en %s minutos).",
 	"You will be logged off due to inactivity of %s seconds." : "Tu sesión expirará por inactividad durante %s segundos.",
