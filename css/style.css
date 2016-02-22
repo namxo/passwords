@@ -255,6 +255,9 @@ tr.activerow > .red span,
 tr.activerow > .orange span {
 	display: none;
 }
+.hidden_value {
+	cursor: pointer;
+}
 .btn_commands_open{
 	background-image: url(../../../core/img/actions/settings.svg);
 	background-repeat: no-repeat;
