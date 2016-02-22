@@ -5,6 +5,7 @@
 #CSVbuttons button.CSVbuttonOff {
 	background-color: #ddd !important;
 	color: #555 !important;
+	-webkit-transition: all 200ms !important;
 	transition: all 200ms !important;
 }
 #CSVbuttons button {
@@ -12,6 +13,7 @@
 	color: #fff !important;
 	width: 175px;
 	height: 50px;
+	-webkit-transition: all 200ms !important;
 	transition: all 200ms !important;
 	float: left;
 	border: 0 !important;
@@ -20,6 +22,7 @@
 }
 #CSVbuttons button:hover {
 	opacity: 0.75 !important;
+	-webkit-transition: all 200ms !important;
 	transition: all 200ms !important;
 }
 #CSVtableDIV {
@@ -590,11 +593,13 @@ button.settings-button {
 	width: 100px;
 	text-align: center;
 	opacity: 0;
+	-webkit-transition: all 150ms; /* for out */
 	transition: all 150ms; /* for out */
 	z-index: 10001;
 }
 #idleTimer:hover > #explnSec {
 	opacity: 1;
+	-webkit-transition: all 400ms; /* for in */
 	transition: all 400ms; /* for in */
 }
 #explnSec:hover {
@@ -709,6 +714,8 @@ orange {
 	left: 50%;
 	width: 400px;
 	margin-left: -150px;
+	-webkit-transition: all 400ms;
+	transition: all 400ms;
 	z-index: 9999;
 }
 #popupTitle {
