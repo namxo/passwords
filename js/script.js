@@ -561,8 +561,7 @@
 						} else {
 							OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
 						}
-						$('#overlay').remove();
-						$('#popup').remove();
+						removePopup();
 					});
 					return false;
 				});
@@ -716,8 +715,7 @@
 							} else {
 								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
 							}
-							$('#overlay').remove();
-							$('#popup').remove();
+							removePopup();
 						});
 						return false;
 					}
@@ -736,8 +734,7 @@
 							} else {
 								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
 							}
-							$('#overlay').remove();
-							$('#popup').remove();
+							removePopup();
 						});
 						return false;
 					}
@@ -2547,12 +2544,10 @@ function popUp(title, value, type, address_value, website, username) {
 
 	// Popup
 	$('#overlay').click(function() {
-		$('#overlay').remove();
-		$('#popup').remove();
+		removePopup();
 	});
 	$('#cancel').click(function() {
-		$('#overlay').remove();
-		$('#popup').remove();
+		removePopup();
 	});
 	if (type == 'password') {
 		strength_str($("#new_value_popup").val(), false);
@@ -2599,7 +2594,15 @@ function popUp(title, value, type, address_value, website, username) {
 	}
 
 	$('#popupTitle').click(); // for deactivating the active row
-	
+}
+function removePopup() {
+	$('#overlay').hide(300);
+	$('#popup').hide(300);
+	$('#popup').css('top', '0');
+	setTimeout(function() {
+		$('#overlay').remove();
+		$('#popup').remove();
+	}, 400);
 }
 function trashAllPasswords(Passwords) {
 
