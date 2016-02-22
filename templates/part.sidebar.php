@@ -17,8 +17,8 @@
 	<p class="leftCol">!@#:</p><p class="rightCol" id="sidebarSpecial">???</p>
 	<p class="leftCol"><?php print_unescaped($l->t("Last changed")); ?>:</p><p class="rightCol" id="sidebarChanged">???</p>
 	<br>
+	<p><?php print_unescaped($l->t("Category")); ?>:</p>
+	<textarea id="sidebarCategories" disabled></textarea> 
 	<p><?php print_unescaped($l->t("Notes")); ?>:</p>
 	<textarea id="sidebarNotes" disabled></textarea>
-	<p><?php print_unescaped($l->t("Categories")); ?>:</p>
-	<textarea id="sidebarCategories" disabled></textarea> 
 </div>
