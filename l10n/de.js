@@ -196,5 +196,6 @@ OC.L10N.register(
 	"You will be logged off automatically when this countdown reaches 0" : "Du wirst automatisch abgemeldet, wenn der Countdown 0 erreicht",
 	"You will be logged off due to expiration of your session cookie (set to %s minutes)." : "Du wirst automatisch durch den Ablauf des Session-Cookie ausgeloggt (%s Sekunden eingestellt).",
 	"You will be logged off due to inactivity of %s seconds." : "Du wirst automatisch nach %s Sekunden Inaktivität ausgeloggt.",
-	"Your administrator does not allow you to download backups" : "Der Administrator erlaubt es nicht Sicherungen zu downloaden"
+	"Your administrator does not allow you to download backups" : "Der Administrator erlaubt es nicht Sicherungen zu downloaden",
+	"Would you like to backup deleted passwords too?" : "Möchten Sie gelöschte Passwörter auch in der Sicherung?"
 },"pluralForm" :"nplurals=2; plural=(n != 1);
