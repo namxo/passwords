@@ -198,4 +198,5 @@ OC.L10N.register(
 	"You will be logged off due to inactivity of %s seconds." : "Du wirst automatisch nach %s Sekunden Inaktivität ausgeloggt.",
 	"Your administrator does not allow you to download backups" : "Der Administrator erlaubt es nicht Sicherungen zu downloaden",
 	"Would you like to backup deleted passwords too?" : "Möchten Sie gelöschte Passwörter auch in der Sicherung?"
-},"pluralForm" :"nplurals=2; plural=(n != 1);
+},
+"nplurals=2; plural=(n != 1);");
