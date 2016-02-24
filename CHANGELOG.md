@@ -2,13 +2,14 @@
 * Added coloured categories. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
 * Added filter for categories
 * Added category-specific popup
-* Added a button for directly copying values to clipboard, using [ZeroClipboard](https://github.com/zeroclipboard/ZeroClipboard). This function relies on Flash. Browsers without Flash support with be presented with a popup containing their value.
+* Added a button for directly copying values to clipboard, using [ZeroClipboard](https://github.com/zeroclipboard/ZeroClipboard). This function relies on Flash. Browsers without Flash support (like most mobile devices) will be presented with a popup containing their value.
 * Removed actual values 'beneath' hidden values (`*****`) from cells, improving privacy. By so, hovering a hidden value (like username or password) to view its actual value, is not possible anymore and this function is removed. It also means that column sorting for hidden values will not work anymore (which is redundant anyway). Hiding values can still be set on the users personal page.
 * Changed database format so that password properties (like strength, length, changed date etc., but also categories and future shared users) will be saved in a hashed, encrypted BLOB format. Database admins will no longer be able to view even the changed date of a password. This improves privacy and **greatly reduces the time to load a page too**, since Handlebars now loads passwords in conjunction with JSON. This will require users to update their own database data. **Therefore, all users will be presented with an update popup after this update** (needs to be done only once). After this, the database columns `loginname`, `address` and `creation_date` will be empty and obsolete for those users (but will remain for backwards compatibility).
 * Added URL to sidebar, if available
 * Added text to log off alert, that timer settings are in Personal menu
 * Added transition to popup
-* Totally rewrote Javascript, making more use of CSS classes and no more columns numbering (i.e. vanilla JS)
+* Added confirmation to backup button if deleted passwords should be in backup too
+* Totally rewrote Javascript, making more use of CSS classes and no more columns numbering
 * Cleansed CSS
 * Removed password colours, improving privacy
 * Changed initial sorting of values in both passwords and categories by forcing `COLLATE utf8_general_ci` on the database query. This will make e.g. `Händel` appear before `Haydn`, instead of after it (ignoring the accent on `ä`). Really useful for German users who are sorting usernames and categories.
