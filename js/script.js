@@ -313,43 +313,40 @@
 					passwords: this._passwords.getAll()
 				});
 
-
 				// decode HTML: convert (&quot;) to (") and (&amp;) to (&) and so forth
 				html_passwords_serialize = $('<textarea/>').html(html_passwords_serialize).text();
 				var rows = html_passwords_serialize.split('<br>');
-
-				//$('#PasswordsTableContent').html(html_passwords_serialize);
 				
 				formatTable(false, rows);
 
 				$('tr').click(function(event) {
-					$("tr").removeClass("activerow");
+					$('tr').removeClass('activerow');
 				});
 
 				$('.btn_commands_open').click(function(event) {
 					event.stopPropagation(); // or else this will hide the box
-					$("tr").removeClass("activerow");
+					$('tr').removeClass('activerow');
 
 					if ($('#commands_popup').css('display') == 'block') {
 						$('#commands_popup').slideUp(150);
 						return false;
 					}
 
-					var $row = $(this).closest("tr");
-					var $cell = $(this).closest("td");
-					$row.attr("class", "activerow");
+					var $row = $(this).closest('tr');
+					var $cell = $(this).closest('td');
+					$row.addClass('activerow');
 					$('#commands_popup').hide();
 
 					// set values
-					var id = $row.attr("attr_id");
-					var type = $cell.attr("type");
-					var value = $row.attr("attr_" + type);
-					var website = $row.attr("attr_website");
-					var user = $row.attr("attr_loginname");
-					var pass = $row.attr("attr_pass");
-					var notes = $row.attr("attr_notes");
-					var category = $row.attr("attr_category");
-					var deleted = $row.hasClass("is_deleted");
+					var id = $row.attr('attr_id');
+					var type = $cell.attr('type');
+					var value = $row.attr('attr_' + type);
+					var website = $row.attr('attr_website');
+					var user = $row.attr('attr_loginname');
+					var pass = $row.attr('attr_pass');
+					var notes = $row.attr('attr_notes');
+					var category = $row.attr('attr_category');
+					var deleted = $row.hasClass('is_deleted');
 					$('#cmd_id').val(id);
 					$('#cmd_type').val(type);
 					$('#cmd_value').val(value);
@@ -360,7 +357,7 @@
 					$('#cmd_category').val(category);
 					$('#cmd_deleted').val(deleted);
 					if (type == 'website') {
-						$('#cmd_address').val($row.attr("attr_address"));
+						$('#cmd_address').val($row.attr('attr_address'));
 					} else {
 						$('#cmd_address').val('');
 					}
@@ -1392,14 +1389,14 @@ function formatTable(update_only, rows) {
 
 			// start loginname
 			if (hide_usernames) {
-				html_row += '<td type="loginname" sorttable_customkey=' + row.loginname + ' class="hidden_value">' +
+				html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname) + ' class="hidden_value">' +
 							'******' + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
 							'</td>';
 			} else {
-				html_row += '<td type="loginname" sorttable_customkey=' + row.loginname + ' class="cell_username">' +
-							row.loginname + 
+				html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname) + ' class="cell_username">' +
+							escapeHTML(row.loginname) + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
 							'</td>';
@@ -1408,14 +1405,14 @@ function formatTable(update_only, rows) {
 
 			// start password
 			if (hide_passwords) {
-				html_row += '<td type="pass" sorttable_customkey=' + row.pass + ' class="hidden_value">' +
+				html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass) + ' class="hidden_value">' +
 							'******' + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
 							'</td>';
 			} else {
-				html_row += '<td type="pass" sorttable_customkey=' + row.pass + ' class="cell_password">' +
-							row.pass + 
+				html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass) + ' class="cell_password">' +
+							escapeHTML(row.pass) + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
 							'</td>';
@@ -1472,7 +1469,7 @@ function formatTable(update_only, rows) {
 				html_row += '<td class="icon-notes"></td>';
 			}
 
-			// info
+			// sidebar (info icon)
 			if (row.deleted == 1) {
 				// replace the info-icon by a revert icon when a password is in trash
 				html_row += '<td class="icon-history"></td>';
@@ -1486,7 +1483,6 @@ function formatTable(update_only, rows) {
 			html_row += '</tr>';
 
 			$('#PasswordsTableContent tbody').append(html_row);
-
 		}
 	}
 
@@ -2251,16 +2247,9 @@ function renderCSV(firstTime) {
 			document.body.offsetWidth, document.documentElement.offsetWidth,
 			document.body.clientWidth, document.documentElement.clientWidth
 		);
-		// align to vertical center
-		var CSVtableDIVHeight = document.getElementById('CSVtableDIV').clientHeight;
-		var browserHeight = Math.max(
-			document.body.scrollHeight, document.documentElement.scrollHeight,
-			document.body.offsetHeight, document.documentElement.offsetHeight,
-			document.body.clientHeight, document.documentElement.clientHeight
-		);
 		$('#CSVtableScroll').css('maxHeight', browserHeight * 0.45);
 		document.getElementById("CSVtableDIV").style.left = (browserWidth - CSVtableDIVWidth) / 2 + "px";
-		document.getElementById("CSVtableDIV").style.top = "40px";	
+		document.getElementById("CSVtableDIV").style.top = "20px";
 		$('#CSVtableDIV').hide();
 		$('#app-settings-content').hide();
 		$('#CSVtableDIV').show(400);
@@ -2839,16 +2828,10 @@ function updateStart(passwords) {
 
 	for (var i = 0; i < table.rows.length; i++) {
 
-		//setTimeout(function() {
-			// update progress bar
-			$('#update_progress_active').val(i + 1);
-			done = ($('#update_progress_active').val() / $('#update_progress_total').val()) * 100;
-			// if (done == 100) {
-			// 	done = 99; // else people might reload the page manually, without button
-			// }
-			$('#update_progress_done').css('width', done + '%');
-			$('#update_progress_text').text($('#update_progress_active').val() + ' / ' + $('#update_progress_total').val() + ' (' + Math.round(done) + '%)')
-		//}, 500);
+		$('#update_progress_active').val(i + 1);
+		done = ($('#update_progress_active').val() / $('#update_progress_total').val()) * 100;
+		$('#update_progress_done').css('width', done + '%');
+		$('#update_progress_text').text($('#update_progress_active').val() + ' / ' + $('#update_progress_total').val() + ' (' + Math.round(done) + '%)')
 
 		var website = table.rows[i].cells[0].textContent;
 		var loginname = table.rows[i].cells[1].textContent;
