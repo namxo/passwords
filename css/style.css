@@ -990,4 +990,7 @@ h2 {
 	#PasswordsTable table {
 		font-size: 70%;
 	}
+	#commands_popup {
+		width: 90px;
+	}
 }

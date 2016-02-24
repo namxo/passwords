@@ -438,7 +438,19 @@
 					});
 				} else {
 					$('#btn_copy').click(function() {
-						window.prompt($('#cmd_value').val());
+						var typeTitle = '';
+						switch ($('#cmd_type').val()) {
+							case 'website':
+								typeTitle = t('passwords', 'Website or company');
+								break;
+							case 'loginname':
+								typeTitle = t('passwords', 'Login name');
+								break;
+							case 'pass':
+								typeTitle = t('passwords', 'Password');
+								break;
+						}
+						window.prompt(typeTitle, $('#cmd_value').val());
 					});
 				}
 				
