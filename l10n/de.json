@@ -189,12 +189,12 @@
 	"Website or company" : "Webseite oder Dienst",
 	"When the password date exceeds the limit for the green colour, the password will become orange or red too" : "Wenn das Passwort-Datum die Grenze der grünen Farbe überschreitet, wird das Kennwort auch orange oder rot sein",
 	"with user name" : "mit Benutzername",
+	"Would you like to backup deleted passwords too?" : "Möchten Sie gelöschte Passwörter auch in der Sicherung?",
 	"Yes" : "Ja",
 	"You can change the timer settings in the '%s' menu." : "Sie können die Countdown-Einstellungen im '%s'-Menü ändern.",
 	"You will be logged off automatically when this countdown reaches 0" : "Du wirst automatisch abgemeldet, wenn der Countdown 0 erreicht",
 	"You will be logged off due to expiration of your session cookie (set to %s minutes)." : "Du wirst automatisch durch den Ablauf des Session-Cookie ausgeloggt (%s Sekunden eingestellt).",
 	"You will be logged off due to inactivity of %s seconds." : "Du wirst automatisch nach %s Sekunden Inaktivität ausgeloggt.",
-	"Your administrator does not allow you to download backups" : "Der Administrator erlaubt es nicht Sicherungen zu downloaden",
-	"Would you like to backup deleted passwords too?" : "Möchten Sie gelöschte Passwörter auch in der Sicherung?"
+	"Your administrator does not allow you to download backups" : "Der Administrator erlaubt es nicht Sicherungen zu downloaden"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
