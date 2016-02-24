@@ -197,6 +197,7 @@ OC.L10N.register(
 	"You will be logged off automatically when this countdown reaches 0" : "U wordt automatisch uitgelogd wanneer deze timer 0 bereikt",
 	"You will be logged off due to expiration of your session cookie (set to %s minutes)." : "U wordt automatisch uitgelogd door het verlopen van uw sessie-cookie (ingesteld op %s seconden).",
 	"You will be logged off due to inactivity of %s seconds." : "U wordt automatisch uitgelogd door inactiviteit van %s seconden.",
-	"Your administrator does not allow you to download backups" : "Uw beheerder staat u niet toe om back-ups te downloaden"
+	"Your administrator does not allow you to download backups" : "Uw beheerder staat u niet toe om back-ups te downloaden",
+	"Would you like to backup deleted passwords too?" : "Wilt u verwijderde wachtwoorden ook meenemen in de back-up?"
 },
 "nplurals=2; plural=(n != 1);");
