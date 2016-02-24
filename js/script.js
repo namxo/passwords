@@ -545,7 +545,7 @@
 							case 'loginname':
 								$('#cmd_loginname').val(newvalue);
 								break;
-							case 'pass':
+							case 'password':
 								$('#cmd_pass').val(newvalue);
 								break;
 						}
@@ -1381,40 +1381,50 @@ function formatTable(update_only, rows) {
 			} else { // no valid website url
 				html_row += '<td type="website" sorttable_customkey=' + row.website + ' class="cell_website">' + row.website; // or else doesn't align very well
 			}
-			html_row += '<div class="btn_commands_inline">' +
-						'<input class="btn_commands_open" type="button">' +
+			if (row.website.length > 45) {
+				html_row += '<div class="btn_commands_newline">' +
+							'<input class="btn_commands_open" type="button">' +
 						'</div>' +
 						'</td>';
+			} else {
+				html_row += '<div class="btn_commands_inline">' +
+							'<input class="btn_commands_open" type="button">' +
+						'</div>' +
+						'</td>';
+			}
+			
 			// end website
 
 			// start loginname
 			if (hide_usernames) {
-				html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname) + ' class="hidden_value">' +
+				html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname, false) + ' class="hidden_value">' +
 							'******' + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
-							'</td>';
-			} else {
-				html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname) + ' class="cell_username">' +
-							escapeHTML(row.loginname) + 
+							'</div></td>';
+			} else { // place button before value for very long login names
+				html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname, false) + ' class="cell_username">' +
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
+							'</div>' +
+							escapeHTML(row.loginname, true) +
 							'</td>';
 			}
 			// end loginname
 
 			// start password
 			if (hide_passwords) {
-				html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass) + ' class="hidden_value">' +
+				html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass, false) + ' class="hidden_value">' +
 							'******' + 
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
-							'</td>';
-			} else {
-				html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass) + ' class="cell_password">' +
-							escapeHTML(row.pass) + 
+							'</div></td>';
+			} else { // place button before value for very long passwords
+				html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass, false) + ' class="cell_password">' +
 							'<div class="btn_commands_inline">' +
 								'<input class="btn_commands_open" type="button">' +
+							'</div>' +
+							escapeHTML(row.pass, true) +
 							'</td>';
 			}
 
@@ -1424,7 +1434,7 @@ function formatTable(update_only, rows) {
 								strength_int2str(row.strength) +
 							'<div class="btn_commands_inline">' +
 								'(' + row.strength + ')' +
-							'</td>';
+							'</div></td>';
 				// end strength
 				// start date
 				var d = new Date(row.datechanged);
@@ -1432,7 +1442,7 @@ function formatTable(update_only, rows) {
 								date2str(d, true) +
 							'</span><div class="btn_commands_inline dateChanged">' +
 								date2str(d, false) +
-							'</td>';
+							'</div></td>';
 				// end date
 			}
 
@@ -1917,9 +1927,13 @@ function strength_str(passw, return_string_only) {
 	$("#generate_strength_popup").attr("class", $("#generate_strength").attr("class"));
 
 }
-function escapeHTML(text) {
+function escapeHTML(text, only_brackets) {
 	if (typeof text !== 'undefined') {
-		return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+		if (only_brackets) {
+			return text.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+		} else {
+			return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+		}
 	} else {
 		return text;
 	}
