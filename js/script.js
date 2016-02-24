@@ -129,7 +129,7 @@
 					// date as YYYY-MM-DD
 					var changedDate = d.getFullYear()
 						+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
-						+ '-' + ('0' + d.getDate()).slice(-2)
+						+ '-' + ('0' + d.getDate()).slice(-2);
 				}
 
 				if (!pass) {
@@ -450,7 +450,7 @@
 								typeTitle = t('passwords', 'Password');
 								break;
 						}
-						window.prompt(typeTitle, $('#cmd_value').val());
+						window.prompt(typeTitle + ':', $('#cmd_value').val());
 					});
 				}
 				
@@ -508,7 +508,7 @@
 							// date as YYYY-MM-DD
 							var changedDate = d.getFullYear()
 								+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
-								+ '-' + ('0' + d.getDate()).slice(-2)
+								+ '-' + ('0' + d.getDate()).slice(-2);
 							var pass_old = $('#cmd_pass').val();
 							var password = {
 								'website': $('#cmd_website').val(),
@@ -1002,7 +1002,7 @@
 					// date as YYYY-MM-DD
 					var changedDate = d.getFullYear()
 						+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
-						+ '-' + ('0' + d.getDate()).slice(-2)
+						+ '-' + ('0' + d.getDate()).slice(-2);
 
 					var password = {
 						'website': $('#new_website').val(),
@@ -2018,26 +2018,32 @@ function backupPasswords() {
 
 	OCdialogs.confirm(t('passwords', 'This will download an unencrypted backup file, which contains all your passwords.') + ' ' + t('passwords', 'This file is fully compatible with other password services, such as KeePass, 1Password and LastPass.') + ' ' + t('passwords', 'Are you sure?'), t('passwords', 'Download Backup'), 
 		function(confirmed) {
-			if (confirmed)	{
+			if (confirmed) {
 				var d = new Date();
-				var textToWrite = '"Website","Username","Passwords","FullAddress","Notes"\r\n';
-				var rowValue;
+				var textToWrite = '"Website","Username","Password","FullAddress","Notes"\r\n';
 
-				var table = document.getElementById('PasswordsTableContent');
-				for (var i = 1; i < table.rows.length; i++) {
-					for (var j = 0; j < table.rows[i].cells.length; j++)
+				var deleted_too = window.confirm(t('passwords', 'Would you like to backup deleted passwords too?'));
 
+				$('#PasswordsTableContent tbody tr').each(function() {
+					var $row = $(this);
+	
+					$row.attr('attr_id')
+					$row.attr('attr_loginname')
+					$row.attr('attr_website')
+					$row.attr('attr_address')
+					$row.attr('attr_pass')
+					$row.attr('attr_notes')
+					$row.attr('attr_category')
 
-						if (j == 0 || j == 1 || j == 2 || j == 12 || j == 13) { // columns: website, username, pass, address, notes
-							rowValue = table.rows[i].cells[j].textContent;
-							// escape " and \ by putting a \ before them
-							rowValue = rowValue.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-							textToWrite += '"' + rowValue + '",';
-						}
-
-						textToWrite = textToWrite.substring(0, textToWrite.length - 1) + '\r\n';
-
-				}
+					if (!$row.hasClass('is_deleted') || deleted_too) {
+						textToWrite += '"' + $row.attr('attr_website').replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '","'
+							+ $row.attr('attr_loginname').replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '","'
+							+ $row.attr('attr_pass').replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '","'
+							+ $row.attr('attr_address').replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '","'
+							+ $row.attr('attr_notes').replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"'
+							+ '\r\n';
+					}
+				});
 
 				var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'}); 
 				var d = new Date();
@@ -2254,7 +2260,7 @@ function renderCSV(firstTime) {
 		);
 		$('#CSVtableScroll').css('maxHeight', browserHeight * 0.45);
 		document.getElementById("CSVtableDIV").style.left = (browserWidth - CSVtableDIVWidth) / 2 + "px";
-		document.getElementById("CSVtableDIV").style.top = (browserHeight - CSVtableDIVHeight) / 3 + "px";	
+		document.getElementById("CSVtableDIV").style.top = "40px";	
 		$('#CSVtableDIV').hide();
 		$('#app-settings-content').hide();
 		$('#CSVtableDIV').show(400);
@@ -2395,6 +2401,11 @@ function importCSV() {
 	var passwordCSV = '';
 	var notesCSV = '';
 	var passarray = [];
+	var d = new Date();
+	// date as YYYY-MM-DD
+	var changedDate = d.getFullYear()
+		+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
+		+ '-' + ('0' + d.getDate()).slice(-2);
 
 	for (var r = 1; r < CSVtable.rows.length; r++) {
 		if ($('#CSVcheckRow' + r).is(":checked")) {
@@ -2438,12 +2449,21 @@ function importCSV() {
 			}
 
 			passarray.push({
-				website : websiteCSV,
-				loginname : loginCSV,
-				address : urlCSV,
-				pass : passwordCSV,
-				notes : notesCSV,
-				deleted : "0"
+				'website': websiteCSV,
+				'pass': passwordCSV,
+				'properties': 
+					'"loginname" : "' + loginCSV + '", ' +
+					'"address" : "' + urlCSV + '", ' +
+					'"strength" : "' + strength_func(passwordCSV) + '", ' +
+					'"length" : "' + passwordCSV.length + '", ' +
+					'"lower" : "' + ~~strHasLower(passwordCSV) + '", ' +
+					'"upper" : "' + ~~strHasUpper(passwordCSV) + '", ' +
+					'"number" : "' + ~~strHasNumber(passwordCSV) + '", ' +
+					'"special" : "' + ~~strHasSpecial(passwordCSV) + '", ' +
+					'"category" : "0", ' +
+					'"datechanged" : "' + changedDate + '", ' +
+					'"notes" : "' + notesCSV + '"',
+				'deleted': '0'
 			});
 		}
 	}
@@ -2461,7 +2481,7 @@ function importPassword(array) {
 		$('#CSVprogressActive').val($('#CSVprogressTotal').val() - array.length);
 		var done = ($('#CSVprogressActive').val() / $('#CSVprogressTotal').val()) * 100;
 		$('#CSVprogressDone').css('width', done + '%');
-		$('#CSVprogressText1').text(password.website + ' (' + password.loginname + ')');
+		$('#CSVprogressText1').text(password.website);
 		$('#CSVprogressText2').text($('#CSVprogressActive').val() + ' / ' + $('#CSVprogressTotal').val() + ' (' + Math.round(done) + '%)');
 		var success = $.ajax({
 			url: OC.generateUrl('/apps/passwords/passwords'),
