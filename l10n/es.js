@@ -194,6 +194,7 @@ OC.L10N.register(
 	"You will be logged off automatically when this countdown reaches 0" : "Tu sesión expirará automáticamente cuando esta cuenta llegue a 0",
 	"You will be logged off due to expiration of your session cookie (set to %s minutes)." : "Tu sesión expirará automáticamente cuando la cookie de sesión caduque (establecida en %s minutos).",
 	"You will be logged off due to inactivity of %s seconds." : "Tu sesión expirará por inactividad durante %s segundos.",
-	"Your administrator does not allow you to download backups" : "El administrador no permite descargar copias de seguridad"
+	"Your administrator does not allow you to download backups" : "El administrador no permite descargar copias de seguridad",
+	"Would you like to backup deleted passwords too?" : "¿Quieres incluir además las contraseñas de la papelera?"
 	},
 "nplurals=2; plural=(n != 1);");
