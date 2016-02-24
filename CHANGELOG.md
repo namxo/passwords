@@ -1,4 +1,4 @@
-####17 - NOT RELEASED YET
+####17 - Feb 24, 2016
 * Added coloured categories. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
 * Added filter for categories
 * Added category-specific popup
