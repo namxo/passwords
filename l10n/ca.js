@@ -189,6 +189,7 @@ OC.L10N.register(
 	"Website or company" : "Pàgina web o empresa",
 	"When the password date exceeds the limit for the green colour, the password will become orange or red too" : "Quan la data de la contrasenya superi el límit establert, la contrasenya es tornarà taronja o vermella",
 	"with user name" : "amb nom d'usuari",
+	"Would you like to backup deleted passwords too?" : "Vols incloure a més les contrasenyes de la paperera?",
 	"Yes" : "Si",
 	"You can change the timer settings in the '%s' menu." : "Pots canviar la configuració del cronòmetre al menú '%s'",
 	"You will be logged off automatically when this countdown reaches 0" : "La sessió finalitzarà automàticament quan aquest compte arribi a zero",
