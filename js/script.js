@@ -2261,6 +2261,11 @@ function renderCSV(firstTime) {
 			document.body.offsetWidth, document.documentElement.offsetWidth,
 			document.body.clientWidth, document.documentElement.clientWidth
 		);
+		var browserHeight = Math.max(
+			document.body.scrollHeight, document.documentElement.scrollHeight,
+			document.body.offsetHeight, document.documentElement.offsetHeight,
+			document.body.clientHeight, document.documentElement.clientHeight
+		);
 		$('#CSVtableScroll').css('maxHeight', browserHeight * 0.45);
 		document.getElementById("CSVtableDIV").style.left = (browserWidth - CSVtableDIVWidth) / 2 + "px";
 		document.getElementById("CSVtableDIV").style.top = "20px";
