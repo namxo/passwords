@@ -16,7 +16,14 @@ class CategoryMapper extends Mapper {
 	}
 
 	public function findAll($userId) {
-		$sql = 'SELECT * FROM *PREFIX*passwords_categories WHERE user_id = ? ORDER BY LOWER(category_name) COLLATE utf8_general_ci ASC';
+		$dbtype = \OC_Config::getValue('dbtype', '');
+		if ($dbtype == 'mysql') {
+			$sql = 'SELECT * FROM *PREFIX*passwords_categories WHERE user_id = ? ORDER BY LOWER(category_name) COLLATE utf8_general_ci ASC';
+		} else if ($dbtype == 'sqlite') {
+			$sql = 'SELECT * FROM *PREFIX*passwords_categories WHERE user_id = ? ORDER BY category_name COLLATE NOCASE';
+		} else {
+			$sql = 'SELECT * FROM *PREFIX*passwords_categories WHERE user_id = ? ORDER BY LOWER(category_name) ASC';
+		}
 		return $this->findEntities($sql, [$userId]);
 	}
 }
