@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+lang_map = ja_JP: ja
+
+[owncloud.passwords]
+file_filter = <lang>/passwords.po
+source_file = templates/passwords.pot
+source_lang = en
+type = PO
