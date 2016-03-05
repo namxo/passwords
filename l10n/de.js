@@ -169,6 +169,7 @@ OC.L10N.register(
     "Select options" : "Optionen auswählen",
     "File contains headers" : "Datei beinhaltet Kopfzeilen",
     "Values are separated by quotation marks" : "Werte werden mit Anführungszeichen getrennt",
+    "Lines are split on" : "Linien werden aufgeteilt auf",
     "Select all" : "Alle auswählen",
     "Select none" : "Nichts auswählen",
     "Backup and import" : "Sichern und importieren",

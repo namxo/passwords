@@ -91,6 +91,7 @@ $TRANSLATIONS = array(
 "seconds" => "secondes",
 "minutes" => "minutes",
 "Fill in a number between %s and %s" => "Remplissez avec un nombre compris entre %s et %s",
+"Use inactivity countdown" => "Utiliser un compteur d'inactivité",
 "Red" => "Rouge",
 "after" => "Après ",
 "days" => "jours",
