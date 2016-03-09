@@ -1,5 +1,5 @@
 # Passwords
-#### for ownCloud Server 8 (all versions)
+#### for ownCloud Server 8 and 9
 ##### 2015-2016, Fallon Turner <fcturner@users.noreply.github.com>
 
 ###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
