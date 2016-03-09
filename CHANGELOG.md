@@ -3,6 +3,7 @@
 * Added automated Transifex translations, by so introducing Albanian, Czech, British English, Hebrew, Icelandic, Norwegian and Portuguese (Brazil)
 * Fix for import window
 * Fix for SQLite3 and PostgreSQL databases
+* Fix for importing passwords that gave 'session expired' error
 
 ####17 - Feb 24, 2016
 * Added coloured categories. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
