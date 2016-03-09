@@ -1311,6 +1311,8 @@ function formatTable(update_only, rows) {
 
 			// escape line feed (for notes):
 			thisRow = thisRow.replace(/\n/g, '\\n');
+			// escape tabs (for notes)
+			thisRow = thisRow.replace(/\t/g, '\\t');
 			// escape backslash:
 			thisRow = thisRow.replace(/\\/g, '\\\\');
 
@@ -1342,7 +1344,7 @@ function formatTable(update_only, rows) {
 						+ 'attr_loginname="' + row.loginname + '" '
 						+ 'attr_pass="' + row.pass + '" '
 						+ 'attr_category="' + (row.category || '0') + '" '
-						+ 'attr_notes="' + row.notes.replace(/\\n/g, '\n') + '" '
+						+ 'attr_notes="' + row.notes.replace(/\\n/g, '\n').replace(/\\t/g, '\t') + '" '
 						+ 'attr_datechanged="' + row.datechanged + '" '
 						+ 'attr_strength="' + strength_int2str(row.strength) + '" '
 						+ 'attr_length="' + row.length + '" '
