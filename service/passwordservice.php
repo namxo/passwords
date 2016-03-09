@@ -22,7 +22,7 @@ class PasswordService {
 		$result = $this->mapper->findAll($userId);
 		$arr = json_decode(json_encode($result), true);
 
-		$serverKey = \OC_Config::getValue('passwordsalt', '');
+		$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 		
 		foreach($arr as $row => $value)
 		{
@@ -73,7 +73,7 @@ class PasswordService {
 	public function create($website, $pass, $properties, $deleted, $userId) {
 
 		$userKey = $userId;
-		$serverKey = \OC_Config::getValue('passwordsalt', '');
+		$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 		$userSuppliedKey = $website;
 		$key = Encryption::makeKey($userKey, $serverKey, $userSuppliedKey);
 		$e = new Encryption(MCRYPT_BLOWFISH, MCRYPT_MODE_CBC);
@@ -99,7 +99,7 @@ class PasswordService {
 	public function update($id, $website, $pass, $properties, $deleted, $userId) {
 		try {
 			$userKey = $userId;
-			$serverKey = \OC_Config::getValue('passwordsalt', '');
+			$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 			$userSuppliedKey = $website;
 			$key = Encryption::makeKey($userKey, $serverKey, $userSuppliedKey);
 			$e = new Encryption(MCRYPT_BLOWFISH, MCRYPT_MODE_CBC);
