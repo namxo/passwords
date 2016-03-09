@@ -13,11 +13,11 @@
     </description>
     <licence>AGPL</licence>
     <author>Fallon Turner</author>
-    <version>17</version>
+    <version>17.1</version>
     <namespace>Passwords</namespace>
     <category>tool</category>
     <dependencies>
-        <owncloud min-version="8" />
+        <owncloud min-version="8.0" max-version="9.0"/>
         <lib>mcrypt</lib>
     </dependencies>
     <documentation>
