@@ -16,7 +16,7 @@ class PasswordMapper extends Mapper {
 	}
 
 	public function findAll($userId) {
-		$dbtype = \OC_Config::getValue('dbtype', '');
+		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', '');
 		if ($dbtype == 'mysql') {
 			$sql = 'SELECT * FROM *PREFIX*passwords WHERE user_id = ? ORDER BY LOWER(website) COLLATE utf8_general_ci ASC';
 		} else if ($dbtype == 'sqlite') {
