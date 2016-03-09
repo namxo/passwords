@@ -2507,8 +2507,7 @@ function importPassword(array) {
 			},
 			error: function(data) {
 				setTimeout(function() {
-					alert(t('passwords', 'The session has expired. This page will now reload.'));
-					location.reload(true);
+					alert(t('passwords', "Error: The password of website '%s' cannot be imported. However, the import progress will continue.").replace('%s', password.website));
 				}, 500);
 			}
 		});
