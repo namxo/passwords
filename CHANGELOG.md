@@ -6,6 +6,7 @@
 * Fix for SQLite3 and PostgreSQL databases
 * Fix for importing passwords that gave 'session expired' error
 * Fix for notes containing tabs
+* Fix for database that didn't create tables: now overwrites old format
 
 ####17 - Feb 24, 2016
 * Added coloured categories. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
