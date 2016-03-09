@@ -1,5 +1,6 @@
 ####17.1 - Not released yet
-* Support for ownCloud 9!
+* Support for ownCloud 9.0 - this app now works with all versions of OC8 and OC9
+* Support for Firefox! [Andreas Egli](https://github.com/eglia) created a browser plugin for Firefox, works with **Firefox 30.0 and later** (includes Android too): https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords/?src=userprofile
 * Added automated Transifex translations, by so introducing support for Albanian, Czech, British English, Hebrew, Icelandic, Norwegian and Portuguese (Brazil)
 * Fix for import window
 * Fix for SQLite3 and PostgreSQL databases
