@@ -1,3 +1,9 @@
+####17.1 - Not released yet
+* Support for ownCloud 9!
+* Added automated Transifex translations, by so introducing Albanian, Czech, British English, Hebrew, Icelandic, Norwegian and Portuguese (Brazil)
+* Fix for import window
+* Fix for SQLite3 and PostgreSQL databases
+
 ####17 - Feb 24, 2016
 * Added coloured categories. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
 * Added filter for categories
