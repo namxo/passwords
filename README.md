@@ -1,6 +1,7 @@
 # Passwords
 #### for ownCloud Server 8 and 9
 ##### 2015-2016, Fallon Turner <fcturner@users.noreply.github.com>
+[View this app on apps.owncloud.org.](https://apps.owncloud.com/content/show.php/Passwords?content=170480)
 
 ###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
 
@@ -36,8 +37,8 @@ There is a built in option to view website icons in the password table. This can
 * [https://www.google.com/s2/favicons?domain=owncloud.org](https://www.google.com/s2/favicons?domain=owncloud.org) (16x16 pixels)
 
 ## Installation
-Download [this latest release](https://github.com/fcturner/passwords/releases/latest) and copy the folder 'passwords' to /owncloud/apps/ (**remember that the folder must be called 'passwords'**). Login as admin and enable the app. The database tables `oc_passwords` and `oc_passwords_categories` will be created automatically (assuming `_oc` as prefix).
-[View this app on apps.owncloud.org.](https://apps.owncloud.com/content/show.php/Passwords?content=170480)
+* Download [this latest release](https://github.com/fcturner/passwords/releases/latest) and copy the folder 'passwords' to /owncloud/apps/ (**remember that the folder must be called 'passwords'**). Login as admin and enable the app. The database tables `oc_passwords` and `oc_passwords_categories` will be created automatically (assuming `_oc` as prefix).
+* Use `git clone https://github.com/fcturner/passwords.git /var/www/owcloud/apps/passwords`
 
 ### Credits
 I would like to thank Anthony Ferrara ([ircmaxell](http://careers.stackoverflow.com/ircmaxell)), for [teaching the world how to properly set up](http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved/5093422#5093422) security in PHP.
