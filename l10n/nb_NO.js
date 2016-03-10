@@ -73,7 +73,6 @@ OC.L10N.register(
     "Do not import" : "Ikke importer",
     "This is not a valid URL, so this value will not be saved:" : "Dette er ikke en gyldig URL, så denne verdien blir ikke lagret:",
     "Import of passwords done. This page will now reload." : "Import av passord utført. Denne siden lastes nå på nytt.",
-    "The session has expired. This page will now reload." : "Økten er utløpt. Denne siden lastes nå på nytt.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Legg inn en ny verdi og trykk Lagre for å beholde den nye verdien.\nDette kan ikke angres.",
     "Lowercase characters" : "Små bokstaver",
     "Uppercase characters" : "Store bokstaver",

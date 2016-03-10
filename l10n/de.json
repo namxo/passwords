@@ -71,7 +71,6 @@
     "Do not import" : "nicht importieren",
     "This is not a valid URL, so this value will not be saved:" : "Ungültige URL, die Eingabe wird nicht gespeichert:",
     "Import of passwords done. This page will now reload." : "Import der Passworte abgeschlossen. Diese Seite wird nun neu geladen.",
-    "The session has expired. This page will now reload." : "Die Sitzung ist abgelaufen. Diese Seite wird nun neu geladen.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Geben Sie einen neuen Wert ein und speichern Sie.\nDies kann nicht rückgängig werden.",
     "Lowercase characters" : "Kleinbuchstaben",
     "Uppercase characters" : "Großbuchstaben",

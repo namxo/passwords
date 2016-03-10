@@ -73,7 +73,6 @@ OC.L10N.register(
     "Do not import" : "Do not import",
     "This is not a valid URL, so this value will not be saved:" : "This is not a valid URL, so this value will not be saved:",
     "Import of passwords done. This page will now reload." : "Import of passwords done. This page will now reload.",
-    "The session has expired. This page will now reload." : "The session has expired. This page will now reload.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Enter a new value and press Save to keep the new value.\nThis cannot be undone.",
     "Lowercase characters" : "Lowercase characters",
     "Uppercase characters" : "Uppercase characters",

@@ -73,7 +73,6 @@ OC.L10N.register(
     "Do not import" : "Non importare",
     "This is not a valid URL, so this value will not be saved:" : "Questo non è un URL valido, quindi questo valore non sarà salvato:",
     "Import of passwords done. This page will now reload." : "Importazione password completata. La pagina ora sarà caricata nuovamente.",
-    "The session has expired. This page will now reload." : "La sessione è scaduta. La pagina ora si caricherà nuovamente.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Inserisci un nuovo valore e clicca Salva per confermare il nuovo valore.\nQuesta azione non può essere annullata.",
     "Lowercase characters" : "Caratteri minuscoli",
     "Uppercase characters" : "Caratteri maiuscoli",

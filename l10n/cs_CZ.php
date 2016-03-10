@@ -72,7 +72,6 @@ $TRANSLATIONS = array(
 "Do not import" => "Neimportovat",
 "This is not a valid URL, so this value will not be saved:" => "Toto není validní URL, tato hodnota nebude uložena:",
 "Import of passwords done. This page will now reload." => "Import hesel proveden. Stránka se nyní obnoví.",
-"The session has expired. This page will now reload." => "Sezení expirovalo. Stránka bude znovunačtena.",
 "Lowercase characters" => "Malá písmena",
 "Uppercase characters" => "Velká písmena",
 "Numbers" => "Čísla",
