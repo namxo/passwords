@@ -1,12 +1,12 @@
-####17.1 - Not released yet
+####17.1 - Mar 10, 2016
 * Support for ownCloud 9.0 - this app now works with all versions of OC8 and OC9
-* Support for Firefox! [Andreas Egli](https://github.com/eglia) created a browser plugin for Firefox, works with **Firefox 30.0 and later** (includes Android too): https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords/?src=userprofile
+* Support for Firefox! [Andreas Egli](https://github.com/eglia) created a browser plugin for Firefox, which works with **Firefox 30.0 and later** (includes Android too): https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords/?src=userprofile
 * Added automated Transifex translations, by so introducing support for Albanian, Czech, British English, Hebrew, Icelandic, Norwegian and Portuguese (Brazil)
-* Fix for import window
+* Fix for import window position
 * Fix for SQLite3 and PostgreSQL databases
 * Fix for importing passwords that gave 'session expired' error
 * Fix for notes containing tabs
-* Fix for database that didn't create tables: now overwrites old format
+* Fix for update process where new database tables weren't created
 
 ####17 - Feb 24, 2016
 * Added coloured categories. The amazing colour picker was made by [bgrins](https://bgrins.github.io/spectrum/).
