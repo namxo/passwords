@@ -1,3 +1,7 @@
+####17.2 - Mar 11, 2016
+* Fix for saving and updating a password on PostgreSQL backends
+* **If you don't use PostgreSQL (but MySQL or SQLite3 instead), you don't need this update**
+
 ####17.1 - Mar 10, 2016
 * Support for ownCloud 9.0 - this app now works with all versions of OC8 and OC9
 * Support for Firefox! [Andreas Egli](https://github.com/eglia) created a browser plugin for Firefox, which works with **Firefox 30.0 and later** (includes Android too): https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords/?src=userprofile
