@@ -72,7 +72,6 @@ class PasswordService {
 
 	public function create($website, $pass, $properties, $deleted, $userId) {
 
-		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', '');
 		$userKey = $userId;
 		$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 		$userSuppliedKey = $website;
@@ -87,11 +86,7 @@ class PasswordService {
 		$password->setLoginname('');
 		$password->setAddress('');
 		$password->setNotes('');
-		if ($dbtype == 'mysql') {
-			$password->setCreationDate('0000-00-00');
-		} else {
-			$password->setCreationDate(NULL);
-		}
+		$password->setCreationDate('1970-01-01');
 
 		$password->setUserId($userId);
 		$password->setWebsite($website);
@@ -102,7 +97,6 @@ class PasswordService {
 	}
 
 	public function update($id, $website, $pass, $properties, $deleted, $userId) {
-		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', '');
 		try {
 			$userKey = $userId;
 			$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
@@ -119,12 +113,7 @@ class PasswordService {
 			$password->setLoginname('');
 			$password->setAddress('');
 			$password->setNotes('');
-			$password->setCreationDate('0000-00-00');
-			if ($dbtype == 'mysql') {
-				$password->setCreationDate('0000-00-00');
-			} else {
-				$password->setCreationDate(NULL);
-			}
+			$password->setCreationDate('1970-01-01');
 
 			$password->setWebsite($website);
 			$password->setPass($encryptedPass);
