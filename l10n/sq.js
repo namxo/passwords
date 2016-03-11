@@ -73,6 +73,7 @@ OC.L10N.register(
     "Do not import" : "Mos e importo",
     "This is not a valid URL, so this value will not be saved:" : "Kjo s’është URL e vlefshme, ndaj kjo vlerë nuk do të ruhet:",
     "Import of passwords done. This page will now reload." : "Importimi i fjalëkalimeve u krye. Kjo faqe tani do të ringarkohet.",
+    "Error: The password of website '%s' cannot be imported. However, the import progress will continue." : "Gabim: S’importohet dot fjalëkalimi për sajtin '%s'. Megjithatë, importimi do të vazhdojë të përparojë.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Jepni një vlerë të re dhe shtypni Ruaje që të mbahet vlera e re.\n Kjo s’mund të zhbëhet.",
     "Lowercase characters" : "Shenjash me të vogla",
     "Uppercase characters" : "Shenja me të mëdhaja",
