@@ -2801,11 +2801,13 @@ function resetTimer(kill_old) {
 
 }
 function int2time(integer, always_as_minutes) {
+    if (integer !== undefined) {
 	if (integer < 61 && !always_as_minutes) {
 		return integer;
 	} else {
 		return new Date(null, null, null, null, null, integer).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0].substr(3, 5);
 	}
+    }
 }
 function getContrastYIQ(hexcolor) {
 	// adapted from https://24ways.org/2010/calculating-color-contrast
