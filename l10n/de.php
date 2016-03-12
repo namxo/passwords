@@ -72,6 +72,7 @@ $TRANSLATIONS = array(
 "Do not import" => "nicht importieren",
 "This is not a valid URL, so this value will not be saved:" => "Ungültige URL, die Eingabe wird nicht gespeichert:",
 "Import of passwords done. This page will now reload." => "Import der Passworte abgeschlossen. Diese Seite wird nun neu geladen.",
+"Error: The password of website '%s' cannot be imported. However, the import progress will continue." => "Fehler: Das Passwort der Website \"%s\" kann nicht importiert werden. Mit dem Importvorgang wird dennoch fortgefahren.",
 "Enter a new value and press Save to keep the new value.\nThis cannot be undone." => "Geben Sie einen neuen Wert ein und speichern Sie.\nDies kann nicht rückgängig werden.",
 "Lowercase characters" => "Kleinbuchstaben",
 "Uppercase characters" => "Großbuchstaben",
