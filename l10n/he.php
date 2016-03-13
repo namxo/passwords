@@ -72,6 +72,7 @@ $TRANSLATIONS = array(
 "Do not import" => "לא ליבא",
 "This is not a valid URL, so this value will not be saved:" => "זה אינו נתיב אינטרנט חוקי, כך שערך זה לא ישמר:",
 "Import of passwords done. This page will now reload." => "יבוא סיסמאות בוצע. עמוד זה יטען עכשיו מחדש.",
+"Error: The password of website '%s' cannot be imported. However, the import progress will continue." => "שגיאה: הסיסמא של אתר '%s' לא ניתנת ליבוא. למרות זאת, מהלך היבוא ימשיך.",
 "Enter a new value and press Save to keep the new value.\nThis cannot be undone." => "יש להכניס ערך חדש וללחוץ על שמירה להשארת הערך החדש.\nלא ניתן לבטל פעולה זו.",
 "Lowercase characters" => "תווים באותיות לטיניות קטנות",
 "Uppercase characters" => "תווים באותיות לטיניות גדולות",
