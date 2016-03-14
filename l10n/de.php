@@ -168,6 +168,7 @@ $TRANSLATIONS = array(
 "Select options" => "Optionen auswählen",
 "File contains headers" => "Datei beinhaltet Kopfzeilen",
 "Values are separated by quotation marks" => "Werte werden mit Anführungszeichen getrennt",
+"Characters %s and %s need to be escaped" => "Die Zeichen %s und %s müssen maskiert werden (Escape character)",
 "Lines are split on" => "Linien werden aufgeteilt auf",
 "Select all" => "Alle auswählen",
 "Select none" => "Nichts auswählen",
