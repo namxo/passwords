@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Passwords by fcturner</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Passwords</h1>
+          <h2>Password manager for ownCloud Server 8 and 9</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/fcturner/passwords/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/fcturner/passwords/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/fcturner/passwords" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="passwords" class="anchor" href="#passwords" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Passwords</h1>
+
+<h4>
+<a id="for-owncloud-server-8-and-9" class="anchor" href="#for-owncloud-server-8-and-9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>for ownCloud Server 8 and 9</h4>
+
+<h5>
+<a id="2015-2016-fallon-turner-fcturnerusersnoreplygithubcom" class="anchor" href="#2015-2016-fallon-turner-fcturnerusersnoreplygithubcom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2015-2016, Fallon Turner <a href="mailto:fcturner@users.noreply.github.com">fcturner@users.noreply.github.com</a>
+</h5>
+
+<p><a href="https://apps.owncloud.com/content/show.php/Passwords?content=170480">View this app on apps.owncloud.org.</a></p>
+
+<h6>
+<a id="this-app-cannot-be-installed-from-within-owncloud-since-this-system-demands-repackaging-of-releases-and-kills-the-possibility-to-freely-use-github-master-versions" class="anchor" href="#this-app-cannot-be-installed-from-within-owncloud-since-this-system-demands-repackaging-of-releases-and-kills-the-possibility-to-freely-use-github-master-versions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.</h6>
+
+<h2>
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary</h2>
+
+<p>This is a Password Manager for viewing, editing, categorizing and generating passwords (see 'img'-folder for screenshots) in ownCloud. It features <strong>both client side and server side encryption</strong> (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read <a href="https://github.com/fcturner/passwords#security">Security part</a> for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).</p>
+
+<p>This app is primarily intended as a password MANAGER, e.g. for a local ownCloud instance on your own WPA2 protected LAN. If you trust yourself enough as security expert, you can use this app behind an SSL secured server for a neat cloud solution. The app will be blocked (with message) if not accessed thru https, which will result in your passwords not being loaded (decrypted) and shown. To prevent this, use ownClouds own 'Force SSL'-function on the admin page, or use HSTS (HTTP Strict Transport Security) on your server. Also, make sure your server hasn't any kind of vulnerabilities (POODLE, CSRF, XSS, SQL Injection, Privilege Escalation, Remote Code Execution, to name a few).</p>
+
+<p>The script for creating passwords can be found in <a href="/js/script.js#L1612-L1691"><code>/js/script.js</code></a>.</p>
+
+<h2>
+<a id="security" class="anchor" href="#security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security</h2>
+
+<h3>
+<a id="password-generation" class="anchor" href="#password-generation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Password generation</h3>
+
+<p>Generated passwords are in fact pseudo-generated (i.e. not using atmospheric noise), since only the Javascript Math.random-function is used, of which I think is randomly 'enough'. After generation of different types of characters (your choice to include lowercase, uppercase, numbers and/or reading marks, strength will be calculated), scrambling of these characters is done using the <a href="http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle</a> (also known as Knuth, a de-facto unbiased shuffle algorithm).</p>
+
+<h3>
+<a id="encryption-for-storage-in-database" class="anchor" href="#encryption-for-storage-in-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Encryption (for storage in database)</h3>
+
+<p>This app features both <strong>server-side encryption</strong> (since encryption takes place on the server, before the data is placed in the database table) and <strong>client-side encryption</strong> (since encryption is performed with a key that is not known to the server). All passwords (generated or your own) are stored into your own ownCloud database, using these high-end cryptological functions:</p>
+
+<ul>
+<li>Encryption is done using a key built from user-specific, ownCloud-specific, and database entry-specific data so it is unique for every encrypted block of text (i.e. every password). It therefore provides key rotation for cipher and authentication keys.</li>
+<li>The keys are not used directly. Instead, it uses <a href="http://en.wikipedia.org/wiki/Key_stretching">key stretching</a> which relies on <a href="http://en.wikipedia.org/wiki/PBKDF2">Password-Based Key Derivation Function 2</a> (PBKDF2).</li>
+<li>It uses <a href="http://en.wikipedia.org/wiki/Authenticated_encryption#Approaches_to_Authenticated_Encryption">Encrypt-then-MAC</a> (EtM), which is a very good method for ensuring the authenticity of the encrypted data.</li>
+<li>It uses mcrypt to perform the encryption using <a href="https://en.wikipedia.org/wiki/Blowfish_(cipher)">MCRYPT_BLOWFISH ciphers</a> and <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29">MCRYPT_MODE_CBC</a> for the mode. It's strong enough, and still fairly fast.</li>
+<li>It hides the <a href="http://en.wikipedia.org/wiki/Initialization_vector">Initialization vector</a> (IV).</li>
+<li>It uses a <a href="http://blog.ircmaxell.com/2014/11/its-all-about-time.html">timing-safe comparison</a> function using <a href="http://en.wikipedia.org/wiki/Hash-based_message_authentication_code">double Hash-based Message Authentication Code</a> (HMAC) verification of the source data.</li>
+</ul>
+
+<h3>
+<a id="decryption-for-pulling-from-database" class="anchor" href="#decryption-for-pulling-from-database" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Decryption (for pulling from database)</h3>
+
+<p>All passwords are encrypted with user-specific, ownCloud-specific and server-specific keys. This means passwords can be decrypted:</p>
+
+<ul>
+<li>only by the user who created the password (so this user must be logged in),</li>
+<li>only on the same ownCloud instance where the password was created in (meaning: same password salt in config.php).</li>
+</ul>
+
+<p>Other users or administrators are never able to decrypt passwords, since they cannot login as the user (assuming the user's password isn't known). <em>If the password salt is lost, all passwords of all users are lost and unretrievable.</em></p>
+
+<h2>
+<a id="website-icons" class="anchor" href="#website-icons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Website icons</h2>
+
+<p>There is a built in option to view website icons in the password table. This can be set by the administrator on the settings page of ownCloud. The admin has two services to choose from: DuckDuckGo (default) and Google. Icons are downloaded from their secured server when a user loads the page. Nothing fancy or unsafe (even using Google... although <a href="http://donttrack.us">they track you</a>), it's just about icons. The icon for the ownCloud's website for example (replace <em>owncloud.org</em> with your own domain to try): </p>
+
+<ul>
+<li>
+<a href="https://icons.duckduckgo.com/ip2/owncloud.org.ico">https://icons.duckduckgo.com/ip2/owncloud.org.ico</a> (32x32 pixels)</li>
+<li>
+<a href="https://www.google.com/s2/favicons?domain=owncloud.org">https://www.google.com/s2/favicons?domain=owncloud.org</a> (16x16 pixels)</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Download <a href="https://github.com/fcturner/passwords/releases/latest">this latest release</a> and copy the folder 'passwords' to /owncloud/apps/ (<strong>remember that the folder must be called 'passwords'</strong>). Login as admin and enable the app. The database tables <code>oc_passwords</code> and <code>oc_passwords_categories</code> will be created automatically (assuming <code>_oc</code> as prefix).</li>
+<li>Use <code>git clone https://github.com/fcturner/passwords.git /var/www/owcloud/apps/passwords</code>
+</li>
+</ul>
+
+<h3>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Credits</h3>
+
+<p>I would like to thank Anthony Ferrara (<a href="http://careers.stackoverflow.com/ircmaxell">ircmaxell</a>), for <a href="http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved/5093422#5093422">teaching the world how to properly set up</a> security in PHP.</p>
+        </section>
+
+        <footer>
+          Passwords is maintained by <a href="https://github.com/fcturner">fcturner</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
