@@ -1446,6 +1446,9 @@ function formatTable(update_only, rows) {
 								date2str(d, false) +
 							'</div></td>';
 				// end date
+			} else {
+				$('#column_strength').hide();
+				$('#column_datechanged').hide();
 			}
 
 			var cat_set = false;
