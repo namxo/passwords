@@ -789,14 +789,16 @@ p#generate_strength_popup {
 	margin: 0;
 }
 #passwordSidebar {
-	margin-left: 20px;
+	margin-left: 12px;
+	margin-right: 8px;
+	background: #fff;
 }
 #sidebarClose {
 	position: absolute;
 	top: 0;
 	height: 20px;
 	width: 25px;
-	right: 5%;
+	right: 8%;
 	font-size: 16px;
 	line-height: 0;
 	font-weight: bold !important;
@@ -818,7 +820,6 @@ p#generate_strength_popup {
 	right: 0;
 	display: none;
 	z-index: 1000;
-	background: #fff;
 }
 .leftCol,
 .rightCol {
