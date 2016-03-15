@@ -132,7 +132,7 @@ OC.L10N.register(
     "Copy" : "Copiar",
     "Share" : "Compartir",
     "Value copied to clipboard" : "Valor copiado al portapapeles",
-    "Last changed" : "Último cambio",
+    "Last changed" : "Última modificación",
     "Click on a <b>column head</b> to sort the column." : "Clica en el <b>título de una columna</b> para ordenarla.",
     "Click on a <b>user name</b> or a <b>password</b> to be able to copy it to the clipboard." : "Clica en el <b>nombre de usuario</b> o <b>contraseña</b> para copiarlo al portapapeles.",
     "Click on a <b>website</b> to open it in a new tab." : "Clica en el <b>sitio web</b> para abrirlo en una nueva pestaña.",
