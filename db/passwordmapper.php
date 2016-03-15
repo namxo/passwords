@@ -26,4 +26,14 @@ class PasswordMapper extends Mapper {
 		}
 		return $this->findEntities($sql, [$userId]);
 	}
+
+	public function shareUsers($userId) {
+		$allowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', true);
+		if ($allowed) {
+			$sql = 'SELECT DISTINCT displaynames.uid, displaynames.displayname FROM *PREFIX*group_user AS users LEFT JOIN (SELECT  uid, IF(displayname IS NULL, uid, displayname) AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?';
+			return $this->findEntities($sql, [$userId]);
+		} else {
+			return false;
+		}
+	}
 }
