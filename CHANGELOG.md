@@ -1,3 +1,6 @@
+####17.3 (18 *alpha*) - NOT RELEASED
+* Changed RESTful API: now only allows `GET` (instead of `PUT`, `POST`, `DELETE` and `PATCH` too); primarily intended for use of extensions like Firefox, Chrome, Android and iOS
+
 ####17.2 - Mar 12, 2016
 * Fix for saving and updating a password on PostgreSQL backends
 * **If you don't use PostgreSQL (but MySQL or SQLite3 instead), you don't need this update**
