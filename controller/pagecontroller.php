@@ -17,7 +17,7 @@
 	  * @NoCSRFRequired
 	  */
 	 public function index() {
-		 if (substr(\OC_Util::getHumanVersion(), 0, 3) != '8.0') {
+		 if (substr(OC_Util::getHumanVersion(), 0, 3) != '8.0') {
 
 			// OC >= 8.1
 			$response = new TemplateResponse('passwords', 'main');
