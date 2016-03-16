@@ -14,7 +14,7 @@
 		(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 		|| $_SERVER['SERVER_PORT'] == 443
 		|| \OC::$server->getConfig()->getSystemValue('forcessl', '')
-		|| \OCP\Config::getAppValue('passwords', 'https_check', 'true') == 'false';
+		|| OC::$server->getConfig()->getAppValue('passwords', 'https_check', 'true') == 'false';
 	};
 
 	style('passwords', 'style');
