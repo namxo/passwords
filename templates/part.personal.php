@@ -42,7 +42,7 @@
 			<?php p($l->t("This will put a timer on the lower right of the screen, which resets on activity.") . " " . $l->t("You will be logged off automatically when this countdown reaches 0")); ?>.
 		</p>
 		<p>
-			<?php p($l->t("Setting a countdown will log you off too when your session cookie ends (set to %s seconds by your administrator)", OC::$server->getConfig()->getSystemValue('session_lifetime', 60))); ?>.
+			<?php p($l->t("Setting a countdown will log you off too when your session cookie ends (set to %s seconds by your administrator)", \OC::$server->getConfig()->getSystemValue('session_lifetime', 60))); ?>.
 		</p>
 	</div>
 
