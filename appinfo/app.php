@@ -13,10 +13,10 @@ $l = \OCP\Util::getL10N('passwords');
 $urlGenerator = $container->query('OCP\IURLGenerator');
 $l10n = $container->query('OCP\IL10N');
 
-\OCP\App::addNavigationEntry(array(
+\OC::$server->getNavigationManager()->add(
 		'id' => 'passwords',
 		'order' => 9999,
 		'href' => $urlGenerator->linkToRoute('passwords.page.index'),
 		'icon' => $urlGenerator->imagePath('passwords', 'app.svg'),
 		'name' => $l10n->t('Passwords'),
-));
+);
