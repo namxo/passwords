@@ -1,7 +1,7 @@
 <?php
-$days_orange = \OCP\Config::getAppValue('passwords', 'days_orange', '150');
-$days_red = \OCP\Config::getAppValue('passwords', 'days_red', '365');
-$version = \OCP\Config::getAppValue('passwords', 'installed_version', '');
+$days_orange = OC::$server->getConfig()->getAppValue('passwords', 'days_orange', '150');
+$days_red = OC::$server->getConfig()->getAppValue('passwords', 'days_red', '365');
+$version = OC::$server->getConfig()->getAppValue('passwords', 'installed_version', '');
 ?>
 <div class="icon-loading" id="loading">
 	<p id="loading_text"><?php p($l->t("Decrypting passwords")); ?>...</p>
