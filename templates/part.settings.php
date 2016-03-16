@@ -55,7 +55,7 @@
 			<p><?php p($l->t('Click to download a backup as an UNENCRYPTED plain text file')); ?>.</p>
 			<hr>
 		</div>
-		<?php if (\OCP\Config::getAppValue('passwords', 'backup_allowed', 'false') == 'false') { ?>
+		<?php if (OC::$server->getConfig()->getAppValue('passwords', 'backup_allowed', 'false') == 'false') { ?>
 			<div id="app-settings-backup_disallowed">
 				<h3><?php p($l->t('Download Backup')); ?></h3>
 				<p><?php p($l->t('Your administrator does not allow you to download backups')); ?>.</p>
