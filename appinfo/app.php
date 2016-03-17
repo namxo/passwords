@@ -10,13 +10,15 @@ $l = \OCP\Util::getL10N('passwords');
 \OCP\App::registerAdmin('passwords', 'templates/admin.settings');
 \OCP\App::registerPersonal('passwords', 'templates/personal.settings');
 
-$urlGenerator = $container->query('OCP\IURLGenerator');
 $l10n = $container->query('OCP\IL10N');
 
-\OC::$server->getNavigationManager()->add(
-		'id' => 'passwords',
-		'order' => 9999,
-		'href' => $urlGenerator->linkToRoute('passwords.page.index'),
-		'icon' => $urlGenerator->imagePath('passwords', 'app.svg'),
-		'name' => $l10n->t('Passwords'),
-);
+$navigationEntry = function () use ($container) {
+return [
+'id' => 'passwords',
+'order' => 9999,
+'href' => $container->getServer()->getURLGenerator()->linkToRoute('passwords.page.index'),
+'icon' => $container->getServer()->getURLGenerator()->imagePath('passwords', 'app.svg'),
+'name' => $container->query('OCP\IL10N')->t('Passwords'),
+];
+};
+$container->getServer()->getNavigationManager()->add($navigationEntry);
