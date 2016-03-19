@@ -15,11 +15,11 @@ class PasswordApiController extends ApiController {
 	use Errors;
 
 	public function __construct($AppName, IRequest $request, PasswordService $service, $UserId) {
-		// only allow GET for 24 hours, not 'PUT, POST, GET, DELETE, PATCH'
+		// allow getting passwords and editing/saving them
 		parent::__construct(
 			$AppName,
 			$request,
-			'GET',
+			'GET, POST, DELETE, PUT, PATCH',
 			'Authorization, Content-Type, Accept',
 			86400);
 		$this->service = $service;
