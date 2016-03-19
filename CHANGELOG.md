@@ -1,5 +1,6 @@
 ####17.3 (18 *alpha*) - NOT RELEASED
-* Changed RESTful API: now only allows `GET` (instead of `PUT`, `POST`, `DELETE` and `PATCH` too); primarily intended for use of extensions like Firefox, Chrome, Android and iOS
+* Changed RESTful API: primarily intended for use of extensions like Firefox, Chrome, Android and iOS
+* Removed all deprecated classes, to follow ownCloud's guidelines
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
 
