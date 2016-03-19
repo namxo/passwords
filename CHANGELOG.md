@@ -1,5 +1,6 @@
 ####17.3 (18 *alpha*) - NOT RELEASED
 * Changed RESTful API: primarily intended for use of extensions like Firefox, Chrome, Android and iOS
+* Wrote documentation for API use: <https://github.com/fcturner/passwords/wiki/RESTful-API-for-ownCloud-Passwords>
 * Removed all deprecated classes, to follow ownCloud's guidelines
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
