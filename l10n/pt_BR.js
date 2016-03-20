@@ -73,6 +73,7 @@ OC.L10N.register(
     "Do not import" : "Não importe",
     "This is not a valid URL, so this value will not be saved:" : "Esta não é uma URL válida, de modo que este valor não será salvo:",
     "Import of passwords done. This page will now reload." : "Importação de senhas concluída. Esta página irá agora recarregar.",
+    "Error: The password of website '%s' cannot be imported. However, the import progress will continue." : "Erro: A senha do site '%s' não pode ser importada. No entanto, o progresso da importação continuará.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Insira um novo valor e pressione Salvar para manter o novo value.\nIsto não pode ser desfeito.",
     "Lowercase characters" : "Caracteres minúsculos",
     "Uppercase characters" : "Caracteres maiúsculos",
