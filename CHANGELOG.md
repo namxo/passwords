@@ -1,6 +1,7 @@
 ####17.3 (18 *alpha*) - NOT RELEASED
 * Changed RESTful API: primarily intended for use of extensions like Firefox, Chrome, Android and iOS
 * Wrote documentation for API use: <https://github.com/fcturner/passwords/wiki/RESTful-API-for-ownCloud-Passwords>
+* Allow tabs for input in notes field (so pressing Tab doesn't switch to another field, but instead inserts a tab)
 * Removed all deprecated classes, to follow ownCloud's guidelines
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
