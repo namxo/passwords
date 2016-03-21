@@ -1026,6 +1026,8 @@
 						$('#new_password').val('');
 						$('#new_address').val('');
 						$('#new_notes').val('');
+						$('#new_category select').val(0);
+						$('#new_category select').attr('style', '');
 						$('#generate_strength').text('');
 						$('#generate_passwordtools').fadeOut(250);
 						$('#gen_length').val('25');
@@ -1085,7 +1087,7 @@
 						var fg = $('#nav_category_list').find(':selected').attr('fg')
 						$('#nav_category_list select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important;');
 						// filter
-						var $rows = $('#PasswordsTableContent tr').not('thead tr');
+						var $rows = $('#PasswordsTableContent tr').not('thead tr').not('.is_deleted');
 						var val = $('#nav_category_list select option:selected').text();
 						$rows.show().filter(function() {
 							var text = $(this).find('.cell_category').text();
