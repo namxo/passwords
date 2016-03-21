@@ -59,7 +59,29 @@ class PasswordService {
 
 	public function find($id, $userId) {
 		try {
-			return $this->mapper->find($id, $userId);
+			$result = $this->mapper->find($id, $userId);
+			$arr = json_decode(json_encode($result), true);
+
+			$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
+
+			$userKey = $arr['user_id'];
+			$userSuppliedKey = $arr['website'];
+			$encryptedPass = $arr['pass'];
+			$encryptedProperties = $arr['properties'];
+
+			// notes for backwards compatibility with versions prior to v17
+			$encryptedPassNotes = $arr['notes'];
+
+			$e2 = new Encryption(MCRYPT_BLOWFISH, MCRYPT_MODE_CBC);
+			$key = Encryption::makeKey($userKey, $serverKey, $userSuppliedKey);
+			
+			$arr['pass'] = $e2->decrypt($encryptedPass, $key);
+			$arr['properties'] = $e2->decrypt($encryptedProperties, $key);
+			
+			// notes for backwards compatibility with versions prior to v17
+			$arr['notes'] = $e2->decrypt($encryptedPassNotes, $key);
+
+			return $arr;
 
 		// in order to be able to plug in different storage backends like files
 		// for instance it is a good idea to turn storage related exceptions
