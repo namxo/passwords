@@ -1101,6 +1101,19 @@
 						}
 					}
 				});
+				
+				// allow tabs in textareas (notes)
+				$("textarea").keydown(function(e) {
+					var $this, end, start;
+					if (e.keyCode === 9) {
+						start = this.selectionStart;
+						end = this.selectionEnd;
+						$this = $(this);
+						$this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end));
+						this.selectionStart = this.selectionEnd = start + 1;
+						return false;
+					}
+				});
 
 				// calculate strength
 				$("#new_password").keyup(function() {
@@ -2543,6 +2556,18 @@ function popUp(title, value, type, address_value, website, username) {
 	$('<p/>', {text:title + ':'}).appendTo($('#popupContent'));
 	if (type == 'notes') {
 		$('<textarea/>', {id:"new_value_popup", rows:"5"}).val(value).appendTo($('#popupContent'));
+		// allow tabs in textareas (notes)
+		$("textarea").keydown(function(e) {
+			var $this, end, start;
+			if (e.keyCode === 9) {
+				start = this.selectionStart;
+				end = this.selectionEnd;
+				$this = $(this);
+				$this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end));
+				this.selectionStart = this.selectionEnd = start + 1;
+				return false;
+			}
+		});
 	} else if (type == 'category') {
 		$('#popupContent').append('<div id="new_value_popup">' + $('#new_category').html() + '</div>');
 		$('#new_value_popup select option').last().remove(); // no Edit categories
