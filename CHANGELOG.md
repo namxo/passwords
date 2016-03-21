@@ -2,9 +2,11 @@
 * Changed RESTful API: primarily intended for use of extensions like Firefox, Chrome, Android and iOS
 * Wrote documentation for API use: <https://github.com/fcturner/passwords/wiki/RESTful-API-for-ownCloud-Passwords>
 * Allow tabs for input in notes field (so pressing Tab doesn't switch to another field, but instead inserts a tab)
+* Filtering a category now only searches active passwords (ignores passwords in trash bin)
 * Removed all deprecated classes, to follow ownCloud's guidelines
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
+* Fix for reset of category after adding a password
 
 ####17.2 - Mar 12, 2016
 * Fix for saving and updating a password on PostgreSQL backends
