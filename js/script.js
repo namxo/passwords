@@ -1237,45 +1237,6 @@ function renderCategories(categories) {
 function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
-function strHasLower(str) {
-	return str.toUpperCase() != str;
-}
-function strHasUpper(str) {
-	return str.toLowerCase() != str;
-}
-function strHasNumber(str) {
-	var regex = /\d/g;
-	return regex.test(str);
-}
-function strHasSpecial(str) {
-
-	var number;
-
-	for (var i = 0; i < str.length; i++) {
-	
-		number = 0;
-		number = str.substring(i, i + 1).charCodeAt(0);
-
-		switch(true) {
-			case number === 33:
-			case number >= 35 && number <= 36:
-			case number === 38:
-			case number >= 40 && number <= 41:
-			case number === 43:
-			case number >= 45 && number <= 47:
-			case number >= 58 && number <= 60:
-			case number >= 62 && number <= 64:
-			case number === 95:
-				return true;
-				break;
-		}
-
-	}
-
-	// no special chars
-	return false;
-	
-}
 
 function formatTable(update_only, rows) {
 
