@@ -1103,7 +1103,7 @@
 						}
 					}
 				});
-				
+
 				// allow tabs in textareas (notes)
 				$("textarea").keydown(function(e) {
 					var $this, end, start;
@@ -1352,6 +1352,9 @@ function formatTable(update_only, rows) {
 			}
 			if (row.datechanged == '0000-00-00') {
 				row.datechanged = '1970-01-01'; // UNIX :)
+			}
+			if (typeof row.strength == 'undefined') {
+				row.strength = -1;
 			}
 			html_row += 'attr_id="' + row.id + '" '
 						+ 'attr_website="' + row.website + '" '
@@ -1710,6 +1713,10 @@ function random_characters(char_kind, size_wanted) {
 
 function strength_int2str(integer) {
 
+	if (integer == -1) {
+		return '???';
+	}
+
 	switch (true) {
 		case (integer < 8):
 			return t('passwords', 'Weak');
@@ -1722,6 +1729,10 @@ function strength_int2str(integer) {
 	}
 }
 function strength_int2class(integer) {
+
+	if (integer == -1) {
+		return false;
+	}
 
 	switch (true) {
 		case (integer < 8):
@@ -1779,6 +1790,10 @@ function date2class(dateChanged) {
 	}
 }
 function date2str(dateChanged, timeAgo) {
+
+	if (isNaN(dateChanged)) {
+		return '???';
+	}
 
 	var language = $('html').attr('lang');
 
@@ -1960,17 +1975,26 @@ function escapeHTML(text, only_brackets) {
 }
 function escapeJSON(text) {
 
-	// unquote element names and values first
-	text = text.replace(/", "/g, ',!@#0123 ');
-	text = text.replace(/" : "/g, ' :!@#0123 ');
+	// unquote element names and values first with just a random string
+	text = text.replace(/", "/g, ',uJ94dFpJv36usjxQS56SL3Lv77H25cE3 ');
+	text = text.replace(/" : "/g, ' :uJ94dFpJv36usjxQS56SL3Lv77H25cE3 ');
+
+	// FIX FOR API
+	// "properties": "\"loginname\": \"foo\", \"address\": \"\", \"notes\": \"\"",
+	// needs to be read as: 
+	// "loginname": "foo", (not "loginname&quot;: &quot;foo",)
+	// "address": "", (not "address&quot;: &quot;",)
+	// "notes": "", (not "notes&quot;: &quot;",)
+	text = text.replace(/\": \"/g, ' :uJ94dFpJv36usjxQS56SL3Lv77H25cE3 ');
+
 	text = text.substr(1);
 	text = text.replace(/.$/g, '');
 	// now escape HTML characters (in usernames, passwords, notes)
 	text = $('<textarea/>').text(text).html();
 	text = text.replace(/\"/g, '&quot;');
 	// and change string back to valid JSON
-	text = text.replace(/,!@#0123 /g, '", "');
-	text = text.replace(/ :!@#0123 /g, '" : "');
+	text = text.replace(/,uJ94dFpJv36usjxQS56SL3Lv77H25cE3 /g, '", "');
+	text = text.replace(/ :uJ94dFpJv36usjxQS56SL3Lv77H25cE3 /g, '" : "');
 	text = '"' + text + '"';
 
 	return text;
@@ -2831,13 +2855,13 @@ function resetTimer(kill_old) {
 
 }
 function int2time(integer, always_as_minutes) {
-    if (integer !== undefined) {
-	if (integer < 61 && !always_as_minutes) {
-		return integer;
-	} else {
-		return new Date(null, null, null, null, null, integer).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0].substr(3, 5);
+	if (typeof integer !== 'undefined') {
+		if (integer < 61 && !always_as_minutes) {
+			return integer;
+		} else {
+			return new Date(null, null, null, null, null, integer).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0].substr(3, 5);
+		}
 	}
-    }
 }
 function getContrastYIQ(hexcolor) {
 	// adapted from https://24ways.org/2010/calculating-color-contrast
