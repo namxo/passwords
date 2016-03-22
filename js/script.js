@@ -125,6 +125,7 @@
 			updateActive: function(index, loginname, website, address, pass, notes, category, deleted, changedDate) {
 				
 				if (changedDate == undefined) {
+					// this needs to stay here for users who are updating from <= v16.2; creation dates are used as source
 					var d = new Date();
 					// date as YYYY-MM-DD
 					var changedDate = d.getFullYear()
@@ -138,23 +139,13 @@
 				var password = {
 					'id' : index,
 					'website': website,
-					'loginname': '',
-					'address': '',
 					'pass': pass,
-					'properties': 
-						'"loginname" : "' + loginname + '", ' +
-						'"address" : "' + address + '", ' +
-						'"strength" : "' + strength_func(pass) + '", ' +
-						'"length" : "' + pass.length + '", ' +
-						'"lower" : "' + ~~strHasLower(pass) + '", ' +
-						'"upper" : "' + ~~strHasUpper(pass) + '", ' +
-						'"number" : "' + ~~strHasNumber(pass) + '", ' +
-						'"special" : "' + ~~strHasSpecial(pass) + '", ' +
-						'"category" : "' + category + '", ' +
-						'"datechanged" : "' + changedDate + '", ' +
-						'"notes" : "' + notes + '"',
-					'notes': '',
-					'deleted': deleted
+					'loginname': loginname,
+					'address': address,
+					'category': category,
+					'notes': notes,
+					'deleted': deleted,
+					'datechanged' : changedDate
 				};
 
 				return $.ajax({
@@ -510,18 +501,10 @@
 							var password = {
 								'website': $('#cmd_website').val(),
 								'pass': pass_old,
-								'properties': 
-									'"loginname" : "' + $('#cmd_loginname').val() + '", ' +
-									'"address" : "' + $('#cmd_address').val() + '", ' +
-									'"strength" : "' + strength_func(pass_old) + '", ' +
-									'"length" : "' + pass_old.length + '", ' +
-									'"lower" : "' + ~~strHasLower(pass_old) + '", ' +
-									'"upper" : "' + ~~strHasUpper(pass_old) + '", ' +
-									'"number" : "' + ~~strHasNumber(pass_old) + '", ' +
-									'"special" : "' + ~~strHasSpecial(pass_old) + '", ' +
-									'"category" : "' + $('#cmd_category').val() + '", ' +
-									'"datechanged" : "' + changedDate + '", ' +
-									'"notes" : "' + $('#cmd_notes').val() + '"',
+								'loginname': $('#cmd_loginname').val(),
+								'address': $('#cmd_address').val(),
+								'category': $('#cmd_category').val(),
+								'notes': $('#cmd_notes').val(),
 								'deleted': '1'
 							};
 							passwords.create(password).done(function() {
@@ -1004,19 +987,11 @@
 					var password = {
 						'website': $('#new_website').val(),
 						'pass': $('#new_password').val(),
-						'properties': 
-							'"loginname" : "' + $('#new_username').val()  + '", ' +
-							'"address" : "' + $('#new_address').val() + '", ' +
-							'"strength" : "' + strength_func($('#new_password').val()) + '", ' +
-							'"length" : "' + $('#new_password').val().length + '", ' +
-							'"lower" : "' + ~~strHasLower($('#new_password').val()) + '", ' +
-							'"upper" : "' + ~~strHasUpper($('#new_password').val()) + '", ' +
-							'"number" : "' + ~~strHasNumber($('#new_password').val()) + '", ' +
-							'"special" : "' + ~~strHasSpecial($('#new_password').val()) + '", ' +
-							'"category" : "' + $('#new_category select').val() + '", ' +
-							'"datechanged" : "' + changedDate + '", ' +
-							'"notes" : "' + $('#new_notes').val() + '"',
-						'deleted': "0"
+						'loginname': $('#new_username').val(),
+						'address': $('#new_address').val(),
+						'category': $('#new_category select').val(),
+						'notes': $('#new_notes').val(),
+						'deleted': '0'
 					};
 
 					self._passwords.create(password).done(function() {
@@ -1889,8 +1864,10 @@ function date2str(dateChanged, timeAgo) {
 	}
 
 	var dateToday = new Date();
+
 	var diffInDays = Math.floor((dateToday - dateChanged) / (1000 * 60 * 60 * 24));
 	switch (diffInDays) {
+		case -1:
 		case 0:
 			return t('passwords', 'today');
 			break;
@@ -2503,18 +2480,10 @@ function importCSV() {
 			passarray.push({
 				'website': websiteCSV,
 				'pass': passwordCSV,
-				'properties': 
-					'"loginname" : "' + loginCSV + '", ' +
-					'"address" : "' + urlCSV + '", ' +
-					'"strength" : "' + strength_func(passwordCSV) + '", ' +
-					'"length" : "' + passwordCSV.length + '", ' +
-					'"lower" : "' + ~~strHasLower(passwordCSV) + '", ' +
-					'"upper" : "' + ~~strHasUpper(passwordCSV) + '", ' +
-					'"number" : "' + ~~strHasNumber(passwordCSV) + '", ' +
-					'"special" : "' + ~~strHasSpecial(passwordCSV) + '", ' +
-					'"category" : "0", ' +
-					'"datechanged" : "' + changedDate + '", ' +
-					'"notes" : "' + notesCSV + '"',
+				'loginname': loginCSV,
+				'address': urlCSV,
+				'category': 0,
+				'notes': notesCSV,
 				'deleted': '0'
 			});
 		}
