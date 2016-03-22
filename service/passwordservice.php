@@ -48,6 +48,14 @@ class PasswordService {
 
 	}
 
+	public function shareUsers($userId) {
+		try {
+			return $this->mapper->shareUsers($userId);
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
+	}
+
 	private function handleException ($e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
@@ -92,7 +100,20 @@ class PasswordService {
 		}
 	}
 
-	public function create($website, $pass, $properties, $deleted, $userId) {
+	public function create($website, $pass, $loginname, $address, $notes, $category, $deleted, $userId) {
+
+		$properties = 
+			'"loginname" : "' . $loginname . '", ' .
+			'"address" : "' . $address . '", ' .
+			'"strength" : "' . Calculations::pwstrength($pass) . '", ' .
+			'"length" : "' . strlen($pass) . '", ' .
+			'"lower" : "' . Calculations::strhaslower($pass) . '", ' .
+			'"upper" : "' . Calculations::strhasupper($pass) . '", ' .
+			'"number" : "' . Calculations::strhasspecial($pass) . '", ' .
+			'"special" : "' . Calculations::strhasspecial($pass) . '", ' .
+			'"category" : "' . $category . '", ' .
+			'"datechanged" : "' . date('Y-m-d') . '", ' .
+			'"notes" : "' . $notes . '"';
 
 		$userKey = $userId;
 		$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
@@ -118,7 +139,21 @@ class PasswordService {
 		return $this->mapper->insert($password);
 	}
 
-	public function update($id, $website, $pass, $properties, $deleted, $userId) {
+	public function update($id, $website, $pass, $loginname, $address, $notes, $category, $deleted, $datechanged, $userId) {
+
+		$properties = 
+			'"loginname" : "' . $loginname . '", ' .
+			'"address" : "' . $address . '", ' .
+			'"strength" : "' . Calculations::pwstrength($pass) . '", ' .
+			'"length" : "' . strlen($pass) . '", ' .
+			'"lower" : "' . Calculations::strhaslower($pass) . '", ' .
+			'"upper" : "' . Calculations::strhasupper($pass) . '", ' .
+			'"number" : "' . Calculations::strhasspecial($pass) . '", ' .
+			'"special" : "' . Calculations::strhasspecial($pass) . '", ' .
+			'"category" : "' . $category . '", ' .
+			'"datechanged" : "' . $datechanged . '", ' .
+			'"notes" : "' . $notes . '"';
+
 		try {
 			$userKey = $userId;
 			$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
@@ -159,24 +194,164 @@ class PasswordService {
 	}
 }
 
-class Encryption {
-// http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved?answertab=votes#tab-top
+class Calculations {
 
-/**
- * A class to handle secure encryption and decryption of arbitrary data
- *
- *  Note that this is not just straight encryption. It also has a few other
- *  features in it to make the encrypted data far more secure.  Note that any
- *  other implementations used to decrypt data will have to do the same exact
- *  operations.  
- *
- * Security Benefits:
- *
- * - Uses Key stretching
- * - Hides the Initialization Vector
- * - Does HMAC verification of source data
- *
- */
+	public function strhaslower($str) {
+		return (strtoupper($str) != $str) ? 1 : 0;
+	}
+	public function strhasupper($str) {
+		return (strtolower($str) != $str) ? 1 : 0;
+	}
+	public function strhasnumber($str) {
+		return (preg_match('/[0-9]/', $str)) ? 1 : 0;
+	}
+	public function strhasspecial($str) {
+		for ($i = 0; $i <= strlen($str); $i++) {
+			$number = 0;
+			$number = Calculations::uniord(substr($str, $i, 1));
+			switch(true) {
+				case $number == 33:
+				case $number >= 35 && $number <= 36:
+				case $number == 38:
+				case $number >= 40 && $number <= 41:
+				case $number == 43:
+				case $number >= 45 && $number <= 47:
+				case $number >= 58 && $number <= 60:
+				case $number >= 62 && $number <= 64:
+				case $number == 95:
+					return 1;
+					break;
+			}
+		}
+		// no special chars
+		return 0;
+	}
+	public function pwstrength($password) {
+
+		$hasLowerCase = false;
+		$hasUpperCase = false;
+		$hasNumber = false;
+		$hasSpecialChar1 = false;
+		$hasSpecialChar2 = false;
+		$hasSpecialChar3 = false;
+		$hasSpecialChar4 = false;
+
+		$passwordLength = strlen($password);
+
+		$strength_calc = 0;
+
+		// check length
+		switch(true) {
+			case $passwordLength >= 8:
+				//$strength_calc = 1;
+				break;
+			case $passwordLength <= 4:
+				// password smaller than 5 chars is always bad
+				return 0;
+				break;
+		}
+
+		// loop ONCE through password
+		for ($i = 1; $i < $passwordLength + 1; $i++) {
+			
+			$charInStr = substr($password, $i, 1);
+			$charInt = Calculations::uniord($charInStr);
+
+			switch(true) {
+				case $charInt >= 97 && $charInt <= 122:
+					if (!$hasLowerCase) {
+						$strength_calc = $strength_calc + 1;
+						$hasLowerCase = true;
+					}
+					break;
+				case $charInt >= 65 && $charInt <= 90:
+					if (!$hasUpperCase) {
+						$strength_calc = $strength_calc + 1;
+						$hasUpperCase = true;
+					}
+					break;
+				case $charInt >= 48 && $charInt <= 57:
+					if (!$hasNumber) {
+						$strength_calc = $strength_calc + 1;
+						$hasNumber = true;
+					}
+					break;
+				case $charInt >= 33 && $charInt <= 47:
+					if (!$hasSpecialChar1) {
+						$strength_calc = $strength_calc + 1;
+						$hasSpecialChar1 = true;
+					}
+					break;
+				case $charInt >= 58 && $charInt <= 64:
+					if (!$hasSpecialChar2) {
+						$strength_calc = $strength_calc + 1;
+						$hasSpecialChar2 = true;
+					}
+					break;
+				case $charInt >= 91 && $charInt <= 96:
+					if (!$hasSpecialChar3) {
+						$strength_calc = $strength_calc + 1;
+						$hasSpecialChar3 = true;
+					}
+					break;
+				case $charInt >= 123 && $charInt <= 255:
+					if (!$hasSpecialChar4) {
+						$strength_calc = $strength_calc + 1;
+						$hasSpecialChar4 = true;
+					}
+					break;
+			}
+
+		}
+		
+		$strength_calc = $strength_calc + (floor($passwordLength / 8) * (($hasLowerCase ? 1 : 0) + ($hasUpperCase ? 1 : 0) + ($hasNumber ? 1 : 0) + ($hasSpecialChar1 ? 1 : 0) + ($hasSpecialChar2 ? 1 : 0) + ($hasSpecialChar3 ? 1 : 0) + ($hasSpecialChar4 ? 1 : 0)));
+		
+		$power = 6;
+		$strength_calc = $strength_calc + round(pow($passwordLength, $power) / pow(10, $power + 1));
+
+		return $strength_calc;
+	}
+	public function uniord($c) {
+		// http://stackoverflow.com/a/10333324
+		// used to replace JS's 'charCodeAt' function
+		$h = ord($c{0});
+		if ($h <= 0x7F) {
+			return $h;
+		} else if ($h < 0xC2) {
+			return false;
+		} else if ($h <= 0xDF) {
+			return ($h & 0x1F) << 6 | (ord($c{1}) & 0x3F);
+		} else if ($h <= 0xEF) {
+			return ($h & 0x0F) << 12 | (ord($c{1}) & 0x3F) << 6
+									 | (ord($c{2}) & 0x3F);
+		} else if ($h <= 0xF4) {
+			return ($h & 0x0F) << 18 | (ord($c{1}) & 0x3F) << 12
+									 | (ord($c{2}) & 0x3F) << 6
+									 | (ord($c{3}) & 0x3F);
+		} else {
+			return false;
+		}
+	}
+}
+
+class Encryption {
+	// http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved?answertab=votes#tab-top
+
+	/**
+	 * A class to handle secure encryption and decryption of arbitrary data
+	 *
+	 *  Note that this is not just straight encryption. It also has a few other
+	 *  features in it to make the encrypted data far more secure.  Note that any
+	 *  other implementations used to decrypt data will have to do the same exact
+	 *  operations.  
+	 *
+	 * Security Benefits:
+	 *
+	 * - Uses Key stretching
+	 * - Hides the Initialization Vector
+	 * - Does HMAC verification of source data
+	 *
+	 */
 
 	public static function makeKey($userKey, $serverKey, $userSuppliedKey) {
 		$key = hash_hmac('sha512', $userKey, $serverKey);
