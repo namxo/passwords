@@ -17,7 +17,8 @@ class PageController extends Controller {
 	* @NoCSRFRequired
 	*/
 	public function index() {
-		if (version_compare(\OC_Util::getHumanVersion(), '8.1', '>=')) {
+		//if (version_compare(\OC_Util::getHumanVersion(), '8.1', '>=')) {
+		if (substr(\OC_Util::getHumanVersion(), 0, 3) != '8.0') {
 			// OC >= 8.1 (OC9 too)
 			$response = new TemplateResponse('passwords', 'main');
 			$csp = new ContentSecurityPolicy();
