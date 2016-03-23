@@ -1,11 +1,11 @@
 <?php
-namespace OCA\Passwords\Controller;
+namespace \OCA\Passwords\Controller;
 
-use OCP\IRequest;
-use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Controller;
+use \OCP\IRequest;
+use \OCP\AppFramework\Http\DataResponse;
+use \OCP\AppFramework\Controller;
 
-use OCA\Passwords\Service\CategoryService;
+use \OCA\Passwords\Service\CategoryService;
 
 class CategoryController extends Controller {
 
@@ -14,8 +14,7 @@ class CategoryController extends Controller {
 
 	use Errors;
 
-	public function __construct($AppName, IRequest $request,
-								CategoryService $service, $UserId){
+	public function __construct($AppName, IRequest $request, CategoryService $service, $UserId) {
 		parent::__construct($AppName, $request);
 		$this->service = $service;
 		$this->userId = $UserId;
