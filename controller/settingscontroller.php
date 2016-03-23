@@ -1,12 +1,12 @@
 <?php
 
-namespace OCA\Passwords\Controller;
+namespace \OCA\Passwords\Controller;
 
 use \OCA\Passwords\Service\SettingsService;
 use \OCP\IRequest;
 use \OCP\AppFramework\Controller;
 
-use OCP\AppFramework\Http\DataResponse;
+use \OCP\AppFramework\Http\DataResponse;
 
 class SettingsController extends Controller {
 
@@ -15,7 +15,7 @@ class SettingsController extends Controller {
 
 	use errors;
 
-	public function __construct($AppName, IRequest $request, SettingsService $settingsService, $UserId){
+	public function __construct($AppName, IRequest $request, SettingsService $settingsService, $UserId) {
 		parent::__construct($AppName, $request, $UserId);
 		$this->settingsService = $settingsService;
 		$this->userId = $UserId;
