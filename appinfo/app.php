@@ -1,6 +1,6 @@
 <?php
 
-use OCP\AppFramework\App;
+use \OCP\AppFramework\App;
 
 $app = new App('passwords');
 $container = $app->getContainer();
