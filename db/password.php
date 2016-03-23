@@ -1,9 +1,9 @@
 <?php
-namespace OCA\Passwords\Db;
+namespace \OCA\Passwords\Db;
 
 use JsonSerializable;
 
-use OCP\AppFramework\Db\Entity;
+use \OCP\AppFramework\Db\Entity;
 
 class Password extends Entity implements JsonSerializable {
 
