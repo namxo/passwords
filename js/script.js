@@ -329,29 +329,17 @@
 					$('#commands_popup').hide();
 
 					// set values
-					var id = $row.attr('attr_id');
-					var type = $cell.attr('type');
-					var value = $row.attr('attr_' + type);
-					var website = $row.attr('attr_website');
-					var user = $row.attr('attr_loginname');
-					var pass = $row.attr('attr_pass');
-					var notes = $row.attr('attr_notes');
-					var category = $row.attr('attr_category');
-					var deleted = $row.hasClass('is_deleted');
-					$('#cmd_id').val(id);
-					$('#cmd_type').val(type);
-					$('#cmd_value').val(value);
-					$('#cmd_website').val(website);
-					$('#cmd_loginname').val(user);
-					$('#cmd_pass').val(pass);
-					$('#cmd_notes').val(notes);
-					$('#cmd_category').val(category);
-					$('#cmd_deleted').val(deleted);
-					if (type == 'website') {
-						$('#cmd_address').val($row.attr('attr_address'));
-					} else {
-						$('#cmd_address').val('');
-					}
+					$('#cmd_id').val($row.attr('attr_id'));
+					$('#cmd_type').val($cell.attr('type'));
+					$('#cmd_value').val($row.attr('attr_' + $cell.attr('type')));
+					$('#cmd_website').val($row.attr('attr_website'));
+					$('#cmd_address').val($row.attr('attr_address'));
+					$('#cmd_loginname').val($row.attr('attr_loginname'));
+					$('#cmd_pass').val($row.attr('attr_pass'));
+					$('#cmd_notes').val($row.attr('attr_notes'));
+					$('#cmd_category').val($row.attr('attr_category'));
+					$('#cmd_deleted').val($row.hasClass('is_deleted'));
+
 					if ($('#app-navigation').css('position') == 'absolute') {
 						var left = $(this).position().left;
 					} else {
