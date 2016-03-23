@@ -1,14 +1,14 @@
 <?php
- namespace OCA\Passwords\Controller;
+ namespace \OCA\Passwords\Controller;
 
- use OCP\IRequest;
- use OCP\AppFramework\Http\TemplateResponse;
- use OCP\AppFramework\Controller;
- use OCP\AppFramework\Http\ContentSecurityPolicy;
+ use \OCP\IRequest;
+ use \OCP\AppFramework\Http\TemplateResponse;
+ use \OCP\AppFramework\Controller;
+ use \OCP\AppFramework\Http\ContentSecurityPolicy;
 
  class PageController extends Controller {
 
-	 public function __construct($AppName, IRequest $request){
+	 public function __construct($AppName, IRequest $request) {
 		 parent::__construct($AppName, $request);
 	 }
 
@@ -18,7 +18,6 @@
 	  */
 	 public function index() {
 		 if (substr(\OC_Util::getHumanVersion(), 0, 3) != '8.0') {
-
 			// OC >= 8.1 (OC9 too)
 			$response = new TemplateResponse('passwords', 'main');
 			$csp = new ContentSecurityPolicy();
@@ -27,12 +26,9 @@
 			$csp->addAllowedObjectDomain('\'self\''); // for clipboard function
 			$response->setContentSecurityPolicy($csp);
 			return $response;
-
 		 } else {
-
 			// OC =< 8.0.4
 			return new TemplateResponse('passwords', 'main');
-
 		 }
 	 }
 
