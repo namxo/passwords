@@ -1,5 +1,5 @@
 ####17.3 (18 *alpha*) - NOT RELEASED
-* This app can now fully be controlled remotely! This makes it technically possible to use ownCloud Passwords on Android, iPhones, remote servers, you name it. Other authors have already made browser plugins available for Firefox and Chrome. No strict need to use the website of ownCloud anymore, but it all keeps just as safe. 
+* This app can now fully be controlled remotely! This makes it technically possible to use ownCloud Passwords on Android, iPhones, remote servers, you name it. Other authors have already made browser plugins available for Firefox and Chrome. No strict need to use the website of ownCloud anymore, but it all works just as safe. 
  * Changed RESTful API to support GET, PUT, DELETE, PATCH
  * Moved all calculation classes to server-side (translated JavaScript to PHP, which is all PHP 7 safe)
  * Wrote documentation for API use: <https://github.com/fcturner/passwords/wiki/RESTful-API-for-ownCloud-Passwords>
