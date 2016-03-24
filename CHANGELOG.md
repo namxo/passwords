@@ -3,12 +3,15 @@
  * Changed RESTful API to support GET, POST, DELETE, PUT, PATCH
  * Moved all calculation classes to server-side (translated JavaScript to PHP, which is all PHP 7 safe)
  * Wrote documentation for API use: <https://github.com/fcturner/passwords/wiki/RESTful-API-for-ownCloud-Passwords>
+ * Firefox addon: [here](https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords) (thanks to [@eglia](https://github.com/eglia)) 
+ * Chrome extension: [here](https://github.com/thefirstofthe300/ownCloud-Passwords) (thanks to [@thefirstofthe300](https://github.com/thefirstofthe300))
 * Allow tabs for input in notes field (so pressing Tab doesn't switch to another field, but instead inserts a tab)
 * Filtering a category now only searches active passwords (ignores passwords in trash bin)
 * Changed all deprecated PHP classes, to follow ownCloud's guidelines
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
 * Fix for reset of category list after adding a password
+* Fix for losing a full URL when password was changed
 
 ####17.2 - Mar 12, 2016
 * Fix for saving and updating a password on PostgreSQL backends
