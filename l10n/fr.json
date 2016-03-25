@@ -135,6 +135,7 @@
     "Click on a <b>user name</b> or a <b>password</b> to be able to copy it to the clipboard." : "Cliquez sur un <b>nom d'utilisateur</b> ou un <b>mot de passe</b> pour le copier dans le presse-papier.",
     "Click on a <b>website</b> to open it in a new tab." : "Cliquez sur un <b>site web</b> pour l'ouvrir dans un nouvel onglet.",
     "The <b>password date</b> becomes <orange>orange after %s days</orange> and <red>red after %s days</red>." : "La <b>date du mot de passe</b> devient <orange>orange après %s jours</orange> et <red>rouge après %s jours</red>.",
+    "The <b>strength value</b> is interpreted as" : "La <b>force</b> est interprétée comme",
     "or" : "ou",
     "No passwords yet" : "Pas encore de mots de passe",
     "Create some new passwords!" : "Générer de nouveaux mots de passe !",
