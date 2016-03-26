@@ -1,6 +1,6 @@
 <?php
 
-namespace \OCA\Passwords;
+namespace OCA\Passwords;
 
 \OCP\Util::addStyle('passwords', 'settings');
 \OCP\Util::addScript('passwords', 'settings');
