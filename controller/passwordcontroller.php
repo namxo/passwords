@@ -1,11 +1,11 @@
 <?php
-namespace \OCA\Passwords\Controller;
+namespace OCA\Passwords\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http\DataResponse;
 use \OCP\AppFramework\Controller;
 
-use \OCA\Passwords\Service\PasswordService;
+use OCA\Passwords\Service\PasswordService;
 
 class PasswordController extends Controller {
 
