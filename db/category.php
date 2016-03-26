@@ -1,5 +1,5 @@
 <?php
-namespace \OCA\Passwords\Db;
+namespace OCA\Passwords\Db;
 
 use JsonSerializable;
 
