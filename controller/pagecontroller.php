@@ -1,5 +1,5 @@
 <?php
-namespace \OCA\Passwords\Controller;
+namespace OCA\Passwords\Controller;
 
 use \OCP\IRequest;
 use \OCP\AppFramework\Http\TemplateResponse;
