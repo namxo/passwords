@@ -1,6 +1,6 @@
 <?php
 
-namespace \OCA\Passwords\Controller;
+namespace OCA\Passwords\Controller;
 
 use \OCA\Passwords\Service\SettingsService;
 use \OCP\IRequest;
