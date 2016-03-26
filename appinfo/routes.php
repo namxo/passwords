@@ -4,7 +4,8 @@ return [
 		'category' => ['url' => '/categories'],
 		'password' => ['url' => '/passwords'],
 		'category_api' => ['url' => '/api/0.1/categories'],
-		'password_api' => ['url' => '/api/0.1/passwords']
+		'password_api' => ['url' => '/api/0.1/passwords'],
+		'version_api' => ['url' => '/api/0.1/version']
 	],
 	'routes' => [
 		['name' => 'settings#set', 'url' => '/settings/{setting}/{value}', 'verb' => 'POST'],
