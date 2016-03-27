@@ -11,7 +11,6 @@ class VersionApiController extends ApiController {
         use Errors;
 
         public function __construct($AppName, IRequest $request) {
-                // allow getting passwords and editing/saving them
                 parent::__construct(
                         $AppName,
                         $request,
