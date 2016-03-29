@@ -122,7 +122,7 @@
 				});
 				return deferred.promise();
 			},
-			updateActive: function(index, loginname, website, address, pass, notes, category, deleted, changedDate) {
+			updateActive: function(index, loginname, website, address, pass, notes, sharewith, category, deleted, changedDate) {
 				
 				if (changedDate == undefined) {
 					// this needs to stay here for users who are updating from <= v16.2; creation dates are used as source
@@ -144,6 +144,7 @@
 					'address': address,
 					'category': category,
 					'notes': notes,
+					'sharewith' : sharewith,
 					'deleted': deleted,
 					'datechanged' : changedDate
 				};
@@ -339,6 +340,13 @@
 					$('#cmd_notes').val($row.attr('attr_notes'));
 					$('#cmd_category').val($row.attr('attr_category'));
 					$('#cmd_deleted').val($row.hasClass('is_deleted'));
+					if ($row.hasClass('is_sharedby')) {
+						$('#btn_edit').hide();
+						$('#commands_popup input').css('width', '170px');
+					} else {
+						$('#btn_edit').show();
+						$('#commands_popup input').css('width', '80px');
+					}
 
 					if ($('#app-navigation').css('position') == 'absolute') {
 						var left = $(this).position().left;
@@ -429,6 +437,10 @@
 						window.prompt(typeTitle + ':', $('#cmd_value').val());
 					});
 				}
+
+				$('#btn_invalid_sharekey').click(function() {
+					OCdialogs.alert(t('passwords', 'You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it.'), t('passwords', 'Invalid share key'), null, true);
+				});
 				
 				$('#btn_edit').click(function() {
 					var typeVar = '';
@@ -521,7 +533,7 @@
 								break;
 						}
 
-						var success = passwords.updateActive($('#cmd_id').val(), $('#cmd_loginname').val(), $('#cmd_website').val(), $('#cmd_address').val(), $('#cmd_pass').val(), $('#cmd_notes').val(), $('#cmd_category').val(), $('#cmd_deleted').val());
+						var success = passwords.updateActive($('#cmd_id').val(), $('#cmd_loginname').val(), $('#cmd_website').val(), $('#cmd_address').val(), $('#cmd_pass').val(), $('#cmd_notes').val(), '', $('#cmd_category').val(), $('#cmd_deleted').val());
 						if (success) {
 							var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
 							var view = new View(passwords);
@@ -544,10 +556,6 @@
 						removePopup();
 					});
 					return false;
-				});
-
-				$('#btn_share').click(function() {
-					// share part
 				});
 
 				$('#app-settings-content').hide();
@@ -658,15 +666,18 @@
 
 				$('#PasswordsTableContent td').click(function(event) {
 					var $cell = $(this);
+					var $row = $cell.closest('tr');
 					var is_strength = $cell.hasClass('cell_strength');
 					var is_date = $cell.hasClass('cell_datechanged');
 					var is_notes = $cell.hasClass('icon-notes');
 					var is_category = $cell.hasClass('cell_category');
 					var is_info = $cell.hasClass('icon-info');
+					var is_share = $cell.hasClass('icon-share');
+					var is_sharedby = $row.hasClass('is_sharedby');
+					var is_sharedto = $cell.hasClass('icon-public');
 					var is_trash = $cell.hasClass('icon-delete');
 					var is_restore = $cell.hasClass('icon-history');
 					var active_table = $('#app-settings').attr("active-table");
-					var $row = $cell.closest('tr');
 					var $cmd_buttons = $cell.find('.btn_commands_open');
 
 					if ($cell.html().substr(0, 6) == '******') {
@@ -679,11 +690,11 @@
 					// popUp function works with parameters: 
 					// popUp(title, value, type, address_value, website, username);
 
-					if (is_category) {
+					if (is_category && !is_sharedby) {
 						popUp(t('passwords', 'Category'), $row.attr('attr_category'), 'category', '', $row.attr('attr_website'), $row.attr('attr_loginname'));
 						$('#accept').click(function() {
 							$row.attr('attr_category', $('#new_value_popup select').val());
-							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_category'), $row.hasClass('is_deleted'));
+							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), $row.hasClass('is_deleted'));
 							if (success) {
 								var view = new View(passwords);
 								passwords.loadAll().done(function() {
@@ -706,11 +717,42 @@
 						return false;
 					}
 
+					if (is_share || is_sharedto) {
+						popUp(t('passwords', 'Share'), $row.attr('attr_sharedwith'), 'share', '', $row.attr('attr_website'), $row.attr('attr_loginname'));
+						$('#accept').click(function() {
+							var sharearray = [];
+							$("#new_value_popup input:checked").each(function() {
+								sharearray.push($(this).val());
+							});
+
+							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), sharearray, $row.attr('attr_category'), $row.hasClass('is_deleted'));
+							if (success) {
+								if (sharearray.length == 0) {
+									$row.attr('attr_sharedwith', '');
+									$cell.removeClass('icon-public');
+									$cell.addClass('icon-share');
+									$cell.find('div').removeClass('is_sharedto');
+									$cell.find('div span').text(0);
+								} else {
+									$row.attr('attr_sharedwith', sharearray.join(','));
+									$cell.removeClass('icon-share');
+									$cell.addClass('icon-public');
+									$cell.find('div').addClass('is_sharedto');
+									$cell.find('div span').text(sharearray.length);
+								}
+							} else {
+								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
+							}
+							removePopup();
+						});
+						return false;
+					}
+
 					if (is_notes) {
-						popUp(t('passwords', 'Notes'), $row.attr('attr_notes'), 'notes', '', $row.attr('attr_website'), $row.attr('attr_loginname'));
+						popUp(t('passwords', 'Notes'), $row.attr('attr_notes'), 'notes', '', $row.attr('attr_website'), $row.attr('attr_loginname'), is_sharedby);
 						$('#accept').click(function() {
 							$row.attr('attr_notes', $('#new_value_popup').val());
-							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_category'), $row.hasClass('is_deleted'));
+							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), $row.hasClass('is_deleted'));
 							if (success) {
 								if ($row.attr('attr_notes').length == 0) {
 									$cell.removeClass('has-note');
@@ -738,9 +780,9 @@
 
 					if (is_trash) {
 						if (active_table == 'active') {
-							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_category'), "1");
+							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), "1");
 							if (success) {
-								$row.attr('class', 'is_deleted');
+								$row.addClass('is_deleted');
 								$row.hide();
 								formatTable(true);
 								OCdialogs.info(t('passwords', 'The password was moved to the trash bin.'), t('passwords', 'Trash bin'), null, true);
@@ -766,7 +808,7 @@
 					}
 
 					if (is_restore) {
-						var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_category'), "0");
+						var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), "0");
 						if (success) {
 							$cell.removeClass('icon-history');
 							$cell.addClass('icon-info');
@@ -1243,6 +1285,10 @@ function formatTable(update_only, rows) {
 
 		// clear first
 		$('#PasswordsTableContent tbody').html('');
+		$('#ShareUsers').html('');
+
+		var is_sharedby = false;
+		var is_sharedto = false;
 
 		for (var i = 0; i < rows.length - 1; i++) {
 
@@ -1254,6 +1300,8 @@ function formatTable(update_only, rows) {
 			thisRow = thisRow.replace(/\t/g, '\\t');
 			// escape backslash:
 			thisRow = thisRow.replace(/\\/g, '\\\\');
+			// fix row format for sharing:
+			thisRow = thisRow.replace(/\", ,/g, '\",');
 
 			try {
 				var row = JSON.parse('{' + thisRow + '}');
@@ -1268,17 +1316,46 @@ function formatTable(update_only, rows) {
 					continue;
 				}
 			}
-			
-			if (row.deleted == 1) {
-				var html_row = '<tr class="is_deleted" ';
-			} else {
-				var html_row = '<tr ';
+
+			if (row.id == 0) {
+				$('#ShareUsersTableContent').append('<tr><td class="share_uid">' + row.website + '</td><td class="share_displayname">' + row.user_id + '</td></tr>');
+				if (row.user_id != $('#expandDisplayName').text()) {
+					$('#ShareUsers').append('<label><input type="checkbox" value=' + row.website + '>' + row.user_id + '</label><br>');
+				}
+				continue;
 			}
+
+			if (row.user_id != $('head').attr('data-user')) {
+				is_sharedby = true;
+			} else {
+				is_sharedby = false;
+			}
+
+			if (row.deleted == 1) {
+				if (is_sharedby) {
+					var html_row = '<tr class="is_deleted is_sharedby" sharedby="' + row.user_id + '" ';
+				} else {
+					var html_row = '<tr class="is_deleted" ';
+				}
+			} else {
+				if (is_sharedby) {
+					var html_row = '<tr class="is_sharedby" sharedby="' + row.user_id + '" ';
+				} else {
+					var html_row = '<tr ';
+				}
+			}
+
 			if (row.datechanged == '0000-00-00') {
 				row.datechanged = '1970-01-01'; // UNIX :)
 			}
 			if (typeof row.strength == 'undefined') {
 				row.strength = -1;
+			}
+			if (typeof row.sharedwith != 'undefined') {
+				is_sharedto = true;
+				html_row += 'attr_sharedwith="' + row.sharedwith + '" ';
+			} else {
+				is_sharedto = false;
 			}
 			html_row += 'attr_id="' + row.id + '" '
 						+ 'attr_website="' + row.website + '" '
@@ -1325,6 +1402,7 @@ function formatTable(update_only, rows) {
 			} else { // no valid website url
 				html_row += '<td type="website" sorttable_customkey=' + row.website + ' class="cell_website">' + row.website; // or else doesn't align very well
 			}
+
 			if (row.website.length > 45) {
 				html_row += '<div class="btn_commands_newline">' +
 							'<input class="btn_commands_open" type="button">' +
@@ -1336,7 +1414,6 @@ function formatTable(update_only, rows) {
 						'</div>' +
 						'</td>';
 			}
-			
 			// end website
 
 			// start loginname
@@ -1357,7 +1434,10 @@ function formatTable(update_only, rows) {
 			// end loginname
 
 			// start password
-			if (hide_passwords) {
+			if (row.pass == 'oc_passwords_invalid_sharekey') {
+				html_row += '<td class="cell_password">' +
+							'<input id="btn_invalid_sharekey" type="button" value="' + t('passwords', 'Invalid share key') + '"></td>';
+			} else if (hide_passwords) {
 				html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass, false) + ' class="hidden_value">' +
 							'******' + 
 							'<div class="btn_commands_inline">' +
@@ -1434,9 +1514,22 @@ function formatTable(update_only, rows) {
 				html_row += '<td class="icon-info"></td>';
 			}
 
+			// share
+			if (is_sharedby) {
+				html_row += '<td class="icon-shared" title="' + t('passwords', 'Shared by %s').replace('%s', row.user_id) + '"><div class="sharedto_count"><span>0</span></div></td>';
+			} else if (is_sharedto) {
+				html_row += '<td class="icon-public" title="' + t('passwords', 'Shared to %s').replace('%s', row.sharedwith) + '"><div class="sharedto_count is_sharedto"><span>' + row.sharedwith.split(",").length + '</span></div></td>';
+			} else {
+				html_row += '<td class="icon-share"><div class="sharedto_count"><span>0</span></div></td>';
+			}
+
 			// delete
-			html_row += '<td class="icon-delete"></td>';
-			
+			if (!is_sharedby) {
+				html_row += '<td class="icon-delete"></td>';
+			} else {
+				html_row += '<td class=""></td>';
+			}
+
 			html_row += '</tr>';
 
 			$('#PasswordsTableContent tbody').append(html_row);
@@ -1635,6 +1728,18 @@ function random_characters(char_kind, size_wanted) {
 	return text;
 }
 
+// function uid2displayname(uid) {
+// 	$rows = $('#ShareUsersTableContent tr');
+
+// 	for (var i = 0; i < $rows.length; i++) {
+// 		$uid = $rows.closest('.share_uid');
+// 		$displayname = $rows.closest('.share_displayname');
+// 		if ($uid.val() == uid) {
+// 			return $displayname.val();
+// 		}
+// 	}
+// 	return false;
+// }
 function strength_int2str(integer) {
 
 	if (integer == -1) {
@@ -2482,7 +2587,7 @@ function InvalidCSV(error_description) {
 	}
 }
 
-function popUp(title, value, type, address_value, website, username) {
+function popUp(title, value, type, address_value, website, username, sharedby) {
 	$('#popup').html('');
 	$('#overlay').remove();
 	$('#popup').remove();
@@ -2495,9 +2600,15 @@ function popUp(title, value, type, address_value, website, username) {
 	$('<span/>', {text:t('passwords', 'Login name') + ': ' + username, id:"popupSubTitle"}).appendTo($('#popupTitle'));
 
 	$('<div/>', {id: 'popupContent'}).appendTo($('#popup'));
-	$('<p/>', {text:t('passwords', 'Enter a new value and press Save to keep the new value.\nThis cannot be undone.')}).appendTo($('#popupContent'));
-	$('<br/>').appendTo($('#popupContent'));
-	$('<p/>', {text:title + ':'}).appendTo($('#popupContent'));
+	if (type == 'share') {
+		$('<p/>', {text:t('passwords', 'Choose one or more users and press Share.')}).appendTo($('#popupContent'));
+	} else {
+		if (!sharedby) {
+			$('<p/>', {text:t('passwords', 'Enter a new value and press Save to keep the new value.\nThis cannot be undone.')}).appendTo($('#popupContent'));
+		}
+		$('<br/>').appendTo($('#popupContent'));
+		$('<p/>', {text:title + ':'}).appendTo($('#popupContent'));
+	}
 	if (type == 'notes') {
 		$('<textarea/>', {id:"new_value_popup", rows:"5"}).val(value).appendTo($('#popupContent'));
 		// allow tabs in textareas (notes)
@@ -2516,6 +2627,14 @@ function popUp(title, value, type, address_value, website, username) {
 		$('#popupContent').append('<div id="new_value_popup">' + $('#new_category').html() + '</div>');
 		$('#new_value_popup select option').last().remove(); // no Edit categories
 		$('#new_value_popup select').val(value);
+	} else if (type == 'share') {
+		$('#popupContent').append('<div class="share_scroll"><div id="new_value_popup">' + $('#ShareUsers').html() + '</div></div>');
+		if (typeof value != 'undefined') {
+			var sharedusers = value.split(',');
+			$.each(sharedusers, function(index, value2) {
+				$('#new_value_popup input[value=' + value2 + ']').attr('checked', true);
+			});
+		}
 	} else {
 		$('<input/>', {type:'text', id:"new_value_popup", autocorrect:'off', autocapitalize:'off', spellcheck:'false'}).val(value).appendTo($('#popupContent'));
 		if (type == 'password') {
@@ -2560,7 +2679,13 @@ function popUp(title, value, type, address_value, website, username) {
 
 	$('<div/>', {id: 'popupButtons'}).appendTo($('#popup'));	
 	$('<button/>', {id:'cancel', text:t('passwords', 'Cancel')}).appendTo($('#popupButtons'));
-	$('<button/>', {id:'accept', text:t('passwords', 'Save')}).appendTo($('#popupButtons'));
+	if (!sharedby) {
+		if (type == 'share') {
+			$('<button/>', {id:'accept', text:t('passwords', 'Share')}).appendTo($('#popupButtons'));
+		} else {
+			$('<button/>', {id:'accept', text:t('passwords', 'Save')}).appendTo($('#popupButtons'));
+		}
+	}
 
 	// Popup
 	$('#overlay').click(function() {
@@ -2633,7 +2758,7 @@ function trashAllPasswords(Passwords) {
 		var $row = $(this);
 		var $cell = $row.closest('td.icon-info');
 		if (!$row.hasClass('is_deleted')) {
-			var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_category'), '1');
+			var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), '1');
 			if (success) {
 				doneTotal++;
 				$row.attr('class', 'is_deleted');
@@ -2837,7 +2962,7 @@ function updateStart(passwords) {
 		var deleted = table.rows[i].cells[9].textContent;
 
 		if (loginname != '') {
-			var success = passwords.updateActive(db_id, loginname, website, address, pass, notes, 0, deleted, creation_date);
+			var success = passwords.updateActive(db_id, loginname, website, address, pass, notes, '', 0, deleted, creation_date);
 			if (!success) {
 				all_success = false;
 			}
