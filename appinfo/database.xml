@@ -107,4 +107,36 @@
 			</field>
 		</declaration>
 	</table>
+	<table>
+		<name>*dbprefix*passwords_share</name>
+		<declaration>
+			<field>
+				<name>id</name>
+				<type>integer</type>
+				<notnull>true</notnull>
+				<autoincrement>true</autoincrement>
+				<unsigned>true</unsigned>
+				<primary>true</primary>
+				<length>20</length>
+			</field>
+			<field>
+				<name>pwid</name>
+				<type>integer</type>
+				<unsigned>true</unsigned>
+				<length>8</length>
+			</field>
+			<field>
+				<name>sharedto</name>
+				<type>text</type>
+				<length>500</length>
+				<default></default>
+			</field>
+			<field>
+				<name>sharekey</name>
+				<type>text</type>
+				<length>64</length>
+				<default></default>
+			</field>
+		</declaration>
+	</table>
 </database>
