@@ -15,15 +15,7 @@ class CategoryController extends Controller {
 	use Errors;
 
 	public function __construct($AppName, IRequest $request, CategoryService $service, $UserId) {
-		// allow getting categories and editing/saving them
-		parent::__construct(
-			$AppName,
-			$request,
-			'GET, POST, DELETE, PUT, PATCH',
-			'Authorization, Content-Type, Accept',
-			86400);
-		$this->service = $service;
-		$this->userId = $UserId;
+		parent::__construct($AppName, $request);
 	}
 
 	/**
