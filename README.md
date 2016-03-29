@@ -24,6 +24,8 @@ This app features both **server-side encryption** (since encryption takes place 
 * It hides the [Initialization vector](http://en.wikipedia.org/wiki/Initialization_vector) (IV).
 * It uses a [timing-safe comparison](http://blog.ircmaxell.com/2014/11/its-all-about-time.html) function using [double Hash-based Message Authentication Code](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code) (HMAC) verification of the source data.
 
+For sharing, an ad hoc sharekey is created everytime a share is initiated. This is a strong hash. The sharing key is stored encrypted as above for the user who shares a password and copied to another table where this key matches the password ID and the ownCloud ID of the user to whom the password is shared with. If the share keys match, the password will be decrypted at the user's side where the password was shared with. 
+
 ### Decryption (for pulling from database)
 All passwords are encrypted with user-specific, ownCloud-specific and server-specific keys. This means passwords can be decrypted:
 * only by the user who created the password (so this user must be logged in),
