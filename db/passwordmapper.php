@@ -17,27 +17,47 @@ class PasswordMapper extends Mapper {
 
 	public function findAll($userId) {
 
-		// get all passwords of this user and all passwords that are shared with this user
+		// get all passwords of this user and all passwords that are shared with this user (still encrypted)
 		$sql = 'SELECT * FROM *PREFIX*passwords ' . 
 				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?)';
 
 		// now get all uid's and displaynames this user is eligable to share with
-		$sql = $sql . 'UNION ALL ' .
-			'SELECT  ' .
-				'DISTINCT displaynames.uid as id, ' .
-				'displaynames.displayname as user_id, ' .
-				'displaynames.uid as website, ' .
-				'NULL as address, ' .
-				'NULL as loginname, ' .
-				'NULL as pass, ' .
-				'NULL as properties, ' .
-				'NULL as notes, ' .
-				'NULL as creation_date, ' .
-				'NULL as deleted ' .
-			'FROM *PREFIX*group_user AS users ' .
-				'LEFT JOIN  ' .
-				'(SELECT  uid, IF(displayname IS NULL, uid, displayname) AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
-			'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?)';
+		$sharing_allowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes') == 'yes';
+		if ($sharing_allowed) {
+			$only_share_with_own_group = \OC::$server->getConfig()->getAppValue('core', 'shareapi_only_share_with_group_members', 'yes') == 'yes';
+			if ($only_share_with_own_group) {
+				$sql = $sql . 'UNION ALL ' .
+					'SELECT  ' .
+						'DISTINCT displaynames.uid as id, ' .
+						'displaynames.displayname as user_id, ' .
+						'displaynames.uid as website, ' .
+						'NULL as address, ' .
+						'NULL as loginname, ' .
+						'NULL as pass, ' .
+						'NULL as properties, ' .
+						'NULL as notes, ' .
+						'NULL as creation_date, ' .
+						'NULL as deleted ' .
+					'FROM *PREFIX*group_user AS users ' .
+						'LEFT JOIN  ' .
+						'(SELECT  uid, IF(displayname IS NULL, uid, displayname) AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
+					'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?)';
+			} else {
+				$sql = $sql . 'UNION ALL ' .
+					'SELECT  ' .
+						'uid as id, ' .
+						'IF(displayname IS NULL, uid, displayname) as user_id, ' .
+						'uid as website, ' .
+						'NULL as address, ' .
+						'NULL as loginname, ' .
+						'NULL as pass, ' .
+						'NULL as properties, ' .
+						'NULL as notes, ' .
+						'NULL as creation_date, ' .
+						'NULL as deleted ' .
+					'FROM *PREFIX*users';
+			}
+		}
 
 		// order by website according to database used
 		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', '');
@@ -49,7 +69,11 @@ class PasswordMapper extends Mapper {
 			$sql = $sql . ' ORDER BY LOWER(website) ASC';
 		}
 		
-		return $this->findEntities($sql, [$userId, $userId, $userId]);
+		if ($only_share_with_own_group) {
+			return $this->findEntities($sql, [$userId, $userId, $userId]);
+		} else {
+			return $this->findEntities($sql, [$userId, $userId]);
+		}
 	}
 
 	public function insertShare($pwid, $shareto, $sharekey) {
