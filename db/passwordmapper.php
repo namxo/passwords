@@ -104,7 +104,6 @@ class PasswordMapper extends Mapper {
 
 	public function getShareKey($pwid, $userId) {
 		$sql = 'SELECT * FROM *PREFIX*passwords_share WHERE pwid= ? AND sharedto = ?';
-		//return $this->findEntity($sql, [$id, $userId]);
 		$sql = $this->db->prepare($sql);
 		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
 		$sql->bindParam(2, $userId, \PDO::PARAM_STR);
