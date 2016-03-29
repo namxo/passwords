@@ -16,6 +16,8 @@ class CategoryController extends Controller {
 
 	public function __construct($AppName, IRequest $request, CategoryService $service, $UserId) {
 		parent::__construct($AppName, $request);
+		$this->service = $service;
+		$this->userId = $UserId;
 	}
 
 	/**
