@@ -1318,9 +1318,15 @@ function formatTable(update_only, rows) {
 			}
 
 			if (row.id == 0) {
-				$('#ShareUsersTableContent').append('<tr><td class="share_uid">' + row.website + '</td><td class="share_displayname">' + row.user_id + '</td></tr>');
-				if (row.user_id != $('#expandDisplayName').text()) {
-					$('#ShareUsers').append('<label><input type="checkbox" value=' + row.website + '>' + row.user_id + '</label><br>');
+				var uid = row.website;
+				var displayname = row.user_id;
+				$('#ShareUsersTableContent').append('<tr><td class="share_uid">' + uid + '</td><td class="share_displayname">' + displayname + '</td></tr>');
+				if (displayname != $('#expandDisplayName').text()) {
+					if (uid != displayname) {
+						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><strong>' + displayname + '</strong> (' + uid + ')</label><br>');
+					} else {
+						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '>' + displayname + '</label><br>');
+					}
 				}
 				continue;
 			}
@@ -1517,10 +1523,14 @@ function formatTable(update_only, rows) {
 			// share
 			if (is_sharedby) {
 				html_row += '<td class="icon-shared" title="' + t('passwords', 'Shared by %s').replace('%s', row.user_id) + '"><div class="sharedto_count"><span>0</span></div></td>';
-			} else if (is_sharedto) {
-				html_row += '<td class="icon-public" title="' + t('passwords', 'Shared to %s').replace('%s', row.sharedwith) + '"><div class="sharedto_count is_sharedto"><span>' + row.sharedwith.split(",").length + '</span></div></td>';
+			} else if ($('#app-settings').attr('sharing-allowed') == 'yes') { 
+				if (is_sharedto) {
+					html_row += '<td class="icon-public" title="' + t('passwords', 'Shared to %s').replace('%s', row.sharedwith) + '"><div class="sharedto_count is_sharedto"><span>' + row.sharedwith.split(",").length + '</span></div></td>';
+				} else {
+					html_row += '<td class="icon-share"><div class="sharedto_count"><span>0</span></div></td>';
+				}
 			} else {
-				html_row += '<td class="icon-share"><div class="sharedto_count"><span>0</span></div></td>';
+				html_row += '<td></td>';
 			}
 
 			// delete
@@ -2588,6 +2598,7 @@ function InvalidCSV(error_description) {
 }
 
 function popUp(title, value, type, address_value, website, username, sharedby) {
+	var ShareUsersAvailable = ($('#ShareUsers').html() != '');
 	$('#popup').html('');
 	$('#overlay').remove();
 	$('#popup').remove();
@@ -2601,7 +2612,9 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 
 	$('<div/>', {id: 'popupContent'}).appendTo($('#popup'));
 	if (type == 'share') {
-		$('<p/>', {text:t('passwords', 'Choose one or more users and press Share.')}).appendTo($('#popupContent'));
+		if (ShareUsersAvailable) {
+			$('<p/>', {text:t('passwords', 'Choose one or more users and press Share.')}).appendTo($('#popupContent'));
+		}
 	} else {
 		if (!sharedby) {
 			$('<p/>', {text:t('passwords', 'Enter a new value and press Save to keep the new value.\nThis cannot be undone.')}).appendTo($('#popupContent'));
@@ -2623,18 +2636,25 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 				return false;
 			}
 		});
+
 	} else if (type == 'category') {
 		$('#popupContent').append('<div id="new_value_popup">' + $('#new_category').html() + '</div>');
 		$('#new_value_popup select option').last().remove(); // no Edit categories
 		$('#new_value_popup select').val(value);
+
 	} else if (type == 'share') {
-		$('#popupContent').append('<div class="share_scroll"><div id="new_value_popup">' + $('#ShareUsers').html() + '</div></div>');
-		if (typeof value != 'undefined') {
-			var sharedusers = value.split(',');
-			$.each(sharedusers, function(index, value2) {
-				$('#new_value_popup input[value=' + value2 + ']').attr('checked', true);
-			});
+		if (!ShareUsersAvailable) {
+			$('<p/>', {text:t('passwords', 'There are no users available you can share with.')}).appendTo($('#popupContent'));
+		} else {
+			$('#popupContent').append('<div class="share_scroll"><div id="new_value_popup">' + $('#ShareUsers').html() + '</div></div>');
+			if (typeof value != 'undefined') {
+				var sharedusers = value.split(',');
+				$.each(sharedusers, function(index, value2) {
+					$('#new_value_popup input[value=' + value2 + ']').attr('checked', true);
+				});
+			}
 		}
+
 	} else {
 		$('<input/>', {type:'text', id:"new_value_popup", autocorrect:'off', autocapitalize:'off', spellcheck:'false'}).val(value).appendTo($('#popupContent'));
 		if (type == 'password') {
@@ -2679,7 +2699,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 
 	$('<div/>', {id: 'popupButtons'}).appendTo($('#popup'));	
 	$('<button/>', {id:'cancel', text:t('passwords', 'Cancel')}).appendTo($('#popupButtons'));
-	if (!sharedby) {
+	if (!sharedby && ShareUsersAvailable) {
 		if (type == 'share') {
 			$('<button/>', {id:'accept', text:t('passwords', 'Share')}).appendTo($('#popupButtons'));
 		} else {
