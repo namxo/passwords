@@ -216,7 +216,8 @@ tr.activerow {
 	font-size: 1.2em;
 }
 
-#PasswordsTable {
+#PasswordsTable,
+#ShareUsersTable {
 	display: none;
 }
 
@@ -303,6 +304,10 @@ tr.activerow > .orange span {
 #PasswordsTableContent .icon-share {
 	opacity: 0.3;
 }
+
+#PasswordsTableContent .icon-public {
+	opacity: 0.6;
+}
 #CategoriesTableContent .icon-delete:hover,
 #PasswordsTableContent .icon-delete:hover,
 #PasswordsTableContent .cell_category:hover,
@@ -311,14 +316,43 @@ tr.activerow > .orange span {
 #PasswordsTableContent .icon-notes:hover,
 #PasswordsTableContent .icon-history:hover,
 #PasswordsTableContent .icon-info:hover,
-#PasswordsTableContent .icon-share:hover {
+#PasswordsTableContent .icon-share:hover,
+#PasswordsTableContent .icon-public:hover,
+.sharedto_count:hover,
+.sharedto_count span:hover {
 	opacity: 1;
 	cursor: pointer;
 }
 #PasswordsTableContent .icon-info,
-#PasswordsTableContent .icon-category {
-	min-width: 30px;
-	background-size: 26px;
+#PasswordsTableContent .icon-category,
+#PasswordsTableContent .icon-share,
+#PasswordsTableContent .icon-shared,
+#PasswordsTableContent .icon-public {
+	min-width: 30px !important;
+	background-size: 26px !important;
+}
+
+.is_sharedby {
+	background-color: #fbfbfb;
+}
+.sharedto_count {
+	border: 1px solid #555;
+	background-color: #555;
+	font-size: 10px;
+	border-radius: 50px;
+	text-align: center;
+	height: 22px;
+	margin-top: 10%;
+	float: right;
+	padding-left: 5px;
+	padding-right: 5px;
+	display: none;
+}
+.is_sharedto {
+	display: block !important;
+}
+.sharedto_count span {
+	color: #fff !important;
 }
 
 #column_website {
@@ -337,6 +371,7 @@ tr.activerow > .orange span {
 #column_category,
 #column_notes,
 #column_info,
+#column_share,
 #column_delete {
 	width: 40px;
 }
@@ -762,12 +797,17 @@ orange {
 #gen_length_popup,
 #new_generate_popup,
 #keep_old_popup,
-p#generate_strength_popup {
+p#generate_strength_popup,
+#new_value_popup label {
 	margin-left: 25px;
 	margin-right: 5px;
 }
 #keep_old_popup {
 	margin-top: 15px;
+}
+.share_scroll {
+	max-height: 150px;
+	overflow-y: scroll;
 }
 
 #accept,
