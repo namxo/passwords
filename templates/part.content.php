@@ -35,7 +35,6 @@ $version = \OC::$server->getConfig()->getAppValue('passwords', 'installed_versio
 	<div id="commands_popup">
 		<input type="button" id="btn_edit" value="<?php p(strtolower($l->t("Edit"))); ?>">
 		<input type="button" id="btn_copy" value="<?php p(strtolower($l->t("Copy"))); ?>">
-		<!-- <input type="button" id="btn_share" value="<?php p(strtolower($l->t("Share"))); ?>"> -->
 		<input type="text" id="cmd_id">
 		<input type="text" id="cmd_type">
 		<input type="text" id="cmd_value">
@@ -48,6 +47,11 @@ $version = \OC::$server->getConfig()->getAppValue('passwords', 'installed_versio
 	</div>
 	<div id="zeroclipboard_copied">
 		<p id="copied_text"><?php p($l->t("Value copied to clipboard")); ?></p>
+	</div>
+
+	<div id="ShareUsersTable">
+		<table id="ShareUsersTableContent"></table>
+		<select id="ShareUsers"></select>
 	</div>
 
 	<div id="PasswordsTable">
@@ -66,6 +70,7 @@ $version = \OC::$server->getConfig()->getAppValue('passwords', 'installed_versio
 				<th id="column_category"><?php p($l->t("Category")); ?></th>
 				<th id="column_notes"></th>
 				<th id="column_info"></th>
+				<th id="column_share"></th>
 				<th id="column_delete"></th>
 			</tr>
 
