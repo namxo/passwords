@@ -16,29 +16,77 @@ class PasswordMapper extends Mapper {
 	}
 
 	public function findAll($userId) {
+
+		// get all passwords of this user and all passwords that are shared with this user
+		$sql = 'SELECT * FROM *PREFIX*passwords ' . 
+				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?)';
+
+		// now get all uid's and displaynames this user is eligable to share with
+		$sql = $sql . 'UNION ALL ' .
+			'SELECT  ' .
+				'DISTINCT displaynames.uid as id, ' .
+				'displaynames.displayname as user_id, ' .
+				'displaynames.uid as website, ' .
+				'NULL as address, ' .
+				'NULL as loginname, ' .
+				'NULL as pass, ' .
+				'NULL as properties, ' .
+				'NULL as notes, ' .
+				'NULL as creation_date, ' .
+				'NULL as deleted ' .
+			'FROM *PREFIX*group_user AS users ' .
+				'LEFT JOIN  ' .
+				'(SELECT  uid, IF(displayname IS NULL, uid, displayname) AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
+			'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?)';
+
+		// order by website according to database used
 		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', '');
 		if ($dbtype == 'mysql') {
-			$sql = 'SELECT * FROM *PREFIX*passwords WHERE user_id = ? ORDER BY LOWER(website) COLLATE utf8_general_ci ASC';
+			$sql = $sql . ' ORDER BY LOWER(website) COLLATE utf8_general_ci ASC';
 		} else if ($dbtype == 'sqlite') {
-			$sql = 'SELECT * FROM *PREFIX*passwords WHERE user_id = ? ORDER BY website COLLATE NOCASE';
+			$sql = $sql . ' ORDER BY website COLLATE NOCASE';
 		} else {
-			$sql = 'SELECT * FROM *PREFIX*passwords WHERE user_id = ? ORDER BY LOWER(website) ASC';
+			$sql = $sql . ' ORDER BY LOWER(website) ASC';
 		}
-		return $this->findEntities($sql, [$userId]);
+		
+		return $this->findEntities($sql, [$userId, $userId, $userId]);
 	}
 
-	public function shareUsers($userId) {
-		$allowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes') == 'yes';
-		if ($allowed) {
-			$only_share_with_own_group = \OC::$server->getConfig()->getAppValue('core', 'shareapi_only_share_with_group_members', 'yes') == 'yes';
-			if ($only_share_with_own_group) {
-				$sql = 'SELECT DISTINCT displaynames.uid, displaynames.displayname FROM *PREFIX*group_user AS users LEFT JOIN (SELECT  uid, IF(displayname IS NULL, uid, displayname) AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?';
-			} else {
-				$sql = 'SELECT uid, IF(displayname IS NULL, uid, displayname) AS displayname FROM *PREFIX*users';
-			}
-			return $this->findEntities($sql, [$userId]);
-		} else {
-			return false;
-		}
+	public function insertShare($pwid, $shareto, $sharekey) {
+		$sql = 'INSERT INTO *PREFIX*passwords_share (id, pwid, sharedto, sharekey) VALUES (NULL, ?, ?, ?)';
+		$sql = $this->db->prepare($sql);
+		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
+		$sql->bindParam(2, $shareto, \PDO::PARAM_STR);
+		$sql->bindParam(3, $sharekey, \PDO::PARAM_STR);
+		$sql->execute();
+		return true;
+	}
+
+	public function deleteShare($pwid, $shareto) {
+		$sql = 'DELETE FROM *PREFIX*passwords_share WHERE pwid = ? AND sharedto = ?';
+		$sql = $this->db->prepare($sql);
+		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
+		$sql->bindParam(2, $shareto, \PDO::PARAM_STR);
+		$sql->execute();
+		return true;
+	}
+	public function deleteSharesbyID($pwid) {
+		$sql = 'DELETE FROM *PREFIX*passwords_share WHERE pwid = ?';
+		$sql = $this->db->prepare($sql);
+		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
+		$sql->execute();
+		return true;
+	}
+
+	public function getShareKey($pwid, $userId) {
+		$sql = 'SELECT * FROM *PREFIX*passwords_share WHERE pwid= ? AND sharedto = ?';
+		//return $this->findEntity($sql, [$id, $userId]);
+		$sql = $this->db->prepare($sql);
+		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
+		$sql->bindParam(2, $userId, \PDO::PARAM_STR);
+		$sql->execute();
+		$row = $sql->fetch();
+		$sql->closeCursor();
+		return $row['sharekey'];
 	}
 }
