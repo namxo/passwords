@@ -1,4 +1,8 @@
 ####17.3 (18 *alpha*) - NOT RELEASED
+* Added sharing! Share all your passwords with others (you can trust)!
+ * The users you can share with, is based on the admin settings (only from your own group, or all users, ...)
+ * Icons indicate to how many users you've shared a specific password
+ * It uses a random share key (32 hexadecimal characters) that is created everytime a share is created. This key is saved to a new (third) database table, `oc_passwords_share`, and to the encrypted `properties` column of the password owner. When the keys match, the password will be decrypted on the other user's side.
 * This app can now fully be controlled remotely! This makes it technically possible to use ownCloud Passwords on Android, iPhones, remote servers, you name it. Other authors have already made browser plugins available for Firefox and Chrome. No strict need to use the website of ownCloud anymore, but it all works just as safe. 
  * Changed RESTful API to support GET, POST, DELETE, PUT, PATCH
  * Moved all calculation classes to server-side (translated JavaScript to PHP, which is all PHP 7 safe)
