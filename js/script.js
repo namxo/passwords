@@ -1543,7 +1543,7 @@ function formatTable(update_only, rows) {
 			if (!is_sharedby) {
 				html_row += '<td class="icon-delete"></td>';
 			} else {
-				html_row += '<td class=""></td>';
+				html_row += '<td></td>';
 			}
 
 			html_row += '</tr>';
