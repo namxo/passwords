@@ -1,4 +1,4 @@
-####17.3 (18 *alpha*) - NOT RELEASED
+####18 - NOT RELEASED
 * Added sharing! Share all your passwords with others (you can trust)!
  * The users you can share with, is based on the admin settings (only from your own group, or all users, ...)
  * Icons indicate to how many users you've shared a specific password
