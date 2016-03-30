@@ -692,7 +692,7 @@
 					// popUp function works with parameters: 
 					// popUp(title, value, type, address_value, website, username);
 
-					if (is_category && !is_sharedby) {
+					if (is_category) {
 						popUp(t('passwords', 'Category'), $row.attr('attr_category'), 'category', '', $row.attr('attr_website'), $row.attr('attr_loginname'));
 						$('#accept').click(function() {
 							$row.attr('attr_category', $('#new_value_popup select').val());
