@@ -53,5 +53,5 @@ Use one of the following options, login as admin on ownCloud and enable the app.
 * **ownCloud App store** 
  * I refuse to support this. This system demands repackaging of releases and kills the possibility to freely use GitHub master versions. Repackaging of releases is prone to human error and adds invisible system files on Mac (like `.DS_Store`) and Windows (like `Thumbs.db`), really undesirable. The ownCloud team should really alter the behaviour of ownCloud pulling apps from their app store, instead of letting app developers change their GitHub workflow (as I've been telling them for months).
 
-### Credits
-I would like to thank Anthony Ferrara ([ircmaxell](http://careers.stackoverflow.com/ircmaxell)), for [teaching the world how to properly set up](http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved/5093422#5093422) security in PHP.
+## Credits
+A big thanks to all participants in this project. I thank Anthony Ferrara ([ircmaxell](http://careers.stackoverflow.com/ircmaxell)), for [teaching the world how to properly set up](http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved/5093422#5093422) security in PHP.
