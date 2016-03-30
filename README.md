@@ -49,7 +49,7 @@ Use one of the following options, login as admin on ownCloud and enable the app.
  * [Click here to view the latest official release](https://github.com/fcturner/passwords/releases/latest) or, for the very last master version, [click here to download the zip](https://github.com/fcturner/passwords/archive/master.zip) or [here to download the tar.gz](https://github.com/fcturner/passwords/archive/master.tar.gz).
  * Copy, unzip or untar the folder 'passwords' to /owncloud/apps/ (**remember that the folder must be called 'passwords'**).
 * **Git clone** 
- * Use the command `git clone https://github.com/fcturner/passwords.git /var/www/owcloud/apps/passwords` (assuming `/var/www/owcloud` as your owncloud root location).
+ * Use the command `git clone https://github.com/fcturner/passwords.git /var/www/owcloud/apps/passwords` (assuming `/var/www/owcloud` as your ownCloud root location).
 * **ownCloud App store** 
  * I refuse to support this. This system demands repackaging of releases and kills the possibility to freely use GitHub master versions. Repackaging of releases is prone to human error and adds invisible system files on Mac (like `.DS_Store`) and Windows (like `Thumbs.db`), really undesirable. ownCloud should really alter the behaviour of ownCloud pulling apps from their app store, instead of letting app developers change their GitHub workflow (as I've been telling them for months).
 
