@@ -6,11 +6,11 @@
 ###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
 
 ## Summary
-This is a Password Manager for generating, **sharing**, editing, and categorizing passwords (see 'img'-folder for screenshots) in ownCloud. It features **both client side and server side encryption** (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read [Security part](https://github.com/fcturner/passwords#security) for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).
+This is a Password Manager for generating, **SHARING**, editing, and categorizing passwords (see 'img'-folder for screenshots) in ownCloud. It features **both client side and server side encryption** (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read [Security part](https://github.com/fcturner/passwords#security) for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).
 
 This app is primarily intended as a password MANAGER, e.g. for a local ownCloud instance on your own WPA2 protected LAN. If you trust yourself enough as security expert, you can use this app behind an SSL secured server for a neat cloud solution. The app will be blocked (with message) if not accessed thru https, which will result in your passwords not being loaded (decrypted) and shown. To prevent this, use ownClouds own 'Force SSL'-function on the admin page, or use HSTS (HTTP Strict Transport Security) on your server. Also, make sure your server hasn't any kind of vulnerabilities (POODLE, CSRF, XSS, SQL Injection, Privilege Escalation, Remote Code Execution, to name a few).
 
-The script for creating passwords can be found in [`/js/script.js`](/js/script.js#L1612-L1691).
+The script for creating passwords can be found in [`/js/script.js`](/js/script.js#L1666-L1745).
 
 ## Security
 ### Password generation
@@ -24,7 +24,7 @@ This app features both **server-side encryption** (since encryption takes place 
 * It hides the [Initialization vector](http://en.wikipedia.org/wiki/Initialization_vector) (IV).
 * It uses a [timing-safe comparison](http://blog.ircmaxell.com/2014/11/its-all-about-time.html) function using [double Hash-based Message Authentication Code](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code) (HMAC) verification of the source data.
 
-For sharing, an ad hoc sharekey is created everytime a share is initiated. This is a strong hash. The sharing key is stored encrypted as above for the user who shares a password and copied to another table where this key matches the password ID and the ownCloud ID of the user to whom the password is shared with. If the share keys match, the password will be decrypted at the user's side where the password was shared with. 
+For sharing, an ad hoc sharekey is created everytime a share is initiated. This is a strong hash. The sharing key is stored encrypted as above for the user who shares a password and copied to another table where this key matches the password ID and the ownCloud ID of the user to whom the password is shared with. If the share keys match, the password will be decrypted at the shared user's side too. 
 
 ### Decryption (for pulling from database)
 All passwords are encrypted with user-specific, ownCloud-specific and server-specific keys. This means passwords can be decrypted:
@@ -44,8 +44,14 @@ There is a built in option to view website icons in the password table. This can
 * [https://www.google.com/s2/favicons?domain=owncloud.org](https://www.google.com/s2/favicons?domain=owncloud.org) (16x16 pixels)
 
 ## Installation
-* Download [this latest release](https://github.com/fcturner/passwords/releases/latest) and copy the folder 'passwords' to /owncloud/apps/ (**remember that the folder must be called 'passwords'**). Login as admin and enable the app. The database tables `oc_passwords` and `oc_passwords_categories` will be created automatically (assuming `_oc` as prefix).
-* Use `git clone https://github.com/fcturner/passwords.git /var/www/owcloud/apps/passwords`
+Use one of the following options, login as admin on ownCloud and enable the app. The database tables `oc_passwords`, `oc_passwords_categories` and `oc_passwords_share` will be created automatically (assuming `_oc` as prefix).
+* **Manual download and installation** 
+ * [Click here to view the latest official release](https://github.com/fcturner/passwords/releases/latest) or, for the very last master version, [click here to download the zip](https://github.com/fcturner/passwords/archive/master.zip) or [here to download the tar.gz](https://github.com/fcturner/passwords/archive/master.tar.gz).
+ * Copy, unzip or untar the folder 'passwords' to /owncloud/apps/ (**remember that the folder must be called 'passwords'**).
+* **Git clone** 
+ * Use the command `git clone https://github.com/fcturner/passwords.git /var/www/owcloud/apps/passwords` (assuming /var/www/owcloud as your owncloud root location).
+* **ownCloud App store** 
+ * I refuse to support this. This system demands repackaging of releases and kills the possibility to freely use GitHub master versions. Repackaging of releases is prone to human error and adds invisible system files on Mac (like `.DS_Store`) and Windows (like `Thumbs.db`), really undesirable. ownCloud should really alter the behaviour of ownCloud pulling apps from their app store, instead of letting app developers change their GitHub workflow (as I've been telling them for months).
 
 ### Credits
 I would like to thank Anthony Ferrara ([ircmaxell](http://careers.stackoverflow.com/ircmaxell)), for [teaching the world how to properly set up](http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved/5093422#5093422) security in PHP.
