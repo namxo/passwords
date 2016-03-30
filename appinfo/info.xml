@@ -16,11 +16,17 @@
     <version>18.0</version>
     <namespace>Passwords</namespace>
     <category>tool</category>
+    <website>https://github.com/fcturner/passwords</website>
+    <bugs>https://github.com/fcturner/passwords/issues</bugs>
+    <repository type="git">https://github.com/fcturner/passwords.git</repository>
     <dependencies>
         <owncloud min-version="8.0" max-version="9.0"/>
+        <database>sqlite</database>
+        <database>mysql</database>
         <lib>mcrypt</lib>
     </dependencies>
     <documentation>
 	<user>https://github.com/fcturner/passwords/blob/master/README.md</user>
+	<admin>https://github.com/fcturner/passwords/wiki</admin>
     </documentation>
 </info>
