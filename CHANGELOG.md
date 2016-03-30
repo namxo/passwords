@@ -12,6 +12,7 @@
 * Allow tabs for input in notes field (so pressing Tab doesn't switch to another field, but instead inserts a tab)
 * Filtering a category now only searches active passwords, ignoring passwords in the trash bin
 * Changed all deprecated PHP classes, to follow ownCloud's guidelines
+* Removed PostgreSQL support, for now (I'll try to support it from 18.1 on again)
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
 * Fix for reset of category list after adding a password
