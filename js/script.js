@@ -434,6 +434,8 @@
 								typeTitle = t('passwords', 'Password');
 								break;
 						}
+						$('#commands_popup').slideUp(100);
+						$('.activerow').removeClass('activerow');
 						window.prompt(typeTitle + ':', $('#cmd_value').val());
 					});
 				}
@@ -1479,29 +1481,33 @@ function formatTable(update_only, rows) {
 				$('#column_datechanged').hide();
 			}
 
-			var cat_set = false;
 			// category
-			if (!row.category || row.category == 0) {
-				html_row += '<td class="icon-category cell_category"></td>';
-			} else {
-				if ($('#CategoriesTableContent').html() == '') {
-					// categories not yet populated, give second to load
-					setTimeout(function() {
-					}, 1000);
-				}
-				$('#CategoriesTableContent tr').each(function() {
-					var cat_id = $(this).find('.catTable_id').text();
-					if (cat_id == row.category) {
-						var cat_bg = $(this).find('.catTable_bg').text();
-						var cat_fg = getContrastYIQ(cat_bg);
-						var cat_name = $(this).find('.catTable_name').text();
-						html_row += '<td class="cell_category"><div class="category" style="color:#' + cat_fg + ';background-color:#' + cat_bg + ';">' + cat_name + '</div></td>';
-						cat_set = true;
-					}
-				});
-				if (!cat_set) {
+			if (!is_sharedby) {
+				var cat_set = false;
+				if (!row.category || row.category == 0) {
 					html_row += '<td class="icon-category cell_category"></td>';
+				} else {
+					if ($('#CategoriesTableContent').html() == '') {
+						// categories not yet populated, give second to load
+						setTimeout(function() {
+						}, 1000);
+					}
+					$('#CategoriesTableContent tr').each(function() {
+						var cat_id = $(this).find('.catTable_id').text();
+						if (cat_id == row.category) {
+							var cat_bg = $(this).find('.catTable_bg').text();
+							var cat_fg = getContrastYIQ(cat_bg);
+							var cat_name = $(this).find('.catTable_name').text();
+							html_row += '<td class="cell_category"><div class="category" style="color:#' + cat_fg + ';background-color:#' + cat_bg + ';">' + cat_name + '</div></td>';
+							cat_set = true;
+						}
+					});
+					if (!cat_set) {
+						html_row += '<td class="icon-category cell_category"></td>';
+					}
 				}
+			} else {
+				html_row += '<td></td>';
 			}
 
 
