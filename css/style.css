@@ -323,13 +323,14 @@ tr.activerow > .orange span {
 	opacity: 1;
 	cursor: pointer;
 }
-#PasswordsTableContent .icon-info,
 #PasswordsTableContent .icon-category,
+#PasswordsTableContent .icon-notes,
+#PasswordsTableContent .icon-info,
 #PasswordsTableContent .icon-share,
 #PasswordsTableContent .icon-shared,
-#PasswordsTableContent .icon-public {
-	min-width: 30px !important;
-	background-size: 26px !important;
+#PasswordsTableContent .icon-public,
+#PasswordsTableContent .icon-delete {
+	background-size: 22px !important;
 }
 
 .is_sharedby {
@@ -373,7 +374,7 @@ tr.activerow > .orange span {
 #column_info,
 #column_share,
 #column_delete {
-	width: 40px;
+	width: 30px;
 }
 .has-note {
 	opacity: 1 !important;
@@ -593,6 +594,12 @@ h3 {
   color: #a00;
   font-weight: bold;
 }
+#btn_edit:hover,
+#btn_copy:hover {
+	/*fix for ZeroClipboard*/
+	background-color: rgba(240, 240, 240, .9) !important;
+	color: #555;
+}
 #app-navigation {
 	border-right: 0 !important;
 }
@@ -753,6 +760,8 @@ orange {
 	-webkit-transition: all 300ms;
 	transition: all 300ms;
 	z-index: 9999;
+	max-height: 75%;
+	overflow-y: scroll;
 }
 #popupTitle {
 	width: 100%;
@@ -772,7 +781,7 @@ orange {
 #popupContent {
 	width: 100%;
 	height: 75%;
-	background: #eee;
+	background: #fff;
 	padding: 10px;
 }
 #popupInvalid {
