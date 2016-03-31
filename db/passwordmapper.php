@@ -19,7 +19,7 @@ class PasswordMapper extends Mapper {
 
 		// get all passwords of this user and all passwords that are shared with this user (still encrypted)
 		$sql = 'SELECT * FROM *PREFIX*passwords ' . 
-				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?)';
+				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?) ';
 
 		// now get all uid's and displaynames this user is eligable to share with
 		$sharing_allowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes') == 'yes';
@@ -30,9 +30,9 @@ class PasswordMapper extends Mapper {
 					'SELECT  ' .
 						'DISTINCT displaynames.uid as id, ' .
 						'displaynames.displayname as user_id, ' .
+						'NULL as loginname, ' .
 						'displaynames.uid as website, ' .
 						'NULL as address, ' .
-						'NULL as loginname, ' .
 						'NULL as pass, ' .
 						'NULL as properties, ' .
 						'NULL as notes, ' .
@@ -47,9 +47,9 @@ class PasswordMapper extends Mapper {
 					'SELECT  ' .
 						'uid as id, ' .
 						'IF(displayname IS NULL, uid, displayname) as user_id, ' .
+						'NULL as loginname, ' .
 						'uid as website, ' .
 						'NULL as address, ' .
-						'NULL as loginname, ' .
 						'NULL as pass, ' .
 						'NULL as properties, ' .
 						'NULL as notes, ' .
