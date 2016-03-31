@@ -22,6 +22,7 @@
 * Fix for popup on smaller screens (mobile phones): the popup is now scrollable when it covers more than 75% of the browsers height
 * Changed popup background to better show buttons like 'Generate password'
 * Fix for website icons not always showing
+* Fix for password column width
 
 ####17.2 - Mar 12, 2016
 * Fix for saving and updating a password on PostgreSQL backends
