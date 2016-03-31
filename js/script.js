@@ -1363,7 +1363,7 @@ function formatTable(update_only, rows) {
 			if (typeof row.strength == 'undefined') {
 				row.strength = -1;
 			}
-			if (typeof row.sharedwith != 'undefined') {
+			if (typeof row.sharedwith != 'undefined' && row.sharedwith != '') {
 				is_sharedto = true;
 				html_row += 'attr_sharedwith="' + row.sharedwith + '" ';
 			} else {
