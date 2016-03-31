@@ -280,8 +280,9 @@
 				var table = document.getElementById('PasswordsTableTestOld');
 				if (table) {
 					for (var i = 0; i < table.rows.length; i++) {
-						// test for login names, should not exist since they're serialized in properties column
-						if (table.rows[i].cells[1].textContent != '') {
+						// test for login names (= [1]), should not exist since they're serialized in properties column
+						// but if they do, website (= [0]) must be filled too, gives error on >= v18 otherwise
+						if (table.rows[i].cells[0].textContent != '' && table.rows[i].cells[1].textContent != '') {
 							var updateReq = true;
 						}
 					}
@@ -922,7 +923,8 @@
 
 				// search function
 				$('#search_text').keyup(function() {
-					var $rows = $('#PasswordsTableContent tr').not('thead tr');
+					$('#list_active').click(); // first to active list; filter must not work on trashed items
+					var $rows = $('#PasswordsTableContent tr').not('thead tr').not('.is_deleted');
 					var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 
 					// filter
@@ -1080,6 +1082,7 @@
 				});
 				// for select box above search bar
 				$('#nav_category_list').change(function() {
+
 					if ($('#nav_category_list select').val() == '(change)') {
 						$('#nav_category_list select').val(0);
 						$('#nav_category_list select').attr('style', '');
@@ -1090,6 +1093,7 @@
 						}
 						$('#editCategories').click();
 					} else if ($('#nav_category_list select').val() != 0) {
+						$('#list_active').click(); // first to active list; filter must not work on trashed items
 						var bg = $('#nav_category_list').find(':selected').attr('bg');
 						var fg = $('#nav_category_list').find(':selected').attr('fg')
 						$('#nav_category_list select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important;');
@@ -2645,8 +2649,18 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 
 	} else if (type == 'category') {
 		$('#popupContent').append('<div id="new_value_popup">' + $('#new_category').html() + '</div>');
-		$('#new_value_popup select option').last().remove(); // no Edit categories
-		$('#new_value_popup select').val(value);
+		if ($('#new_category').html().indexOf(t('passwords', 'No categories')) == -1) {
+			$('#new_value_popup select option').last().remove(); // no Edit categories
+			$('#new_value_popup select').val(value);
+		}
+		$('#popupContent').append('<button id="editCategoriespopup">' + t('passwords', 'Edit categories') + '</button>');
+		$('#editCategoriespopup').click(function() {
+			removePopup();
+			$('#app-settings-content').hide(200);
+			$('#sidebarClose').click();
+			$('#section_table').hide(200);
+			$('#section_categories').show(400);
+		});
 
 	} else if (type == 'share') {
 		if (!ShareUsersAvailable) {
@@ -2705,8 +2719,8 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 
 	$('<div/>', {id: 'popupButtons'}).appendTo($('#popup'));	
 	$('<button/>', {id:'cancel', text:t('passwords', 'Cancel')}).appendTo($('#popupButtons'));
-	if (!sharedby && ShareUsersAvailable) {
-		if (type == 'share') {
+	if (!sharedby) {
+		if (type == 'share' && ShareUsersAvailable) {
 			$('<button/>', {id:'accept', text:t('passwords', 'Share')}).appendTo($('#popupButtons'));
 		} else {
 			$('<button/>', {id:'accept', text:t('passwords', 'Save')}).appendTo($('#popupButtons'));
