@@ -10,9 +10,10 @@
  * Firefox addon: [here](https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords) (thanks to [@eglia](https://github.com/eglia)) 
  * Chrome extension: [here](https://github.com/thefirstofthe300/ownCloud-Passwords) (thanks to [@thefirstofthe300](https://github.com/thefirstofthe300))
 * Allow tabs for input in notes field (so pressing Tab doesn't switch to another field, but instead inserts a tab)
-* Filtering a category now only searches active passwords, ignoring passwords in the trash bin
+* Filtering a category or text now only searches active passwords, ignoring passwords in the trash bin
+* Added 'Edit categories' button to category popup
 * Changed all deprecated PHP classes, to follow ownCloud's guidelines
-* Removed PostgreSQL support, for now (I'll try to support it from 18.1 on again)
+* Dropped support for PostgreSQL, for now (I'll try to support it from 18.1 on again)
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
 * Fix for reset of category list after adding a password
