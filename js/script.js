@@ -1324,10 +1324,10 @@ function formatTable(update_only, rows) {
 			}
 
 			if (row.id == 0) {
-				var uid = row.website;
+				var uid = row.website || row.user_id;
 				var displayname = row.user_id;
 				$('#ShareUsersTableContent').append('<tr><td class="share_uid">' + uid + '</td><td class="share_displayname">' + displayname + '</td></tr>');
-				if (displayname != $('#expandDisplayName').text()) {
+				if (displayname != $('#expandDisplayName').text()) { // do not include yourself
 					if (uid != displayname) {
 						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><strong>' + displayname + '</strong> (' + uid + ')</label><br>');
 					} else {
