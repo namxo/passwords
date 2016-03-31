@@ -5,6 +5,8 @@
 
 ###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
 
+![Overview of ownCloud Passwords](img/screenshot3.PNG)
+
 ## Summary
 This is a Password Manager for generating, **SHARING**, editing, and categorizing passwords (see 'img'-folder for screenshots) in ownCloud. It features **both client side and server side encryption** (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read [Security part](https://github.com/fcturner/passwords#security) for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).
 
