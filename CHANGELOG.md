@@ -18,6 +18,7 @@
 * Fix for scrollbar on sidebar
 * Fix for reset of category list after adding a password
 * Fix for losing a full URL when password was changed
+* Fix for popup on smaller screens (mobile phones): the popup is now scrollable when it covers more than 75% of the browsers height
 
 ####17.2 - Mar 12, 2016
 * Fix for saving and updating a password on PostgreSQL backends
