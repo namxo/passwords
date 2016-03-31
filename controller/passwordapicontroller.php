@@ -69,9 +69,9 @@ class PasswordApiController extends ApiController {
 	 * @param string $loginname
 	 * @param string $website
 	 */
-	public function update($id, $website, $pass, $loginname, $address, $notes, $category, $deleted, $datechanged) {
-		return $this->handleNotFound(function () use ($id, $website, $pass, $loginname, $address, $notes, $category, $deleted, $datechanged) {
-			return $this->service->update($id, $website, $pass, $loginname, $address, $notes, $category, $deleted, $datechanged, $this->userId);
+	public function update($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged) {
+		return $this->handleNotFound(function () use ($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged) {
+			return $this->service->update($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged, $this->userId);
 		});
 	}
 

@@ -2,7 +2,7 @@
 <info>
     <id>passwords</id>
     <name>Passwords</name>
-    <description>This is a Password Manager with both client side and server side encryption for viewing, editing, categorizing and generating passwords. 
+    <description>This is a Password Manager with both client side and server side encryption for generating, sharing, editing, and categorizing passwords. 
     	This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
 
         You can insert and import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0). Passwords are stored into the ownCloud database with combined EtM (Encrypt-then-MAC) and MCRYPT_BLOWFISH encryption (read Security part in Documentation for details). 
@@ -13,14 +13,20 @@
     </description>
     <licence>AGPL</licence>
     <author>Fallon Turner</author>
-    <version>17.3</version>
+    <version>18.0</version>
     <namespace>Passwords</namespace>
     <category>tool</category>
+    <website>https://github.com/fcturner/passwords</website>
+    <bugs>https://github.com/fcturner/passwords/issues</bugs>
+    <repository type="git">https://github.com/fcturner/passwords.git</repository>
     <dependencies>
         <owncloud min-version="8.0" max-version="9.0"/>
+        <database>sqlite</database>
+        <database>mysql</database>
         <lib>mcrypt</lib>
     </dependencies>
     <documentation>
 	<user>https://github.com/fcturner/passwords/blob/master/README.md</user>
+	<admin>https://github.com/fcturner/passwords/wiki</admin>
     </documentation>
 </info>

@@ -24,7 +24,7 @@ class PasswordService {
 
 		$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 		
-		foreach($arr as $row => $value)
+		foreach ($arr as $row => $value)
 		{
 			$userKey = $arr[$row]['user_id'];
 			$userSuppliedKey = $arr[$row]['website'];
@@ -36,24 +36,29 @@ class PasswordService {
 
 			$e2 = new Encryption(MCRYPT_BLOWFISH, MCRYPT_MODE_CBC);
 			$key = Encryption::makeKey($userKey, $serverKey, $userSuppliedKey);
-			
-			$arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
 			$arr[$row]['properties'] = $e2->decrypt($encryptedProperties, $key);
-			
 			// notes for backwards compatibility with versions prior to v17
 			$arr[$row]['notes'] = $e2->decrypt($encryptedPassNotes, $key);
+
+			if ($userKey != $userId && $arr[$row]['id'] != 0) {
+				// check for sharekey
+				$getShare = $this->mapper->getShareKey($arr[$row]['id'], $userId);
+				$getSharearr = json_decode(json_encode($getShare), true);
+				$sharekey_activeuser = $getSharearr['sharekey'];
+				$pos = strrpos($arr[$row]['properties'], $sharekey_activeuser);
+				if ($pos !== false) {
+				    $arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
+				} else {
+					$arr[$row]['pass'] = 'oc_passwords_invalid_sharekey';
+					\OCP\Util::writeLog('passwords', "No valid sharekey found for user '" . $userId . "' while decrypting passwords.id: " . $arr[$row]['id'], \OCP\Util::WARN);
+				}
+			} else {
+				$arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
+			}
 		}
 
 		return $arr;
 
-	}
-
-	public function shareUsers($userId) {
-		try {
-			return $this->mapper->shareUsers($userId);
-		} catch(Exception $e) {
-			$this->handleException($e);
-		}
 	}
 
 	private function handleException ($e) {
@@ -82,12 +87,23 @@ class PasswordService {
 
 			$e2 = new Encryption(MCRYPT_BLOWFISH, MCRYPT_MODE_CBC);
 			$key = Encryption::makeKey($userKey, $serverKey, $userSuppliedKey);
-			
-			$arr['pass'] = $e2->decrypt($encryptedPass, $key);
 			$arr['properties'] = $e2->decrypt($encryptedProperties, $key);
-			
 			// notes for backwards compatibility with versions prior to v17
 			$arr['notes'] = $e2->decrypt($encryptedPassNotes, $key);
+
+			if ($userKey != $userId && $arr['id'] != 0) {
+				// check for sharekey
+				$sharekey_activeuser = $this->mapper->getShareKey($arr['id'], $userId);
+				$pos = strrpos($arr['properties'], $sharekey_activeuser);
+				if ($pos !== false) {
+				    $arr['pass'] = $e2->decrypt($encryptedPass, $key);
+				} else {
+					$arr['pass'] = 'oc_passwords_invalid_sharekey';
+					\OCP\Util::writeLog('passwords', "No valid sharekey found for user '" . $userId . "' while decrypting passwords.id: " . $arr['id'], \OCP\Util::WARN);
+				}
+			} else {
+				$arr['pass'] = $e2->decrypt($encryptedPass, $key);
+			}
 
 			return $arr;
 
@@ -139,7 +155,22 @@ class PasswordService {
 		return $this->mapper->insert($password);
 	}
 
-	public function update($id, $website, $pass, $loginname, $address, $notes, $category, $deleted, $datechanged, $userId) {
+	public function update($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged, $userId) {
+
+		// remove old sharekeys and shares of this password
+		$removesharekey = $this->mapper->deleteSharesbyID($id);
+		if (count($sharewith) > 0) {
+			if (function_exists('random_bytes')) {
+				// PHP 7 only
+				$sharekey = bin2hex(random_bytes(16)); 
+			} else {
+				$sharekey = \OC::$server->getSecureRandom()->generate(32, 'abcdef0123456789');
+			}
+			// add new sharekeys to db
+			for ($x = 0; $x < count($sharewith); $x++) {
+				$addsharekey = $this->mapper->insertShare($id, $sharewith[$x], $sharekey);
+			}
+		}
 
 		$properties = 
 			'"loginname" : "' . $loginname . '", ' .
@@ -153,6 +184,13 @@ class PasswordService {
 			'"category" : "' . $category . '", ' .
 			'"datechanged" : "' . $datechanged . '", ' .
 			'"notes" : "' . $notes . '"';
+
+		if (count($sharewith) > 0) {
+			$properties = 
+				$properties . ', ' .
+				'"sharekey" : "' . $sharekey . '", ' .
+				'"sharedwith" : "' . implode(",", $sharewith) . '"';
+		}
 
 		try {
 			$userKey = $userId;
@@ -196,16 +234,16 @@ class PasswordService {
 
 class Calculations {
 
-	public function strhaslower($str) {
+	public static function strhaslower($str) {
 		return (strtoupper($str) != $str) ? 1 : 0;
 	}
-	public function strhasupper($str) {
+	public static function strhasupper($str) {
 		return (strtolower($str) != $str) ? 1 : 0;
 	}
-	public function strhasnumber($str) {
+	public static function strhasnumber($str) {
 		return (preg_match('/[0-9]/', $str)) ? 1 : 0;
 	}
-	public function strhasspecial($str) {
+	public static function strhasspecial($str) {
 		for ($i = 0; $i <= strlen($str); $i++) {
 			$number = 0;
 			$number = Calculations::uniord(substr($str, $i, 1));
@@ -226,7 +264,7 @@ class Calculations {
 		// no special chars
 		return 0;
 	}
-	public function pwstrength($password) {
+	public static function pwstrength($password) {
 
 		$hasLowerCase = false;
 		$hasUpperCase = false;
@@ -311,7 +349,7 @@ class Calculations {
 
 		return $strength_calc;
 	}
-	public function uniord($c) {
+	public static function uniord($c) {
 		// http://stackoverflow.com/a/10333324
 		// used to replace JS's 'charCodeAt' function
 		$h = ord($c{0});
