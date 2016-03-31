@@ -76,6 +76,6 @@ session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifet
 			$passwordsversion = OC::$server->getConfig()->getAppValue('passwords', 'installed_version', '');
 		?>
 		<hr>
-		<p id="githubref"><a href="https://github.com/fcturner/passwords/"><?php p($instancename . ' ' . $passwordsname) ?></a>, v<?php p($passwordsversion) ?></p>
+		<p id="githubref"><a href="https://github.com/fcturner/passwords/" target="_blank"><?php p($instancename . ' ' . $passwordsname) ?></a>, v<?php p($passwordsversion) ?></p>
 	</div>
 </div>
