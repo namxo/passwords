@@ -1,7 +1,7 @@
 <div id="app-settings" 
 sharing-allowed="<?php p(OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes')) ?>" 
 active-table="active" 
-session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifetime', 60)) ?>">
+session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifetime', 60*15)) ?>">
 	<textarea id="session_lifetime" disabled="true"></textarea>
 	<div id="CSVtableDIV">
 		<textarea id="CSVcontent"></textarea>
