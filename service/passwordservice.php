@@ -234,16 +234,16 @@ class PasswordService {
 
 class Calculations {
 
-	public function strhaslower($str) {
+	public static function strhaslower($str) {
 		return (strtoupper($str) != $str) ? 1 : 0;
 	}
-	public function strhasupper($str) {
+	public static function strhasupper($str) {
 		return (strtolower($str) != $str) ? 1 : 0;
 	}
-	public function strhasnumber($str) {
+	public static function strhasnumber($str) {
 		return (preg_match('/[0-9]/', $str)) ? 1 : 0;
 	}
-	public function strhasspecial($str) {
+	public static function strhasspecial($str) {
 		for ($i = 0; $i <= strlen($str); $i++) {
 			$number = 0;
 			$number = Calculations::uniord(substr($str, $i, 1));
@@ -264,7 +264,7 @@ class Calculations {
 		// no special chars
 		return 0;
 	}
-	public function pwstrength($password) {
+	public static function pwstrength($password) {
 
 		$hasLowerCase = false;
 		$hasUpperCase = false;
