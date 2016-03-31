@@ -727,6 +727,17 @@ orange {
 	/* This is a bugfix for IE7 and lower */
 	display: none;
 }
+#githubref,
+#githubref a {
+	color: #555;
+	text-align: center;
+}
+#githubref a {
+	font-weight: bold;
+}
+#githubref a:hover {
+	text-decoration: underline;
+}
 
 #subtitle {
 	font-style: italic;
