@@ -593,9 +593,6 @@ h3 {
   color: #a00;
   font-weight: bold;
 }
-button.settings-button {
-	border: 1px solid #ddd;
-}
 #app-navigation {
 	border-right: 0 !important;
 }
