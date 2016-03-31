@@ -719,6 +719,9 @@ orange {
 .dateChanged {
 	font-weight: bold;
 }
+#app-settings-header {
+	border: 1px solid #eee !important;
+}
 #app-settings-backup {
 	/* Will be shown when backup_allowed is true */
 	/* This is a bugfix for IE7 and lower */
