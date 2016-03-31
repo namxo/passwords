@@ -330,7 +330,7 @@ tr.activerow > .orange span {
 #PasswordsTableContent .icon-shared,
 #PasswordsTableContent .icon-public,
 #PasswordsTableContent .icon-delete {
-	background-size: 22px !important;
+	background-size: 28px !important;
 }
 
 .is_sharedby {
