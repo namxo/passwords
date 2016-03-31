@@ -70,5 +70,12 @@ session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifet
 			<input type="file" id="upload_csv" accept=".csv" >
 		</div>
 		<br>
+		<?php
+			$instancename = $theme->getName();
+			$passwordsname = $l->t("Passwords");
+			$passwordsversion = OC::$server->getConfig()->getAppValue('passwords', 'installed_version', '');
+		?>
+		<hr>
+		<p id="githubref"><a href="https://github.com/fcturner/passwords/"><?php p($instancename . ' ' . $passwordsname) ?></a>, v<?php p($passwordsversion) ?></p>
 	</div>
 </div>
