@@ -357,12 +357,10 @@ tr.activerow > .orange span {
 	color: #fff !important;
 }
 
-#column_website {
-	width: 300px;
-}
+#column_website,
 #column_username,
 #column_password {
-	width: 200px;
+	width: 250px;
 }
 #column_strength {
 	width: 100px;
