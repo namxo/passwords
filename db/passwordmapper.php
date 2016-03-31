@@ -18,7 +18,7 @@ class PasswordMapper extends Mapper {
 	public function findAll($userId) {
 
 		// get all passwords of this user and all passwords that are shared with this user (still encrypted)
-		$sql = 'SELECT * FROM *PREFIX*passwords ' . 
+		$sql = 'SELECT id, user_id, loginname, website, address, pass, properties, notes, creation_date, deleted FROM *PREFIX*passwords ' . 
 				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?) ';
 
 		// now get all uid's and displaynames this user is eligable to share with
