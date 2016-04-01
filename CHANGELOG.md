@@ -1,14 +1,15 @@
-####18.0 - NOT RELEASED
+####18.0 - NOT YET RELEASED
 * Added sharing! Share all your passwords with others (you can trust)!
  * The users you can share with, is based on the admin settings (only from your own group, or all users, ...)
  * Icons indicate to how many users you've shared a specific password
  * It uses a random share key (32 hexadecimal characters) that is created everytime a share is created. This key is saved to a new (third) database table, `oc_passwords_share`, and to the encrypted `properties` column of the password owner. When the keys match, the password will be decrypted on the other user's side.
 * This app can now fully be controlled remotely! This makes it technically possible to use ownCloud Passwords on Android, iPhones, remote servers, you name it. Other authors have already made browser plugins available for Firefox and Chrome. No strict need to use the website of ownCloud anymore, but it all works just as safe. 
- * Changed RESTful API to support GET, POST, DELETE, PUT, PATCH
+ * Changed RESTful API to support GET, POST, DELETE, and PUT
  * Moved all calculation classes to server-side (translated JavaScript to PHP, which is all PHP 7 safe)
- * Wrote documentation for API use: <https://github.com/fcturner/passwords/wiki/RESTful-API-for-ownCloud-Passwords>
+ * Wrote documentation for API use: [ownCloud Passwords | RESTful API](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-RESTful-API)
  * Firefox addon: [here](https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords) (thanks to [@eglia](https://github.com/eglia)) 
  * Chrome extension: [here](https://github.com/thefirstofthe300/ownCloud-Passwords) (thanks to [@thefirstofthe300](https://github.com/thefirstofthe300))
+* Created a gallery with screenshots: [ownCloud Passwords | Gallery (screenshots)](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots))
 * Allow tabs for input in notes field (so pressing Tab doesn't switch to another field, but instead inserts a tab)
 * Filtering a category or text now only searches active passwords, ignoring passwords in the trash bin
 * Added 'Edit categories' button to category popup
