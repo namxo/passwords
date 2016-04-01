@@ -40,13 +40,13 @@ class PasswordMapper extends Mapper {
 						'NULL as deleted ' .
 					'FROM *PREFIX*group_user AS users ' .
 						'LEFT JOIN  ' .
-						'(SELECT  uid, IF(displayname IS NULL, uid, displayname) AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
+						'(SELECT uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
 					'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?)';
 			} else {
 				$sql = $sql . 'UNION ALL ' .
 					'SELECT  ' .
 						'uid as id, ' .
-						'IF(displayname IS NULL, uid, displayname) as user_id, ' .
+						'CASE WHEN displayname IS NULL THEN uid ELSE displayname END as user_id, ' .
 						'NULL as loginname, ' .
 						'uid as website, ' .
 						'NULL as address, ' .
