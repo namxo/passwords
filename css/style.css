@@ -273,6 +273,7 @@ tr.activerow > .orange span {
 #cmd_loginname,
 #cmd_pass,
 #cmd_notes,
+#cmd_sharedwith,
 #cmd_category,
 #cmd_address {
 	display: none;
