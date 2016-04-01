@@ -43,6 +43,7 @@ $version = \OC::$server->getConfig()->getAppValue('passwords', 'installed_versio
 		<input type="text" id="cmd_loginname">
 		<input type="text" id="cmd_pass">
 		<input type="text" id="cmd_notes">
+		<input type="text" id="cmd_sharedwith">
 		<input type="text" id="cmd_category">
 	</div>
 	<div id="zeroclipboard_copied">
