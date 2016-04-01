@@ -339,6 +339,7 @@
 					$('#cmd_loginname').val($row.attr('attr_loginname'));
 					$('#cmd_pass').val($row.attr('attr_pass'));
 					$('#cmd_notes').val($row.attr('attr_notes'));
+					$('#cmd_sharedwith').val($row.attr('attr_sharedwith'));
 					$('#cmd_category').val($row.attr('attr_category'));
 					$('#cmd_deleted').val($row.hasClass('is_deleted'));
 					if ($row.hasClass('is_sharedby')) {
@@ -536,7 +537,7 @@
 								break;
 						}
 
-						var success = passwords.updateActive($('#cmd_id').val(), $('#cmd_loginname').val(), $('#cmd_website').val(), $('#cmd_address').val(), $('#cmd_pass').val(), $('#cmd_notes').val(), '', $('#cmd_category').val(), $('#cmd_deleted').val());
+						var success = passwords.updateActive($('#cmd_id').val(), $('#cmd_loginname').val(), $('#cmd_website').val(), $('#cmd_address').val(), $('#cmd_pass').val(), $('#cmd_notes').val(), $('#cmd_sharedwith').val(), $('#cmd_category').val(), $('#cmd_deleted').val());
 						if (success) {
 							var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
 							var view = new View(passwords);
@@ -697,7 +698,7 @@
 						popUp(t('passwords', 'Category'), $row.attr('attr_category'), 'category', '', $row.attr('attr_website'), $row.attr('attr_loginname'));
 						$('#accept').click(function() {
 							$row.attr('attr_category', $('#new_value_popup select').val());
-							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), $row.hasClass('is_deleted'));
+							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_sharedwith'), $row.attr('attr_category'), $row.hasClass('is_deleted'));
 							if (success) {
 								var view = new View(passwords);
 								passwords.loadAll().done(function() {
@@ -755,7 +756,7 @@
 						popUp(t('passwords', 'Notes'), $row.attr('attr_notes'), 'notes', '', $row.attr('attr_website'), $row.attr('attr_loginname'), is_sharedby);
 						$('#accept').click(function() {
 							$row.attr('attr_notes', $('#new_value_popup').val());
-							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), $row.hasClass('is_deleted'));
+							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_sharedwith'), $row.attr('attr_category'), $row.hasClass('is_deleted'));
 							if (success) {
 								if ($row.attr('attr_notes').length == 0) {
 									$cell.removeClass('has-note');
@@ -783,6 +784,7 @@
 
 					if (is_trash) {
 						if (active_table == 'active') {
+							// no sharedwith, so a share will be stopped when the owner deletes the password
 							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), "1");
 							if (success) {
 								$row.addClass('is_deleted');
@@ -2798,6 +2800,7 @@ function trashAllPasswords(Passwords) {
 		var $row = $(this);
 		var $cell = $row.closest('td.icon-info');
 		if (!$row.hasClass('is_deleted')) {
+			// // no sharedwith, so a share will be stopped when the owner deletes the password
 			var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), '1');
 			if (success) {
 				doneTotal++;
