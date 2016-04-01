@@ -191,6 +191,11 @@ class PasswordService {
 				'"sharekey" : "' . $sharekey . '", ' .
 				'"sharedwith" : "' . implode(",", $sharewith) . '"';
 		}
+		
+		// fix for SQLite, overriding NULL value
+		if ($deleted != '1') {
+			$deleted = '0';
+		}
 
 		try {
 			$userKey = $userId;
