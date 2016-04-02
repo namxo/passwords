@@ -13,7 +13,7 @@ Click [here for the gallery with more screenshots](https://github.com/fcturner/p
 Click [here for the gallery with more screenshots](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots)).
 
 ## Summary
-This is a Password Manager for generating, **SHARING**, editing, and categorizing passwords (see 'img'-folder for screenshots) in ownCloud. It features **both client side and server side encryption** (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read [Security part](https://github.com/fcturner/passwords#security) for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).
+This is a Password Manager for generating, **SHARING**, editing, and categorizing passwords in ownCloud 8 and ownCloud 9 ([see 'img'-folder](/img/) for screenshots or [here for the gallery](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots))). It features **both client side and server side encryption** (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read [Security part](https://github.com/fcturner/passwords#security) for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).
 
 This app is primarily intended as a password MANAGER, e.g. for a local ownCloud instance on your own WPA2 protected LAN. If you trust yourself enough as security expert, you can use this app behind an SSL secured server for a neat cloud solution. The app will be blocked (with message) if not accessed thru https, which will result in your passwords not being loaded (decrypted) and shown. To prevent this, use ownClouds own 'Force SSL'-function on the admin page, or use HSTS (HTTP Strict Transport Security) on your server. Also, make sure your server hasn't any kind of vulnerabilities (POODLE, CSRF, XSS, SQL Injection, Privilege Escalation, Remote Code Execution, to name a few).
 
@@ -31,14 +31,15 @@ This app features both **server-side encryption** (since encryption takes place 
 * It hides the [Initialization vector](http://en.wikipedia.org/wiki/Initialization_vector) (IV).
 * It uses a [timing-safe comparison](http://blog.ircmaxell.com/2014/11/its-all-about-time.html) function using [double Hash-based Message Authentication Code](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code) (HMAC) verification of the source data.
 
-For sharing, an ad hoc sharekey is created everytime a share is initiated. This is a strong hash. The sharing key is stored encrypted as above for the user who shares a password and copied to another table where this key matches the password ID and the ownCloud ID of the user to whom the password is shared with. If the share keys match, the password will be decrypted at the shared user's side too. 
-
 ### Decryption (for pulling from database)
 All passwords are encrypted with user-specific, ownCloud-specific and server-specific keys. This means passwords can be decrypted:
 * only by the user who created the password (so this user must be logged in),
 * only on the same ownCloud instance where the password was created in (meaning: same password salt in config.php).
 
 Other users or administrators are never able to decrypt passwords, since they cannot login as the user (assuming the user's password isn't known). *If the password salt is lost, all passwords of all users are lost and unretrievable.*
+
+### Sharing
+For sharing, an ad hoc share key is created everytime a share is initiated. This is a 256-bit strong hash, with no retrievable information. The share key is stored encrypted as above for the user who shares a password and copied to another table where this key matches the password ID and the ownCloud ID of the user to whom the password is shared with. If the share keys match, the password will be decrypted at the receiving user's side too. If they don't, the receiving user will see an 'Invalid share key' notice and the password will not be decrypted at all.
 
 ## Remote control
 This app allows full remote control by using a RESTful API. Read here about how to use it: https://github.com/fcturner/passwords/wiki.
