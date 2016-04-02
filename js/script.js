@@ -1784,7 +1784,7 @@ function random_characters(char_kind, size_wanted) {
 }
 
 function uid2displayname(uid) {
-	var displayname = false;
+	var displayname = uid;
 	$('#ShareUsersTableContent tr').each(function() {
 		var uid_list = $(this).find('.share_uid').text();
 		var displayname_list = $(this).find('.share_displayname').text();
