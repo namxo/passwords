@@ -496,8 +496,9 @@ h3,
 	background-size: 100%;
 	vertical-align: sub;
 }
-#new_password {
-	/*font-family: 'Consolas';*/
+.password_field {
+	font-family: Consolas, Courier !important;
+	font-size: 1.1em !important;
 }
 #gen_lower,
 #gen_upper,
