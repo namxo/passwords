@@ -162,9 +162,9 @@ class PasswordService {
 		if (count($sharewith) > 0) {
 			if (function_exists('random_bytes')) {
 				// PHP 7 only
-				$sharekey = bin2hex(random_bytes(16)); 
+				$sharekey = bin2hex(random_bytes(32)); 
 			} else {
-				$sharekey = \OC::$server->getSecureRandom()->generate(32, 'abcdef0123456789');
+				$sharekey = \OC::$server->getSecureRandom()->generate(64, 'abcdef0123456789');
 			}
 			// add new sharekeys to db
 			for ($x = 0; $x < count($sharewith); $x++) {
