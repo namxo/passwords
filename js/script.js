@@ -1068,7 +1068,7 @@
 						$('#new_category select').attr('style', '');
 						$('#generate_strength').text('');
 						$('#generate_passwordtools').fadeOut(250);
-						$('#gen_length').val('25');
+						$('#gen_length').val('30');
 
 						var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
 						var view = new View(passwords);
