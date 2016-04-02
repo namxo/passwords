@@ -1,8 +1,9 @@
 ####18.0 - NOT YET RELEASED
 * Added sharing! Share all your passwords with others (you can trust)!
- * The users you can share with, is based on the admin settings (only from your own group, or all users, ...)
- * Icons indicate to how many users you've shared a specific password
- * It uses a random share key (32 hexadecimal characters) that is created everytime a share is created. This key is saved to a new (third) database table, `oc_passwords_share`, and to the encrypted `properties` column of the password owner. When the keys match, the password will be decrypted on the other user's side.
+ * The users you can share with, is based on the admin settings (only from your own group, or all users, ...). **Note:** LDAP is not yet supported.
+ * Icons indicate the number of users you've shared a password with
+ * Popup shows avatars, ownCloud login names and display names
+ * It uses a random share key (256-bit strong) that is created everytime a share is created. This key is saved to a new (third) database table, `oc_passwords_share`, and to the encrypted `properties` column of the password owner. When the keys match, the password will be decrypted on the receiving user's side.
 * This app can now fully be controlled remotely! This makes it technically possible to use ownCloud Passwords on Android, iPhones, remote servers, you name it. Other authors have already made browser plugins available for Firefox and Chrome. No strict need to use the website of ownCloud anymore, but it all works just as safe. 
  * Changed RESTful API to support GET, POST, DELETE, and PUT
  * Moved all calculation classes to server-side (translated JavaScript to PHP, which is all PHP 7 safe)
@@ -16,6 +17,7 @@
 * Changed all deprecated PHP classes, to follow ownCloud's guidelines
 * Changed default session_lifetime to 15 minutes. This will terminate a user session after 15 minutes of inactivity, if (1) a user has set a countdown timer in his personal settings and (2) this user setting is longer than 15 minutes (900 seconds). The timer will reset on activity, just like the normal countdown timer on the lower right of the screen.
 * Dropped support for PostgreSQL, for now (I'll try to support it from 18.1 on again)
+* Faster transition to categories and back
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
 * Fix for reset of category list after adding a password
@@ -24,6 +26,9 @@
 * Changed popup background to better show buttons like 'Generate password'
 * Fix for website icons not always showing
 * Fix for password column width
+* Fix for restore icon not always showing after deleting a password
+* Fix for JavaScript errors after closing a OC dialog
+* Fix for select boxes after deleting a category
 
 ####17.2 - Mar 12, 2016
 * Fix for saving and updating a password on PostgreSQL backends
