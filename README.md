@@ -20,10 +20,10 @@ This app is primarily intended as a password MANAGER, e.g. for a local ownCloud 
 The script for creating passwords can be found in [`/js/script.js`](/js/script.js#L1699-L1778).
 
 ## Security
-### - Password generation
+### + Password generation
 Generated passwords are in fact pseudo-generated (i.e. not using atmospheric noise), since only the Javascript Math.random-function is used, of which I think is randomly 'enough'. After generation of different types of characters (your choice to include lowercase, uppercase, numbers and/or reading marks, strength will be calculated), scrambling of these characters is done using the [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) (also known as Knuth, a de-facto unbiased shuffle algorithm).
 
-### - Encryption (for storage in database)
+### + Encryption (for storage in database)
 This app features both **server-side encryption** (since encryption takes place on the server, before the data is placed in the database table) and **client-side encryption** (since encryption is performed with a key that is not known to the server). All passwords (generated or your own) are stored into your own ownCloud database, using these high-end cryptological functions:
 * Encryption is done using a key built from user-specific, ownCloud-specific, and database entry-specific data so it is unique for every encrypted block of text (i.e. every password). It therefore provides key rotation for cipher and authentication keys.
 * The keys are not used directly. Instead, it uses [key stretching](http://en.wikipedia.org/wiki/Key_stretching) which relies on [Password-Based Key Derivation Function 2](http://en.wikipedia.org/wiki/PBKDF2) (PBKDF2).
@@ -32,14 +32,14 @@ This app features both **server-side encryption** (since encryption takes place 
 * It hides the [Initialization vector](http://en.wikipedia.org/wiki/Initialization_vector) (IV).
 * It uses a [timing-safe comparison](http://blog.ircmaxell.com/2014/11/its-all-about-time.html) function using [double Hash-based Message Authentication Code](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code) (HMAC) verification of the source data.
 
-### - Decryption (for pulling from database)
+### + Decryption (for pulling from database)
 All passwords are encrypted with user-specific, ownCloud-specific and server-specific keys. This means passwords can be decrypted:
 * only by the user who created the password (so this user must be logged in),
 * only on the same ownCloud instance where the password was created in (meaning: same password salt in config.php).
 
 Other users or administrators are never able to decrypt passwords, since they cannot login as the user (assuming the user's password isn't known). *If the password salt is lost, all passwords of all users are lost and unretrievable.*
 
-### - Sharing
+### + Sharing
 For sharing, an ad hoc share key is created everytime a share is initiated. This is a 256-bit strong hash, with no retrievable information. The share key is stored encrypted as above for the user who shares a password and copied to another table where this key matches the password ID and the ownCloud ID of the user to whom the password is shared with. If the share keys match, the password will be decrypted at the receiving user's side too. If they don't, the receiving user will see an 'Invalid share key' notice and the password will not be decrypted at all.
 
 ## Remote control
