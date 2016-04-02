@@ -58,7 +58,7 @@
 				</label>
 				<br>
 				<label>
-					<input type="text" id="gen_length" value="25"> <?php p($l->t("characters")); ?>
+					<input type="text" id="gen_length" value="30"> <?php p($l->t("characters")); ?>
 				</label>
 				<br>
 			</div>
