@@ -24,6 +24,7 @@
 * Fix for losing a full URL when password was changed
 * Fix for popup on smaller screens (mobile phones): the popup is now scrollable when it covers more than 75% of the browsers height
 * Changed popup background to better show buttons like 'Generate password'
+* Enlarged popup
 * Fix for website icons not always showing
 * Fix for password column width
 * Fix for restore icon not always showing after deleting a password
