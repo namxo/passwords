@@ -124,6 +124,13 @@
 			},
 			updateActive: function(index, loginname, website, address, pass, notes, sharewith, category, deleted, changedDate) {
 				
+				var sharewithArr = [];
+				if ($.isArray(sharewith)) {
+					sharewithArr = sharewith;
+				} else {
+					sharewithArr = sharewith.split(', ');
+				}
+				
 				if (changedDate == undefined) {
 					// this needs to stay here for users who are updating from <= v16.2; creation dates are used as source
 					var d = new Date();
@@ -144,7 +151,7 @@
 					'address': address,
 					'category': category,
 					'notes': notes,
-					'sharewith' : sharewith,
+					'sharewith' : sharewithArr,
 					'deleted': deleted,
 					'datechanged' : changedDate
 				};
@@ -280,6 +287,7 @@
 				var table = document.getElementById('PasswordsTableTestOld');
 				if (table) {
 					for (var i = 0; i < table.rows.length; i++) {
+						resetTimer(true);
 						// test for login names (= [1]), should not exist since they're serialized in properties column
 						// but if they do, website (= [0]) must be filled too, gives error on >= v18 otherwise
 						if (table.rows[i].cells[0].textContent != '' && table.rows[i].cells[1].textContent != '') {
@@ -443,7 +451,7 @@
 				}
 
 				$('#btn_invalid_sharekey').click(function() {
-					OCdialogs.alert(t('passwords', 'You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it.'), t('passwords', 'Invalid share key'), null, true);
+					OCdialogs.alert(t('passwords', 'You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it.'), t('passwords', 'Invalid share key'), function() { return false; }, true);
 				});
 				
 				$('#btn_edit').click(function() {
@@ -518,7 +526,7 @@
 									view.renderContent();
 								});
 							}).fail(function() {
-								OCdialogs.alert(t('passwords', 'Error: Could not create password.'), t('passwords', 'Save'), null, true);
+								OCdialogs.alert(t('passwords', 'Error: Could not create password.'), t('passwords', 'Save'), function() { return false; }, true);
 								return false;
 							});
 						}
@@ -555,7 +563,7 @@
 							var rows = html_passwords_serialize.split('<br>');
 							formatTable(false, rows);
 						} else {
-							OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
+							OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), function() { return false; }, true);
 						}
 						removePopup();
 					});
@@ -573,8 +581,8 @@
 				});
 
 				$('#back_to_passwords').click(function() {
-					$('#section_table').show(300);
-					$('#section_categories').hide(200);
+					$('#section_table').show(200);
+					$('#section_categories').hide(100);
 				});
 
 				$("#CategoriesTableContent").on("click", "td", function() {
@@ -591,13 +599,16 @@
 							if (res) {
 								var categories = new Passwords(OC.generateUrl('/apps/passwords/categories'));
 								categories.removeByID(cat_id).done(function() {
-									// now removed from db, so delete from DOM
-									$row.remove();
-									if (rows == 1) {
-										$('#emptycategories').show();
-									}
+									setTimeout(function() {
+										categories = new Categories(OC.generateUrl('/apps/passwords/categories'));
+										categories.loadAll().done(function() {
+											renderCategories(categories);
+										}).fail(function() {
+											OCdialogs.alert(t('passwords', 'Error: Could not load categories.'), t('passwords', 'Passwords'), function() { return false; }, true);
+										});
+									}, 500);
 								}).fail(function() {
-									OCdialogs.alert(t('passwords', 'Error: Could not delete category.'), t('passwords', 'Category'), null, true);
+									OCdialogs.alert(t('passwords', 'Error: Could not delete category.'), t('passwords', 'Category'), function() { return false; }, true);
 								});
 							}
 						});
@@ -627,11 +638,11 @@
 							categories.loadAll().done(function() {
 								renderCategories(categories);
 							}).fail(function() {
-								OCdialogs.alert(t('passwords', 'Error: Could not load categories.'), t('passwords', 'Passwords'), null, true);
+								OCdialogs.alert(t('passwords', 'Error: Could not load categories.'), t('passwords', 'Passwords'), function() { return false; }, true);
 							});
 						}, 500);
 					} else {
-						OCdialogs.alert(t('passwords', 'Error: Could not create category.'), t('passwords', 'Categories'), null, true);
+						OCdialogs.alert(t('passwords', 'Error: Could not create category.'), t('passwords', 'Categories'), function() { return false; }, true);
 					}
 				});
 
@@ -677,7 +688,7 @@
 					var is_category = $cell.hasClass('cell_category');
 					var is_info = $cell.hasClass('icon-info');
 					var is_share = $cell.hasClass('icon-share');
-					var is_sharedby = $row.hasClass('is_sharedby');
+					var is_sharedby = $cell.hasClass('icon-shared');;
 					var is_sharedto = $cell.hasClass('icon-public');
 					var is_trash = $cell.hasClass('icon-delete');
 					var is_restore = $cell.hasClass('icon-history');
@@ -714,7 +725,7 @@
 								var rows = html_passwords_serialize.split('<br>');
 								formatTable(false, rows);
 							} else {
-								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
+								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), function() { return false; }, true);
 							}
 							removePopup();
 						});
@@ -745,15 +756,20 @@
 									$cell.find('div span').text(sharearray.length);
 								}
 							} else {
-								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
+								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), function() { return false; }, true);
 							}
 							removePopup();
 						});
 						return false;
 					}
 
+					if (is_sharedby) {
+						OCdialogs.info(t('passwords', 'Shared by %s').replace('%s', uid2displayname($row.attr('sharedby'))) + '.', t('passwords', 'Share'), function() { return false; }, true);
+						return false;
+					}
+
 					if (is_notes) {
-						popUp(t('passwords', 'Notes'), $row.attr('attr_notes'), 'notes', '', $row.attr('attr_website'), $row.attr('attr_loginname'), is_sharedby);
+						popUp(t('passwords', 'Notes'), $row.attr('attr_notes'), 'notes', '', $row.attr('attr_website'), $row.attr('attr_loginname'), $row.hasClass('is_sharedby'));
 						$('#accept').click(function() {
 							$row.attr('attr_notes', $('#new_value_popup').val());
 							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), $row.attr('attr_sharedwith'), $row.attr('attr_category'), $row.hasClass('is_deleted'));
@@ -764,7 +780,7 @@
 									$cell.addClass('has-note');
 								}
 							} else {
-								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
+								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), function() { return false; }, true);
 							}
 							removePopup();
 						});
@@ -787,12 +803,24 @@
 							// no sharedwith, so a share will be stopped when the owner deletes the password
 							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), "1");
 							if (success) {
+								var wasShared = $row.attr('attr_sharedwith') != null && $row.attr('attr_sharedwith') != '';
 								$row.addClass('is_deleted');
 								$row.hide();
+								$row.find('.icon-info').removeClass('icon-info').addClass('icon-history');
+								// remove shared state
+								$row.attr('attr_sharedwith', '');
+								$row.find('.icon-public').removeClass('icon-public').addClass('icon-share');
+								$row.find('is_sharedto span').text(0);
+								$row.find('.is_sharedto').removeClass('is_sharedto');
+
 								formatTable(true);
-								OCdialogs.info(t('passwords', 'The password was moved to the trash bin.'), t('passwords', 'Trash bin'), null, true);
+								if (wasShared) {
+									OCdialogs.info(t('passwords', 'The password was moved to the trash bin.') + ' ' + t('passwords', 'This password is no longer shared anymore.'), t('passwords', 'Trash bin'), function() { return false; }, true);
+								} else {
+									OCdialogs.info(t('passwords', 'The password was moved to the trash bin.'), t('passwords', 'Trash bin'), function() { return false; }, true);
+								}
 							} else {
-								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Trash bin'), null, true);
+								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Trash bin'), function() { return false; }, true);
 							}
 							
 						// from trash, remove from database
@@ -805,7 +833,7 @@
 										$row.remove();
 										formatTable(true);
 									}).fail(function() {
-										OCdialogs.alert(t('passwords', 'Error: Could not delete password.'), t('passwords', 'Trash bin'), null, true);
+										OCdialogs.alert(t('passwords', 'Error: Could not delete password.'), t('passwords', 'Trash bin'), function() { return false; }, true);
 									});
 								}
 							});
@@ -815,13 +843,12 @@
 					if (is_restore) {
 						var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), '', $row.attr('attr_category'), "0");
 						if (success) {
-							$cell.removeClass('icon-history');
-							$cell.addClass('icon-info');
+							$cell.removeClass('icon-history').addClass('icon-info');
 							$row.removeClass('is_deleted');
 							$row.hide();
 							formatTable(true);
 						} else {
-							OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Trash bin'), null, true);
+							OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Trash bin'), function() { return false; }, true);
 						}
 					}
 				});					
@@ -862,7 +889,7 @@
 					$('#app-settings-content').hide(200);
 					$('#sidebarClose').click();
 					$('#section_table').hide(200);
-					$('#section_categories').show(400);
+					$('#section_categories').show(300);
 				});
 
 				// move all to trash
@@ -989,7 +1016,7 @@
 						|| $('#new_website').val() == '' 
 						|| $('#new_password').val() == '') 
 					{
-						OCdialogs.alert(t('passwords', 'Fill in the website, user name and password.'), t('passwords', 'Add password'), null, true);
+						OCdialogs.alert(t('passwords', 'Fill in the website, user name and password.'), t('passwords', 'Add password'), function() { return false; }, true);
 						return false;
 					}
 
@@ -1003,12 +1030,12 @@
 							$('#new_address').val('http://' + $('#new_address').val());
 							// now check if valid
 							if (!isUrl($('#new_address').val())) {
-								OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), null, true);
+								OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), function() { return false; }, true);
 								$('#new_address').select();
 								return false;
 							}
 						} else {
-							OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), null, true);
+							OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), function() { return false; }, true);
 							$('#new_address').select();
 							return false;
 						}
@@ -1060,7 +1087,7 @@
 						formatTable(false, rows);
 
 					}).fail(function() {
-						OCdialogs.alert(t('passwords', 'Error: Could not create password.'), t('passwords', 'Add password'), null, true);
+						OCdialogs.alert(t('passwords', 'Error: Could not create password.'), t('passwords', 'Add password'), function() { return false; }, true);
 						return false;
 					});
 
@@ -1158,11 +1185,11 @@
 					var generate_new = '';
 
 					if (!isNumeric(length_filled) || length_filled.length == 0 || length_filled < 4) {
-						OCdialogs.alert(t('passwords', 'Fill in a valid number as length with a minimum of 4.'), t('passwords', 'Generate password'), null, true);
+						OCdialogs.alert(t('passwords', 'Fill in a valid number as length with a minimum of 4.'), t('passwords', 'Generate password'), function() { return false; }, true);
 						return false;
 					}
 					if (!lower_checked && !upper_checked && !numbers_checked && !special_checked) {
-						OCdialogs.alert(t('passwords', 'Select at least one option to generate a password.'), t('passwords', 'Generate password'), null, true);
+						OCdialogs.alert(t('passwords', 'Select at least one option to generate a password.'), t('passwords', 'Generate password'), function() { return false; }, true);
 						return false;
 					}
 
@@ -1205,7 +1232,7 @@
 		if (settings.getKey('disable_contextmenu').toLowerCase() == 'true') {
 			this.addEventListener('contextmenu', function(ev) {
 				ev.preventDefault();
-				OCdialogs.info(t('passwords', 'The context menu is disabled by your administrator.'), t('passwords', 'Context menu'), null, true);
+				OCdialogs.info(t('passwords', 'The context menu is disabled by your administrator.'), t('passwords', 'Context menu'), function() { return false; }, true);
 				return false;
 			}, false);
 		}
@@ -1222,13 +1249,13 @@
 		categories.loadAll().done(function() {
 			renderCategories(categories);
 		}).fail(function() {
-			OCdialogs.alert(t('passwords', 'Error: Could not load categories.'), t('passwords', 'Passwords'), null, true);
+			OCdialogs.alert(t('passwords', 'Error: Could not load categories.'), t('passwords', 'Passwords'), function() { return false; }, true);
 		});
 
 		passwords.loadAll().done(function() {
 			view.render();
 		}).fail(function() {
-			OCdialogs.alert(t('passwords', 'Error: Could not load passwords.'), t('passwords', 'Passwords'), null, true);
+			OCdialogs.alert(t('passwords', 'Error: Could not load passwords.'), t('passwords', 'Passwords'), function() { return false; }, true);
 		});
 	});
 
@@ -1750,18 +1777,17 @@ function random_characters(char_kind, size_wanted) {
 	return text;
 }
 
-// function uid2displayname(uid) {
-// 	$rows = $('#ShareUsersTableContent tr');
-
-// 	for (var i = 0; i < $rows.length; i++) {
-// 		$uid = $rows.closest('.share_uid');
-// 		$displayname = $rows.closest('.share_displayname');
-// 		if ($uid.val() == uid) {
-// 			return $displayname.val();
-// 		}
-// 	}
-// 	return false;
-// }
+function uid2displayname(uid) {
+	var displayname = false;
+	$('#ShareUsersTableContent tr').each(function() {
+		var uid_list = $(this).find('.share_uid').text();
+		var displayname_list = $(this).find('.share_displayname').text();
+		if (uid == uid_list) {
+			displayname = displayname_list;
+		}
+	});
+	return displayname;
+}
 function strength_int2str(integer) {
 
 	if (integer == -1) {
@@ -2119,7 +2145,7 @@ function backupPasswords() {
 
 	// No support in IE
 	if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-		OCdialogs.alert(t('passwords', 'This function is unsupported on your browser. Use a modern browser instead.'), t('passwords', 'Download Backup'), null, true);
+		OCdialogs.alert(t('passwords', 'This function is unsupported on your browser. Use a modern browser instead.'), t('passwords', 'Download Backup'), function() { return false; }, true);
 		return false;
 	}
 
@@ -2133,14 +2159,15 @@ function backupPasswords() {
 
 				$('#PasswordsTableContent tbody tr').each(function() {
 					var $row = $(this);
-	
-					$row.attr('attr_id')
-					$row.attr('attr_loginname')
-					$row.attr('attr_website')
-					$row.attr('attr_address')
-					$row.attr('attr_pass')
-					$row.attr('attr_notes')
-					$row.attr('attr_category')
+
+					// possible entries:	
+					// $row.attr('attr_id')
+					// $row.attr('attr_loginname')
+					// $row.attr('attr_website')
+					// $row.attr('attr_address')
+					// $row.attr('attr_pass')
+					// $row.attr('attr_notes')
+					// $row.attr('attr_category')
 
 					if (!$row.hasClass('is_deleted') || deleted_too) {
 						textToWrite += '"' + $row.attr('attr_website').replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '","'
@@ -2193,7 +2220,7 @@ function destroyClickedElement(event) {
 function uploadCSV(event) {
 
 	if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
-		OCdialogs.alert(t('passwords', 'This function is unsupported on your browser. Use a modern browser instead.'), t('passwords', 'Import CSV File'), null, true);
+		OCdialogs.alert(t('passwords', 'This function is unsupported on your browser. Use a modern browser instead.'), t('passwords', 'Import CSV File'), function() { return false; }, true);
 		return false;
 	}
 
@@ -2201,12 +2228,12 @@ function uploadCSV(event) {
 	var f = event.target.files[0]; 
 
 	if (!f) {
-		OCdialogs.alert('No file loaded', t('passwords', 'Import CSV File'), null, true);
+		OCdialogs.alert('No file loaded', t('passwords', 'Import CSV File'), function() { return false; }, true);
 		$('#upload_csv').replaceWith($('#upload_csv').clone(true).val(''));
 		return false;
 	} else if (f.name.substr(f.name.length - 4, 4).toLowerCase() != '.csv') {
 		// validate file
-		OCdialogs.alert(t('passwords', 'This is not a valid CSV file.') + ' ' + ('passwords', 'Only files with CSV as file extension are allowed.'), t('passwords', 'Import CSV File'), null, true);
+		OCdialogs.alert(t('passwords', 'This is not a valid CSV file.') + ' ' + ('passwords', 'Only files with CSV as file extension are allowed.'), t('passwords', 'Import CSV File'), function() { return false; }, true);
 		$('#upload_csv').replaceWith($('#upload_csv').clone(true).val(''));
 		return false;
 	} else {
@@ -2495,7 +2522,7 @@ function importCSV() {
 	}
 
 	if (websiteColumn == -1 || loginColumn == -1 || passwordColumn == -1) {
-		OCdialogs.alert(t('passwords', 'Fill in the website, user name and password.'), t('passwords', 'Import CSV File'), null, true);
+		OCdialogs.alert(t('passwords', 'Fill in the website, user name and password.'), t('passwords', 'Import CSV File'), function() { return false; }, true);
 		throw new Error('Select a column for website, username and password.');
 	}
 
@@ -2544,11 +2571,11 @@ function importCSV() {
 					urlCSV = 'http://' + urlCSV;
 					// now check if valid
 					if (!isUrl(urlCSV)) {
-						OCdialogs.alert(t('passwords', 'This is not a valid URL, so this value will not be saved:') + ' ' + urlCSV, t('passwords', 'Import CSV File'), null, true);
+						OCdialogs.alert(t('passwords', 'This is not a valid URL, so this value will not be saved:') + ' ' + urlCSV, t('passwords', 'Import CSV File'), function() { return false; }, true);
 						urlCSV = '';
 					}
 				} else {
-					OCdialogs.alert(t('passwords', 'This is not a valid URL, so this value will not be saved:') + ' ' + urlCSV, t('passwords', 'Import CSV File'), null, true);
+					OCdialogs.alert(t('passwords', 'This is not a valid URL, so this value will not be saved:') + ' ' + urlCSV, t('passwords', 'Import CSV File'), function() { return false; }, true);
 					urlCSV = '';
 				}
 			}
@@ -2810,15 +2837,15 @@ function trashAllPasswords(Passwords) {
 				$row.hide();
 				formatTable(true);
 			} else {
-				OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), null, true);
+				OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), function() { return false; }, true);
 			}
 		}
 	});
 
 	if (doneTotal > 0) {
-		OCdialogs.info(t('passwords', 'All passwords were moved to the trash bin.'), t('passwords', 'Trash bin'), null, true);
+		OCdialogs.info(t('passwords', 'All passwords were moved to the trash bin.'), t('passwords', 'Trash bin'), function() { return false; }, true);
 	} else {
-		OCdialogs.info(t('passwords', 'There are no passwords to be moved.'), t('passwords', 'Trash bin'), null, true);
+		OCdialogs.info(t('passwords', 'There are no passwords to be moved.'), t('passwords', 'Trash bin'), function() { return false; }, true);
 	}
 }
 function showSidebar($row) {
@@ -2890,6 +2917,10 @@ function showSidebar($row) {
 
 }
 function resetTimer(kill_old) {
+
+	if ($('#app-settings').attr('timer') == 0) {
+		return false;
+	}
 
 	var settimer = $('#app-settings').attr('timer');
 	var session_timeout = $('#app-settings').attr('session-timeout');
