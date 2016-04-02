@@ -790,7 +790,7 @@ orange {
 	position: fixed;
 	top: 0;
 	left: 50%;
-	width: 400px;
+	width: 500px;
 	margin-left: -150px;
 	-webkit-transition: all 300ms;
 	transition: all 300ms;
@@ -847,7 +847,7 @@ p#generate_strength_popup,
 	margin-top: 15px;
 }
 .share_scroll {
-	max-height: 150px;
+	max-height: 250px;
 	overflow-y: scroll;
 }
 
