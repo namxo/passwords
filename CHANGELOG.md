@@ -20,7 +20,7 @@
 * Faster transition to categories and back
 * Changed popup background to better show buttons like 'Generate password'
 * Enlarged popup
-* Set default length to 30 instead of 25
+* Set default length for generating passwords to 30 instead of 25
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
 * Fix for reset of category list after adding a password
