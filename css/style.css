@@ -335,6 +335,9 @@ tr.activerow > .orange span {
 #PasswordsTableContent .icon-delete {
 	background-size: 28px !important;
 }
+#new_value_popup label span:hover {
+	cursor: pointer;
+}
 .share_avatar,
 .share_avatar img {
 	display: inline-block;
