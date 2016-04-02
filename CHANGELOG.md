@@ -15,7 +15,7 @@
 * Filtering a category or text now only searches active passwords, ignoring passwords in the trash bin
 * Added 'Edit categories' button to category popup
 * Changed all deprecated PHP classes, to follow ownCloud's guidelines
-* Changed default session_lifetime to 15 minutes. This will terminate a user session after 15 minutes of inactivity, if (1) a user has set a countdown timer in his personal settings and (2) this user setting is longer than 15 minutes (900 seconds). The timer will reset on activity, just like the normal countdown timer on the lower right of the screen.
+* Changed default `session_lifetime` to 15 minutes. This will terminate a user session after 15 minutes of inactivity, if (1) a user has set a countdown timer in his personal settings and (2) this user setting is longer than 15 minutes (900 seconds). The timer will reset on activity, just like the normal countdown timer on the lower right of the screen.
 * Dropped support for PostgreSQL, for now (I'll try to support it from 18.1 on again)
 * Faster transition to categories and back
 * Fix for column headers `Strength` and `Last changed`
