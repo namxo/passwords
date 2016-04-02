@@ -2713,6 +2713,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 	} else {
 		$('<input/>', {type:'text', id:"new_value_popup", autocorrect:'off', autocapitalize:'off', spellcheck:'false'}).val(value).appendTo($('#popupContent'));
 		if (type == 'password') {
+			$('#new_value_popup').addClass('password_field');
 			$('<p id="generate_strength_popup"></p>').appendTo($('#popupContent'));
 			
 			$('<input>', {type:'checkbox', id:"gen_lower_popup"}).prop("checked", $('#gen_lower').is(":checked")).appendTo($('#popupContent'));
