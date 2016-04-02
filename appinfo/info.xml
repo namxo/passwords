@@ -3,7 +3,7 @@
     <id>passwords</id>
     <name>Passwords</name>
     <description>This is a Password Manager with both client side and server side encryption for generating, SHARING, editing, and categorizing passwords. 
-    	This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
+    	NOTE! THIS APP CANNOT BE INSTALLED FROM WITHIN OWNCLOUD, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions. Repackaging of releases is prone to human error and, more importantly, adds invisible system files to a release when doing this on Mac (like .DS_Store) and Windows (like Thumbs.db). This means local user properties and file system info (privacy sensitive possibly) are sent to a server, which should be avoided at all costs. Did you know forensic scientists can use these files against you? You surely don't want them on any server, any cloud, or anywhere on the internet!
 
         You can insert and import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0). Passwords are stored into the ownCloud database with combined EtM (Encrypt-then-MAC) and MCRYPT_BLOWFISH encryption (read Security part in Documentation for details). 
 
