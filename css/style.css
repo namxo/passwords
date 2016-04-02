@@ -335,10 +335,27 @@ tr.activerow > .orange span {
 #PasswordsTableContent .icon-delete {
 	background-size: 28px !important;
 }
-
+.share_avatar,
+.share_avatar img {
+	display: inline-block;
+	margin-right: 5px;
+	margin-left: 3px;
+	margin-bottom: 2px;
+	border-radius: 50%;
+	padding-left: 2px;
+}
+.share_avatar img {
+	margin-bottom: -9px !important;
+	margin-left: 0px !important;
+}
+.share_avatar:hover,
+.share_avatar img:hover {
+	cursor: pointer;
+}
 .is_sharedby {
 	background-color: #fbfbfb;
 }
+
 .sharedto_count {
 	border: 1px solid #555;
 	background-color: #555;

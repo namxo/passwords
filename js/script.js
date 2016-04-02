@@ -1354,14 +1354,20 @@ function formatTable(update_only, rows) {
 
 			if (row.id == 0) {
 				var uid = row.website;
+				var uid_escaped = uid.replace(/[^a-zA-Z 0-9]+/g, '');
 				var displayname = row.user_id;
-				$('#ShareUsersTableContent').append('<tr><td class="share_uid">' + uid + '</td><td class="share_displayname">' + displayname + '</td></tr>');
+				$('#ShareUsersTableContent').append('<tr>' + 
+					'<td class="share_uid">' + uid + '</td>' +
+					'<td class="share_displayname">' + displayname + '</td>' +
+					'</tr>'
+				);
 				if (displayname != $('#expandDisplayName').text()) { // do not include yourself
 					if (uid != displayname) {
-						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><strong>' + displayname + '</strong> (' + uid + ')</label><br>');
+						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span><strong>' + displayname + '</strong> (' + uid + ')</span></label><br>');
 					} else {
-						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '>' + displayname + '</label><br>');
+						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + displayname + '</span></label><br>');
 					}
+					$('.avatar_' + uid_escaped).avatar(uid, 32);
 				}
 				continue;
 			}
