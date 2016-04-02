@@ -318,6 +318,7 @@ tr.activerow > .orange span {
 #PasswordsTableContent .icon-history:hover,
 #PasswordsTableContent .icon-info:hover,
 #PasswordsTableContent .icon-share:hover,
+#PasswordsTableContent .icon-shared:hover,
 #PasswordsTableContent .icon-public:hover,
 .sharedto_count:hover,
 .sharedto_count span:hover {
@@ -531,7 +532,10 @@ h3 {
 	padding-bottom: 5px;
 }
 
-.is_deleted {
+.is_deleted,
+.is_deleted td.icon-share,
+.is_deleted td.icon-shared,
+.is_deleted td.icon-public {
 	display: none;
 }
 #emptycontent {
