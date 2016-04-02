@@ -28,6 +28,7 @@
 * Fix for password column width
 * Fix for restore icon not always showing after deleting a password
 * Fix for JavaScript errors after closing a OC dialog
+* Fix for JavaScript error if using the countdown timer
 * Fix for select boxes after deleting a category
 
 ####17.2 - Mar 12, 2016
