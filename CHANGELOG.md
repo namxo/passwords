@@ -18,13 +18,14 @@
 * Changed default `session_lifetime` to 15 minutes. This will terminate a user session after 15 minutes of inactivity, if (1) a user has set a countdown timer in his personal settings and (2) this user setting is longer than 15 minutes (900 seconds). The timer will reset on activity, just like the normal countdown timer on the lower right of the screen.
 * Dropped support for PostgreSQL, for now (I'll try to support it from 18.1 on again)
 * Faster transition to categories and back
+* Changed popup background to better show buttons like 'Generate password'
+* Enlarged popup
+* Set default length to 30 instead of 25
 * Fix for column headers `Strength` and `Last changed`
 * Fix for scrollbar on sidebar
 * Fix for reset of category list after adding a password
 * Fix for losing a full URL when password was changed
 * Fix for popup on smaller screens (mobile phones): the popup is now scrollable when it covers more than 75% of the browsers height
-* Changed popup background to better show buttons like 'Generate password'
-* Enlarged popup
 * Fix for website icons not always showing
 * Fix for password column width
 * Fix for restore icon not always showing after deleting a password
