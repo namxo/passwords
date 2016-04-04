@@ -1,4 +1,4 @@
-####18.0 - NOT YET RELEASED
+####18.0 - Apr 4th, 2016
 * **Added sharing!** Share all your passwords with others (you can trust)!
  * The users you can share with, is based on the admin settings (only from your own group, or all users, ...)
  * Icons indicate the number of users you've shared a password with
