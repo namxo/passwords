@@ -33,6 +33,7 @@
 * Fix for JavaScript errors after closing a OC dialog
 * Fix for JavaScript error if using the countdown timer
 * Fix for select boxes after deleting a category
+* Fix for SQLite when database type is not defined in config/config.php
 
 ####17.2 - Mar 12, 2016
 * Fix for saving and updating a password on PostgreSQL backends
