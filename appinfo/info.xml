@@ -24,7 +24,9 @@
         <owncloud min-version="8.0" max-version="9.0"/>
         <database>sqlite</database>
         <database>mysql</database>
-        <!-- <database>pgsql</database> -->
+        <!-- 
+        <database>pgsql</database>
+        -->
         <lib>mcrypt</lib>
     </dependencies>
     <documentation>
