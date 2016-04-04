@@ -856,9 +856,16 @@ p#generate_strength_popup,
 }
 
 #accept,
+#cancel,
+#stop {
+	margin-top: 5px;
+}
+#accept,
 #cancel {
 	float: right;
-	margin-top: 6px;
+}
+#stop {
+	float: left;
 }
 #popupButtons {
 	width: 100%;
