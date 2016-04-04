@@ -60,7 +60,7 @@ class PasswordMapper extends Mapper {
 		}
 
 		// order by website according to database used
-		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', '');
+		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', 'sqlite');
 		if ($dbtype == 'mysql') {
 			$sql = $sql . ' ORDER BY LOWER(website) COLLATE utf8_general_ci ASC';
 		} else if ($dbtype == 'sqlite') {
