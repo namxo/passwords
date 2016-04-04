@@ -2758,6 +2758,13 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 	if (!sharedby) {
 		if (type == 'share' && ShareUsersAvailable) {
 			$('<button/>', {id:'accept', text:t('passwords', 'Share')}).appendTo($('#popupButtons'));
+			$('<button/>', {id:'stop', text:t('passwords', 'Stop sharing')}).appendTo($('#popupButtons'));
+			$('#stop').click(function() {
+				$('#new_value_popup input').each(function() {
+					this.checked = false;
+				});
+				$('#accept').click();
+			});
 		} else {
 			$('<button/>', {id:'accept', text:t('passwords', 'Save')}).appendTo($('#popupButtons'));
 		}
