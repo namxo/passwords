@@ -1,3 +1,6 @@
+####18.1 - NOT YET RELEASED
+* Added 'Stop sharing' button to popup
+
 ####18.0 - Apr 4th, 2016
 * **Added sharing!** Share all your passwords with others (you can trust)!
  * The users you can share with, is based on the admin settings (only from your own group, or all users, ...)
