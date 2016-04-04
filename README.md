@@ -3,7 +3,7 @@
 ##### 2015-2016, Fallon Turner <fcturner@users.noreply.github.com>
 [View this app on apps.owncloud.org.](https://apps.owncloud.com/content/show.php/Passwords?content=170480)
 
-###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions.
+###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions. [READ MORE](https://github.com/fcturner/passwords#installation)
 
 #### Overview
 Click [here for the gallery with more screenshots](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots)).
