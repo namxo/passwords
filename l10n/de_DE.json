@@ -91,6 +91,7 @@
     "Fill in a valid URL." : "Geben Sie eine gültige URL ein.",
     "Move old value to trash bin" : "Verschiebe den alten Wert bin in den Papierkorb",
     "Cancel" : "Abbrechen",
+    "Stop sharing" : "Freigabe löschen",
     "All passwords were moved to the trash bin." : "Alle Passwörter sind in den Papierkorb verschoben worden.",
     "There are no passwords to be moved." : "Es gibt keine Passwörter die verschoben werden können.",
     "You will be logged off due to inactivity of %s seconds." : "Sie werden aufgrund von Inaktivität in %s Sekunden abgemeldet.",

@@ -85,6 +85,7 @@ OC.L10N.register(
     "Fill in a valid URL." : "יש למלא נתיב אינטרנט חוקי.",
     "Move old value to trash bin" : "העברת ערך ישן לסל המחזור",
     "Cancel" : "ביטול",
+    "Stop sharing" : "הפסקת שיתוף",
     "All passwords were moved to the trash bin." : "כל הסיסמאות הועברו לסל המחזור.",
     "There are no passwords to be moved." : "אין סיסמאות להעברה.",
     "You will be logged off due to inactivity of %s seconds." : "מתנתק בשל חוסר פעילות של %s שניות.",

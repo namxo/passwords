@@ -92,6 +92,7 @@ $TRANSLATIONS = array(
 "Fill in a valid URL." => "Finde eine gültige URL.",
 "Move old value to trash bin" => "Verschiebe das alte Passwort in den Papierkorb",
 "Cancel" => "Abbrechen",
+"Stop sharing" => "Freigabe löschen",
 "All passwords were moved to the trash bin." => "Alle Passwörter wurden in den Papierkorb verschoben.",
 "There are no passwords to be moved." => "Es stehen keine Passwörter zum Verschieben zur Verfügung.",
 "You will be logged off due to inactivity of %s seconds." => "Du wirst automatisch abgemeldet nach %s inaktiven Sekunden.",

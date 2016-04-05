@@ -93,6 +93,7 @@ OC.L10N.register(
     "Fill in a valid URL." : "Plotësoni një URL të vlefshme.",
     "Move old value to trash bin" : "Shpjere vlerën e vjetër te koshi i hedhurinave",
     "Cancel" : "Anuloje",
+    "Stop sharing" : "Resht së ndari",
     "All passwords were moved to the trash bin." : "Fjalëkalimet u shpunë të tërë në koshin e hedhurinave.",
     "There are no passwords to be moved." : "S’ka fjalëkalime për t’i zhvendosur.",
     "You will be logged off due to inactivity of %s seconds." : "Do të nxirreni nga sesioni për shkak mosveprimtarie gjatë %s sekondash.",

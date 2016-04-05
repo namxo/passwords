@@ -83,6 +83,7 @@ $TRANSLATIONS = array(
 "Fill in a valid URL." => "Skriv in en giltig URL.",
 "Move old value to trash bin" => "Släng det gamla värdet i soptunnan",
 "Cancel" => "Avbryt",
+"Stop sharing" => "Sluta dela",
 "All passwords were moved to the trash bin." => "Alla lösenord har slängts i soptunnan.",
 "There are no passwords to be moved." => "Det finns inga lösenord att flytta.",
 "You will be logged off due to inactivity of %s seconds." => "Du har loggats ut på grund utav inaktivitet efter %s sekunder.",

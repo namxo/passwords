@@ -84,6 +84,7 @@ OC.L10N.register(
     "Fill in a valid URL." : "Uzupełnij poprawnym adresem URL.",
     "Move old value to trash bin" : "Przenieś poprzednią wartość do kosza",
     "Cancel" : "Anuluj",
+    "Stop sharing" : "Cofnij udostępnianie",
     "All passwords were moved to the trash bin." : "Wszystkie hasła zostały przeniesione do kosza.",
     "There are no passwords to be moved." : "Nie ma haseł do przeniesienia.",
     "You will be logged off due to inactivity of %s seconds." : "Z powodu braku aktywności nastąpi wylogowanie za %s sekund.",

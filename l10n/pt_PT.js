@@ -85,6 +85,7 @@ OC.L10N.register(
     "Fill in a valid URL." : "Preencha um URL válido.",
     "Move old value to trash bin" : "Mover valor antigo para o lixo",
     "Cancel" : "Cancelar",
+    "Stop sharing" : "Parar partilha",
     "All passwords were moved to the trash bin." : "As senhas foram todas movidas para o lixo.",
     "There are no passwords to be moved." : "Não existem senhas para serem movidas.",
     "You will be logged off due to inactivity of %s seconds." : "A sua sessão irá ser encerrada por inactividade durante %s segundos.",

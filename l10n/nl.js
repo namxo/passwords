@@ -85,6 +85,7 @@ OC.L10N.register(
     "Fill in a valid URL." : "Voer een geldige URL in.",
     "Move old value to trash bin" : "Verplaats de oude waarde naar de prullenmand.",
     "Cancel" : "Annuleren",
+    "Stop sharing" : "Stop met delen",
     "All passwords were moved to the trash bin." : "Alle wachtwoorden zijn naar de prullenmand verplaatst.",
     "There are no passwords to be moved." : "Er zijn geen wachtwoorden die verplaatst moeten worden.",
     "You will be logged off due to inactivity of %s seconds." : "Je wordt afgemeld omdat je %s seconden inactief was.",
