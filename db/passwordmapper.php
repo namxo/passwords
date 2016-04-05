@@ -24,7 +24,7 @@ class PasswordMapper extends Mapper {
 		// now get all uid's and displaynames this user is eligable to share with
 		$sharing_allowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes') == 'yes';
 		if ($sharing_allowed) {
-			$only_share_with_own_group = \OC::$server->getConfig()->getAppValue('core', 'shareapi_only_share_with_group_members', 'yes') == 'yes';
+			$only_share_with_own_group = \OC::$server->getConfig()->getAppValue('core', 'shareapi_only_share_with_group_members', 'no') == 'yes';
 			if ($only_share_with_own_group) {
 				$sql = $sql . 'UNION ALL ' .
 					'SELECT  ' .
