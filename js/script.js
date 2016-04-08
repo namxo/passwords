@@ -127,6 +127,8 @@
 				var sharewithArr = [];
 				if ($.isArray(sharewith)) {
 					sharewithArr = sharewith;
+				} else if (!sharewith) {
+					sharewithArr = "";
 				} else {
 					sharewithArr = sharewith.split(', ');
 				}
