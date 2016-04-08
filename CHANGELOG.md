@@ -1,5 +1,6 @@
 ####18.1 - NOT YET RELEASED
 * Added 'Stop sharing' button to popup
+* Fix where notes and categories weren't saved on unshared passwords
 
 ####18.0 - Apr 4th, 2016
 * **Added sharing!** Share all your passwords with others (you can trust)!
