@@ -76,6 +76,7 @@
     "Import of passwords done. This page will now reload." : "Import hesel proveden. Stránka se nyní obnoví.",
     "Error: The password of website '%s' cannot be imported. However, the import progress will continue." : "Chyba: Heslo pro stránku '%s' nelze importovat. Nicméně, import bude pokračovat.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Vložte novou hodnotu a Uložte pro její zapamatování.\nToto nelze vrátit zpět.",
+    "LDAP is unsupported in this version." : "LDAP není v této verzi podporován.",
     "Lowercase characters" : "Malá písmena",
     "Uppercase characters" : "Velká písmena",
     "Numbers" : "Čísla",
