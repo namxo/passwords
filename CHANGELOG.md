@@ -1,6 +1,8 @@
 ####18.1 - NOT YET RELEASED
 * Added 'Stop sharing' button to popup
 * Fix for notes and categories not being saved on unshared passwords
+* Fix for sharing with usernames that contain CSS-like characters (especially a period `.`)
+* Fix for SQLite databases
 
 ####18.0 - Apr 4th, 2016
 * **Added sharing!** Share all your passwords with others (you can trust)!
