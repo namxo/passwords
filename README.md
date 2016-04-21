@@ -51,6 +51,43 @@ There is a built in option to view website icons in the password table. This can
 * [https://icons.duckduckgo.com/ip2/owncloud.org.ico](https://icons.duckduckgo.com/ip2/owncloud.org.ico) (32x32 pixels)
 * [https://www.google.com/s2/favicons?domain=owncloud.org](https://www.google.com/s2/favicons?domain=owncloud.org) (16x16 pixels)
 
+## Translations
+ownCloud Passwords is available in:
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/15px-Flag_of_Catalonia.svg.png" height="15" /> Catalan
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" height="15" /> Czech
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" height="15" /> German
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" height="15" /> English
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" height="15" /> Spanish
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" height="15" /> French
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/glsmall.gif" height="15" /> Galician
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="15" /> Hebrew
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" height="15" /> Icelandic
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" height="15" /> Italian
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" height="15" /> Norwegian Bokmål
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" height="15" /> Dutch
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" height="15" /> Polish
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" height="15" /> Portuguese (Brazil)
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" height="15" /> Portuguese (Portugal)
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" height="15" /> Albanian
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" height="15" /> Swedish
+
 ## Installation
 Use one of the following options, login as admin on ownCloud and enable the app. The database tables `oc_passwords`, `oc_passwords_categories` and `oc_passwords_share` will be created automatically (assuming `_oc` as prefix).
 * **Manual download and installation** 
