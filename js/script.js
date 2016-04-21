@@ -2707,7 +2707,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 			if (typeof value != 'undefined') {
 				var sharedusers = value.split(',');
 				$.each(sharedusers, function(index, value2) {
-					$('#new_value_popup input[value=' + value2 + ']').attr('checked', true);
+					$('#new_value_popup input[value=' + value2.replace( /(:|\.|\[|\])/g, "\\$1" ) + ']').attr('checked', true);
 				});
 			}
 		}
