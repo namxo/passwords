@@ -66,7 +66,7 @@ ownCloud Passwords is available in:
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" height="15" /> French
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/glsmall.gif" height="15" /> Galician
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/15px-Flag_of_Galicia.svg.png" height="15" /> Galician
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="15" /> Hebrew
 
