@@ -1,6 +1,25 @@
 # Passwords
 #### for ownCloud Server 8 and 9
 ##### 2015-2016, Fallon Turner <fcturner@users.noreply.github.com>
+Available in languages: 
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" height="15" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" height="15" />
+
 [View this app on apps.owncloud.org.](https://apps.owncloud.com/content/show.php/Passwords?content=170480)
 
 ###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions. (read more below under Installation)
