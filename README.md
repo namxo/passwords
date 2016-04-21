@@ -54,7 +54,7 @@ There is a built in option to view website icons in the password table. This can
 ## Translations
 ownCloud Passwords is available in:
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/15px-Flag_of_Catalonia.svg.png" height="15" /> Catalan
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" height="15" /> Catalan
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" height="15" /> Czech
 
@@ -66,7 +66,7 @@ ownCloud Passwords is available in:
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" height="15" /> French
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/15px-Flag_of_Galicia.svg.png" height="15" /> Galician
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" height="15" /> Galician
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="15" /> Hebrew
 
