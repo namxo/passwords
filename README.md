@@ -96,9 +96,9 @@ Use one of the following options, login as admin on ownCloud and enable the app.
 * **Git clone** 
  * Use the command 
  ```
-git clone https://github.com/fcturner/passwords.git /var/www/owcloud/apps/passwords
+git clone https://github.com/fcturner/passwords.git /var/www/owncloud/apps/passwords
 ```
-(assuming `/var/www/owcloud` as your ownCloud root location).
+(assuming `/var/www/owncloud` as your ownCloud root location).
 * **ownCloud App store** 
  * I refuse to support this. This system demands repackaging of releases and kills the possibility to freely use GitHub master versions. Repackaging of releases is prone to human error and, more importantly, adds invisible system files to a release when doing this on Mac (like `.DS_Store`) and Windows (like `Thumbs.db`). This means local user properties and file system info (**privacy sensitive possibly**) are sent to a server, which **should be avoided at all costs**. Did you know forensic scientists can use these files against you? You surely don't want them on any server, any cloud, or anywhere on the internet! Dr Sarah Morris and Dr Howard Chivers [wrote an article about this](http://www.identatron.co.uk/wp-content/uploads/2013/11/cyberforensics2013.pdf). The ownCloud team should really alter the behaviour of ownCloud pulling apps from their app store, instead of letting app developers interfere with a decent, solid and closed GitHub workflow (as I've been telling them for months). **This app is all about privacy and security, the ownCloud app store apparently isn't.**
 
