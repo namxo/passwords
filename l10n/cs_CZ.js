@@ -82,6 +82,7 @@ OC.L10N.register(
     "Error: The password of website '%s' cannot be imported. However, the import progress will continue." : "Chyba: Heslo pro stránku '%s' nelze importovat. Nicméně, import bude pokračovat.",
     "Choose one or more users and press Share." : "Vyberte jeden nebo více uživatelů a stiskněte Sdílet.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Vložte novou hodnotu a Uložte pro její zapamatování.\nToto nelze vrátit zpět.",
+    "There are no users available you can share with." : "Nejsou dostupní uživatelé se kterými byste mohli sdílet.",
     "LDAP is unsupported in this version." : "LDAP není v této verzi podporován.",
     "Lowercase characters" : "Malá písmena",
     "Uppercase characters" : "Velká písmena",

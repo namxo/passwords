@@ -6,6 +6,7 @@ OC.L10N.register(
     "Login name" : "Nom de la connexion",
     "Password" : "Mot de passe",
     "You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it." : "Vous n'avez pas de clé de partage valide pour déchiffrer ce mot de passe. Demandez à l'utilisateur qui a partagé ce mot de passe avec vous de le repartager.",
+    "Invalid share key" : "Clé de partage non valide",
     "Error: Could not create password." : "Erreur: Impossible de créer le mot de passe.",
     "Save" : "Enregistrer",
     "Error: Could not update password." : "Erreur: Impossible de mettre à jour le mot de passe.",
