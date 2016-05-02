@@ -2,23 +2,24 @@
 #### for ownCloud Server 8 and 9
 ##### 2015-2016, Fallon Turner <fcturner@users.noreply.github.com>
 Available in languages: 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" alt="test" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/trsmall.gif" height="15" />
-<imgsrc="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" height="15" />
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" height="15" />
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" title="English" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" title="German" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" title="Spanish" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" title="French" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" title="Italian" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" title="Dutch" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" title="Czech" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" title="Norwegian Bokmål" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" title="Polish" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" title="Portuguese (Brazil)" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" title="Portuguese (Portugal)" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/trsmall.gif" title="Turkish" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" title="Swedish" height="15" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" title="Catalan" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" title="Hebrew" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" title="Albanian" height="15" />
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" title="Icelandic" height="15" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" title="Galician" height="15" />
 
 [View this app on apps.owncloud.org.](https://apps.owncloud.com/content/show.php/Passwords?content=170480)
 
@@ -73,41 +74,41 @@ There is a built in option to view website icons in the password table. This can
 ## Translations
 ownCloud Passwords is available in:
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" height="15" /> Catalan
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" height="16" /> English
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" height="15" /> English
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" height="20" /> German
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" height="15" /> German
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" height="20" /> Spanish
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" height="15" /> Spanish
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" height="20" /> French
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" height="15" /> French
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" height="20" /> Italian
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" height="15" /> Italian
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" height="20" /> Dutch
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" height="15" /> Dutch
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" height="20" /> Czech
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" height="15" /> Czech
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" height="23" /> Norwegian Bokmål
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" height="15" /> Norwegian Bokmål
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" height="20" /> Polish
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" height="15" /> Polish
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" height="20" /> Portuguese (Brazil)
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" height="15" /> Portuguese (Brazil)
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" height="20" /> Portuguese (Portugal)
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" height="15" /> Portuguese (Portugal)
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/trsmall.gif" height="20" /> Turkish
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/trsmall.gif" height="15" /> Turkish
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" height="20" /> Swedish
 
-<imgsrc="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" height="15" /> Swedish
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" height="20" /> Catalan
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="15" /> Hebrew
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="20" /> Hebrew
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" height="15" /> Albanian
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" height="20" /> Albanian
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" height="15" /> Icelandic
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" height="20" /> Icelandic
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" height="15" /> Galician
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" height="20" /> Galician
 
 ## Installation
 Use one of the following options, login as admin on ownCloud and enable the app. The database tables `oc_passwords`, `oc_passwords_categories` and `oc_passwords_share` will be created automatically (assuming `_oc` as prefix).
