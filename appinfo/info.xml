@@ -7,7 +7,7 @@
 
 	It features both client side and server side encryption (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read Security part in documentation for details). You can insert or import your own passwords (KeePass, LastPass, ...) or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).
 
-        Important: passwords can only be read (decrypted) by the user who created the password, on the ownCloud-instance where the password was created in (i.e. same password salt in config.php). If you lose the password salt, all passwords of all users are lost and unretrievable.
+        Important: passwords can only be read (decrypted) by the user who created the password, on the ownCloud-instance where the password was created in (i.e. same password salt in config.php). If you lose the password salt, all passwords of all users are lost and irretrievable.
 
         Please read the documentation for more information about the generation of passwords and its security.
     </description>
