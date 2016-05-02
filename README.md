@@ -56,7 +56,7 @@ All passwords are encrypted with user-specific, ownCloud-specific and server-spe
 * only by the user who created the password (so this user must be logged in),
 * only on the same ownCloud instance where the password was created in (meaning: same password salt in config.php).
 
-Other users or administrators are never able to decrypt passwords, since they cannot login as the user (assuming the user's password isn't known). *If the password salt is lost, all passwords of all users are lost and unretrievable.*
+Other users or administrators are never able to decrypt passwords, since they cannot login as the user (assuming the user's password isn't known). *If the password salt is lost, all passwords of all users are lost and irretrievable.*
 
 ### + Sharing
 For sharing, an ad hoc share key is created everytime a share is initiated. This is a 256-bit strong hash, with no retrievable information. The share key is stored encrypted as above for the user who shares a password and copied to another table where this key matches the password ID and the ownCloud ID of the user to whom the password is shared with. If the share keys match, the password will be decrypted at the receiving user's side too. If they don't, the receiving user will see an 'Invalid share key' notice and the password will not be decrypted at all.
