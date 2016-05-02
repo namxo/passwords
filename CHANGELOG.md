@@ -1,5 +1,6 @@
 ####18.1 - NOT YET RELEASED
 * Added 'Stop sharing' button to popup
+* Added Turkish. Now available in 18 languages: English, German, Spanish, French, Italian, Dutch, Czech, Norwegian Bokmål, Polish, Portuguese (Brazil), Portuguese (Portugal), Turkish, Swedish, Catalan, Hebrew, Albanian, Icelandic and Galician.
 * Fix for notes and categories not being saved on unshared passwords
 * Fix for sharing with users whose username contains a `.` or `@`
 * Fix for SQLite databases
