@@ -178,6 +178,8 @@ OC.L10N.register(
     "Select options" : "Mundësi përzgjedhjesh",
     "File contains headers" : "Kartela përmban krye",
     "Values are separated by quotation marks" : "Vlerat ndahen me pikëpyetje",
+    "Characters %s and %s need to be escaped" : "Karakteret %s dhe %s duhet të shmangen",
+    "Lines are split on" : "Linjat janë të ndarë në",
     "Select all" : "Përzgjidhi krejt",
     "Select none" : "Mos përzgjidh gjë",
     "Backup and import" : "Kopjeruaje dhe importoje",
