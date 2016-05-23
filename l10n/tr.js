@@ -56,6 +56,7 @@ OC.L10N.register(
     "days ago" : "Günler önce",
     "This is not a valid CSV file." : "Bu geçerli bir CV dosyası değil",
     "Preview" : "Önizleme",
+    "This file contains no passwords." : "Bu dosya şifre içermez",
     "This file contains one or more values without quotation marks." : "Bu dosya tırnak işaretleri olmadan bir veya daha fazla değerler içerir",
     "This file contains one or more lines with less than 3 columns." : "Bu dosya en az 3 sutun ile bir ve ya bir den fazla satır içerir",
     "Import" : "İçe aktar",
