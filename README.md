@@ -8,6 +8,7 @@ Available in languages:
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/frsmall.gif" title="French" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" title="Italian" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" title="Dutch" height="15" /> 
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/dksmall.gif" title="Danish" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" title="Czech" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" title="Norwegian Bokmål" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/rusmall.gif" title="Russian" height="15" /> 
@@ -86,6 +87,8 @@ ownCloud Passwords is available in:
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/itsmall.gif" height="20" /> Italian
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nlsmall.gif" height="20" /> Dutch
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/dksmall.gif" height="20" /> Danish
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" height="20" /> Czech
 
