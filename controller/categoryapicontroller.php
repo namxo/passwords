@@ -15,7 +15,7 @@ class CategoryApiController extends ApiController {
 	use Errors;
 
 	public function __construct($AppName, IRequest $request, CategoryService $service, $UserId) {
-		// allow getting passwords and editing/saving them
+		// allow getting categories and editing/saving them
 		parent::__construct(
 			$AppName,
 			$request,
