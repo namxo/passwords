@@ -19,6 +19,7 @@ Available in languages:
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" title="Swedish" height="15" /> 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" title="Catalan" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" title="Hebrew" height="15" /> 
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/rosmall.gif" title="Romanian" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" title="Albanian" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" title="Icelandic" height="15" /> 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" title="Galician" height="15" />  
@@ -109,6 +110,8 @@ ownCloud Passwords is available in:
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" height="20" /> Catalan
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" height="20" /> Hebrew
+
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/rosmall.gif" height="20" /> Romanian
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/alsmall.gif" height="20" /> Albanian
 
