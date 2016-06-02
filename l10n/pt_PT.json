@@ -1,6 +1,6 @@
 { "translations": {
     "Passwords" : "Palavras-passe",
-    "Website or company" : "Site da Web ou empresa",
+    "Website or company" : "Site ou empresa",
     "Login name" : "Nome da sessão",
     "Password" : "Palavra-passe",
     "You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it." : "Não possui uma chave de partilha válida para desencriptar esta palavra-passe. Peça ao utilizador que partilhou esta palavra-passe consigo, que a volte a partilhar.",
@@ -63,7 +63,7 @@
     "Strength" : "Força",
     "This function is unsupported on your browser. Use a modern browser instead." : "Esta função não é suportada no seu navegador. Use um navegador moderno.",
     "Download Backup" : "Descarregar cópia de segurança",
-    "This will download an unencrypted backup file, which contains all your passwords." : "Isto irá transferir um ficheiro de cópia de segurança descodificado, o qual contém todas as suas palavras-passe.",
+    "This will download an unencrypted backup file, which contains all your passwords." : "Será descarregado um ficheiro desencriptado com a cópia de segurança que contém todas as suas palavras-passe.",
     "This file is fully compatible with other password services, such as KeePass, 1Password and LastPass." : "Este ficheiro é completamente compatível com outros serviços de palavras-passe, tais como KeePass, 1Password e LastPass.",
     "Would you like to backup deleted passwords too?" : "Quer efetuar também uma cópia de segurança das palavras-passe eliminadas?",
     "Import CSV File" : "Importar ficheiro CSV",
