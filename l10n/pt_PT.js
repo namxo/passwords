@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Passwords" : "Palavras-passe",
     "Website or company" : "Site ou empresa",
-    "Login name" : "Nome da sessão",
+    "Login name" : "Nome de utilizador",
     "Password" : "Palavra-passe",
     "You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it." : "Não possui uma chave de partilha válida para desencriptar esta palavra-passe. Peça ao utilizador que partilhou esta palavra-passe consigo, que a volte a partilhar.",
     "Invalid share key" : "Chave de partilha inválida",
