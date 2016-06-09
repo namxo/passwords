@@ -18,7 +18,7 @@ class PasswordMapper extends Mapper {
 	public function findAll($userId) {
 
 		// get all passwords of this user and all passwords that are shared with this user (still encrypted)
-		$sql = 'SELECT id, user_id, loginname, website, address, pass, properties, notes, creation_date, deleted FROM *PREFIX*passwords ' . 
+		$sql = 'SELECT CAST(id AS CHAR) AS id, user_id, loginname, website, address, pass, properties, notes, creation_date, deleted FROM *PREFIX*passwords ' . 
 				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?) ';
 
 		// now get all uid's and displaynames this user is eligable to share with
@@ -28,16 +28,16 @@ class PasswordMapper extends Mapper {
 			if ($only_share_with_own_group) {
 				$sql = $sql . 'UNION ALL ' .
 					'SELECT  ' .
-						'DISTINCT displaynames.uid as id, ' .
-						'displaynames.displayname as user_id, ' .
-						'NULL as loginname, ' .
-						'displaynames.uid as website, ' .
-						'NULL as address, ' .
-						'NULL as pass, ' .
-						'NULL as properties, ' .
-						'NULL as notes, ' .
-						'NULL as creation_date, ' .
-						'NULL as deleted ' .
+						'DISTINCT CAST(displaynames.uid AS CHAR) AS id, ' .
+						'displaynames.displayname AS user_id, ' .
+						'NULL AS loginname, ' .
+						'displaynames.uid AS website, ' .
+						'NULL AS address, ' .
+						'NULL AS pass, ' .
+						'NULL AS properties, ' .
+						'NULL AS notes, ' .
+						'NULL AS creation_date, ' .
+						'NULL AS deleted ' .
 					'FROM *PREFIX*group_user AS users ' .
 						'LEFT JOIN  ' .
 						'(SELECT uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
@@ -45,16 +45,16 @@ class PasswordMapper extends Mapper {
 			} else {
 				$sql = $sql . 'UNION ALL ' .
 					'SELECT  ' .
-						'uid as id, ' .
-						'CASE WHEN displayname IS NULL THEN uid ELSE displayname END as user_id, ' .
-						'NULL as loginname, ' .
-						'uid as website, ' .
-						'NULL as address, ' .
-						'NULL as pass, ' .
-						'NULL as properties, ' .
-						'NULL as notes, ' .
-						'NULL as creation_date, ' .
-						'NULL as deleted ' .
+						'uid AS id, ' .
+						'CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS user_id, ' .
+						'NULL AS loginname, ' .
+						'uid AS website, ' .
+						'NULL AS address, ' .
+						'NULL AS pass, ' .
+						'NULL AS properties, ' .
+						'NULL AS notes, ' .
+						'NULL AS creation_date, ' .
+						'NULL AS deleted ' .
 					'FROM *PREFIX*users';
 			}
 		}
