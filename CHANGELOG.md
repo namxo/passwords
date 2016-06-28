@@ -1,9 +1,30 @@
-####18.1 - NOT YET RELEASED
-* Added 'Stop sharing' button to popup
-* Added Danish, Romanian, Russian and Turkish. Now available in 21 languages: English, German, Spanish, French, Italian, Dutch, Danish, Czech, Norwegian Bokmål, Russian, Polish, Portuguese (Brazil), Portuguese (Portugal), Turkish, Swedish, Catalan, Hebrew, Romanian, Albanian, Icelandic and Galician.
+####19-beta - NOT YET RELEASED
+* Added the possibility for a master password! Users can choose between their own **ownCloud password** (default after you update), a self chosen **master password** or **no extra password** at all.
+ * A master password will be hashed with a 512-bit SHA2-hash. This hash contains no retrievable information and is useless, even for database administrators. It will only be used to verify it with the hashed version of the user's input.
+ * This is particularly handy when other users know your ownCloud password (for practical reasons).
+ * Master passwords do not re-encrypt existing passwords, it is only used for entering the app.
+ * The countdown timer will lock the app instead of log you off when it reaches zero and you use an extra authentication
+* Added 'Lock app' button as option for users who have set an extra authentication
+* Added support for different app locations. If you use `/owncloud/apps2/passwords` for an instance, this will now be supported too. Admins can change this in the admin settings of ownCloud.
+* Readded support for PostgreSQL (changed database format for BLOB-types)
+* Added 'Share' button to cell menu
+* Added 'Clone' button to cell menu; e.g. with this button you can clone/recreate a password that has been shared to you
+* Added 'Stop sharing' button to popup for passwords that have been shared
+* Added immediate clipboard copy when you click on a username or password, hidden or not
+* Added 'Clear' button to popup
+* Added support for Danish, Romanian, Russian and Turkish. Now available in 21 languages: English, German, Spanish, French, Italian, Dutch, Danish, Czech, Norwegian Bokmål, Russian, Polish, Portuguese (Brazil), Portuguese (Portugal), Turkish, Swedish, Catalan, Hebrew, Romanian, Albanian, Icelandic and Galician.
+* Added auto load of website picture (favicon) when creating a password so it is instantly visible
+* Changed appearance of left navigation pane, including removal of password form (which has moved to a popup)
+* Changed password generation (pre-)algorithm, it now loops 10 times and returns the strongest of them
+* Removed ZeroClipboard in favour of Clipboard.js, so Flash is fully eliminated and copy support has been extended (except for Safari)
+* CSS-fixes for checkboxes to comply with the ownCloud 9 standard
+* Fixed responsive design, especially for mobile screens (OC Passwords looks great on iPhone!)
 * Fix for notes and categories not being saved on unshared passwords
 * Fix for sharing with users whose username contains a `.` or `@`
 * Fix for SQLite databases
+* Fix for Not Found Exception
+* Fix for many small CSS bugs
+* Fixed ownCloud dialogs with own CSS so they actually work and the buttons are always in sight
 
 ####18.0 - Apr 4th, 2016
 * **Added sharing!** Share all your passwords with others (you can trust)!

@@ -9,49 +9,72 @@
 		}
 
 		// test if at least one is true in:
-		// (1) header, (2) port number, (3) config.php setting, (4) admin setting
+		// (1) header, (2) port number, (3/4) config.php setting, (5) admin setting
 	  	return
 		(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 		|| $_SERVER['SERVER_PORT'] == 443
 		|| \OC::$server->getConfig()->getSystemValue('forcessl', '')
+		|| substr(\OC::$server->getConfig()->getSystemValue('overwrite.cli.url', 'http:'), 0, 5) == 'https'
 		|| \OC::$server->getConfig()->getAppValue('passwords', 'https_check', 'true') == 'false';
 	};
 
 	style('passwords', 'style');
 	style('passwords', 'spectrum'); // colour picker
+	script('passwords', 'sha512'); // hash function
 
 	// check if secure (https)
 	if (isSecure()) {
 
-		script('passwords', 'handlebars');
-		script('passwords', 'script');
-		script('passwords', 'sorttable');
-		script('passwords', 'spectrum'); // colour picker
-		script('passwords', 'ZeroClipboard'); // clipboard function
-?>
+		$auth_type = \OC::$server->getConfig()->getUserValue(\OC::$server->getUserSession()->getUser()->getUID(), 'passwords', 'extra_auth_type', 'owncloud');
+		$auth_cookie = '';
+		if (isset($_COOKIE["oc_passwords_auth"])) {
+			$auth_cookie = $_COOKIE["oc_passwords_auth"];
+		}
+		
+		if (($auth_type == 'owncloud' OR $auth_type == 'master') AND $auth_cookie != hash('sha512', \OC::$server->getUserSession()->getUser()->getUID())) { 
 
-	<div id="app">
-		<div id="app-navigation">
-			<?php print_unescaped($this->inc('part.navigation')); ?>
-			<?php print_unescaped($this->inc('part.settings')); ?>
-		</div>
+			script('passwords', 'auth'); ?>
+			
+			<div id="app">
+				<div id="app-content">
+					<div id="app-content-wrapper">
+						<?php print_unescaped($this->inc('part.authenticate')); ?>
+					</div>
+				</div>
+			</div>
 
-		<div id="app-content">
-			<div id="app-content-wrapper">
-				<?php print_unescaped($this->inc('part.content')); ?>
+		<?php } else { 
+
+			script('passwords', 'handlebars');
+			script('passwords', 'script');
+			script('passwords', 'sorttable');
+			script('passwords', 'spectrum'); // colour picker
+			script('passwords', 'clipboard.min'); // clipboard function
+
+			?>
+
+			<div id="app">
+				<div id="app-navigation">
+					<?php print_unescaped($this->inc('part.navigation')); ?>
+					<?php print_unescaped($this->inc('part.settings')); ?>
+				</div>
+
+				<div id="app-content">
+					<div id="app-content-wrapper">
+						<?php print_unescaped($this->inc('part.content')); ?>
+					</div>
+					<div id="app-sidebar-wrapper">
+						<?php print_unescaped($this->inc('part.sidebar')); ?>
+					</div>
+				</div>
 			</div>
-			<div id="app-sidebar-wrapper">
-				<?php print_unescaped($this->inc('part.sidebar')); ?>
-			</div>
-		</div>
-	</div>
+	<?php } ?>
 
 <?php } else {
 	\OCP\Util::writeLog('passwords', 'Passwords app blocked; no secure connection.', \OCP\Util::ERROR);
 ?>
 
 	<div id="app">
-
 		<div id="app-content">
 			<div id="app-content-wrapper">
 				<?php print_unescaped($this->inc('part.blocked')); ?>

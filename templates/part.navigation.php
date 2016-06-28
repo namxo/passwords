@@ -1,4 +1,5 @@
 <ul>
+	<input id="lock_btn" class="button icon-lock nav-btn" type="button" value="<?php p(chunk_split(strtoupper($l->t("Lock app")), 1, ' ')); ?>">
 	<li id="list_active" class="with-counter active">
 		<a href="#"><?php p($l->t("Active passwords")); ?></a>
 		<div class="app-navigation-entry-utils">
@@ -15,6 +16,14 @@
 			</ul>
 		</div>
 	</li>
+
+	<div id="PasswordsTableSearch">
+		<hr>
+		<input id="search_text" type="text" placeholder="<?php p($l->t("Search for")); ?>..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><br>
+		<input id="search_clear" type="button" value="<?php p($l->t("Clear")); ?>">
+		<hr>
+	</div>
+
 	<li id="list_category">
 		<a href="#"><?php p($l->t("Filter")); ?>:</a>
 		<div class="app-navigation-entry-utils nav-cat-counter">
@@ -24,47 +33,59 @@
 		</div>
 	</li>
 
-	<div id="PasswordsTableSearch">
-		<input id="search_text" type="text" placeholder="<?php p($l->t("Search for")); ?>..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-		<input id="search_clear" type="button" value="<?php p($l->t("Clear")); ?>">
+	<div id="nav_buttons">
+		<button id="add_new" class="button icon-add nav-btn" type="button"><?php p($l->t("Add new password")); ?></button>
+		<button id="editCategories" class="button icon-category nav-btn" type="button"><?php p($l->t("Edit categories")); ?></button>
+		<button id="trashAll" class="button icon-delete nav-btn" type="button"><?php p($l->t("Move all to trash")); ?></button>
 	</div>
 
 	<div id="add_password_div">
-		<h3><?php p($l->t("Add new password")); ?></h3>
-		<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-link"><input type="text" id="new_address" placeholder="<?php p($l->t("Full URL (optional)")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-		<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-rename"><textarea id="new_notes" placeholder="<?php p($l->t("Notes (optional)")); ?>"></textarea>
-		<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-category"><div id="new_category"></div>
-		
-		<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-share"><input type="text" id="new_website" placeholder="<?php p($l->t("site.com or Name Inc.")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-		<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-user"><input type="text" id="new_username" placeholder="<?php p($l->t("Login name or e-mail")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-		<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-password"><input type="text" id="new_password" class="password_field" placeholder="<?php p($l->t("Password")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+		<div>
+			<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-link">
+			<input type="text" id="new_address" placeholder="<?php p($l->t("Full URL (optional)")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+		</div>
+		<div>
+			<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-rename">
+			<textarea id="new_notes" placeholder="<?php p($l->t("Notes (optional)")); ?>"></textarea>
+		</div>
+		<div>
+			<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-category">
+			<div id="new_category"></div>
+		</div>
+		<div>
+			<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-share" id="websiteimg">
+			<input type="text" id="new_website" placeholder="<?php p($l->t("site.com or Name Inc.")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+		</div>
+		<div>
+			<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-user">
+			<input type="text" id="new_username" placeholder="<?php p($l->t("Login name or e-mail")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+		</div>
+		<div>
+			<img src="<?php p(\OC::$server->getURLGenerator()->imagePath('passwords', 'blank.svg')); ?>" class="icon-password">
+			<input type="text" id="new_password" class="password_field" placeholder="<?php p($l->t("Password")); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+		</div>
 		<div id="generate-password">
 			<p id="generate_strength"></p>
 			<div id="generate_passwordtools">
-				<label>
-					<input class="check" type="checkbox" id="gen_lower" checked> <?php p($l->t("Lowercase characters")); ?>
-				</label>
+				<input class="checkbox" type="checkbox" id="gen_lower" checked>
+				<label for="gen_lower"><?php p($l->t("Lowercase characters")); ?></label>
 				<br>
-				<label>
-					<input class="check" type="checkbox" id="gen_upper" checked> <?php p($l->t("Uppercase characters")); ?>
-				</label>
+				<input class="checkbox" type="checkbox" id="gen_upper" checked>
+				<label for="gen_upper"><?php p($l->t("Uppercase characters")); ?></label>
 				<br>
-				<label>
-					<input class="check" type="checkbox" id="gen_numbers" checked> <?php p($l->t("Numbers")); ?>
-				</label>
+				<input class="checkbox" type="checkbox" id="gen_numbers" checked>
+				<label for="gen_numbers"><?php p($l->t("Numbers")); ?></label>
 				<br>
-				<label>
-					<input class="check" type="checkbox" id="gen_special" checked> <?php p($l->t("Punctuation marks")); ?>
-				</label>
+				<input class="checkbox" type="checkbox" id="gen_special" checked>
+				<label for="gen_special"><?php p($l->t("Punctuation marks")); ?></label>
 				<br>
 				<label>
 					<input type="text" id="gen_length" value="30"> <?php p($l->t("characters")); ?>
 				</label>
 				<br>
 			</div>
-			<input id="new_generate" type="button" class="search_clear_shown" value="<?php p($l->t("Generate password")); ?>">
+			<input id="new_generate" type="button" class="button" value="<?php p($l->t("Generate password")); ?>">
 		</div>
-		<input id="new_password_add" type="button" value="<?php p($l->t("Add password")); ?>">
 	</div>
 
 </ul>

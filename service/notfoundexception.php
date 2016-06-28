@@ -1,6 +1,6 @@
 <?php
 
-namespace \OCA\Passwords\Service;
+namespace OCA\Passwords\Service;
 
 
 class NotFoundException extends ServiceException {}

@@ -40,7 +40,7 @@ class PasswordMapper extends Mapper {
 						'NULL AS deleted ' .
 					'FROM *PREFIX*group_user AS users ' .
 						'LEFT JOIN  ' .
-						'(SELECT uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
+						'(SELECT CAST(uid AS CHAR) AS uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
 					'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?)';
 			} else {
 				$sql = $sql . 'UNION ALL ' .
@@ -58,6 +58,9 @@ class PasswordMapper extends Mapper {
 					'FROM *PREFIX*users';
 			}
 		}
+
+		// fix for PostgreSQL, cannot use UNION and ORDER BY in same query hierarchy
+		$sql = 'SELECT * FROM (' . $sql . ') AS t1';
 
 		// order by website according to database used
 		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', 'sqlite3');

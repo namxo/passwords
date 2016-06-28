@@ -23,6 +23,7 @@ class SettingsService {
 	public function get() {
 		$settings = array(
 				// admin settings
+				'app_path' => (string)$this->settings->getAppValue($this->appName, 'app_path', \OC::$SERVERROOT.'/apps'),
 				'backup_allowed' => (string)$this->settings->getAppValue($this->appName, 'backup_allowed', 'false'),
 				'days_orange' => (string)$this->settings->getAppValue($this->appName, 'days_orange', '150'),
 				'days_red' => (string)$this->settings->getAppValue($this->appName, 'days_red', '365'),
@@ -31,10 +32,14 @@ class SettingsService {
 				'icons_allowed' => (string)$this->settings->getAppValue($this->appName, 'icons_allowed', 'true'),
 				'icons_service' => (string)$this->settings->getAppValue($this->appName, 'icons_service', 'ddg'),
 				// user settings
+				'auth_timer' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'auth_timer', '300'),
+				'extra_auth_type' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'extra_auth_type', 'owncloud'),
 				'hide_attributes' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'hide_attributes', 'false'),
 				'hide_passwords' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'hide_passwords', 'true'),
 				'hide_usernames' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'hide_usernames', 'false'),
+				'master_password' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'master_password', '0'),
 				'icons_show' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'icons_show', 'true'),
+				'show_lockbutton' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'show_lockbutton', 'true'),
 				'timer' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'timer', '60')
 		);
 		return $settings;

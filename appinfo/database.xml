@@ -45,18 +45,21 @@
 			</field>
 			<field>
 				<name>pass</name>
-				<type>blob</type>
+				<type>text</type>
+				<length>3000</length>
 				<notnull>true</notnull>
 			</field>
 			<field>
 				<name>properties</name>
-				<type>blob</type>
+				<type>text</type>
+				<length>3000</length>
 				<default></default>
 				<notnull>false</notnull>
 			</field>
 			<field>
 				<name>notes</name>
-				<type>blob</type>
+				<type>text</type>
+				<length>3000</length>
 				<notnull>false</notnull>
 			</field>
 			<field>

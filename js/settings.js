@@ -1,5 +1,7 @@
 
 // ADMIN SETTINGS
+// app_path
+//		Location of this app. This is needed to support other app folders like /owncloud/apps2
 // backup_allowed
 //		Allow unencrypted backups to be downloaded by users
 // days_orange
@@ -16,6 +18,10 @@
 //		Service used for website icons: Google (ggl), DuckDuckGo (ddg)
 
 // USER SETTINGS
+// auth_timer --> WILL BE SET IN APP ITSELF, AFTER AUTHENTICATION
+//		lifetime of authentication, auth cookie will be deleted when it reaches 0
+// extra_auth_type
+//		Extra authentication to enter the app: none (none), ownCloud password (owncloud), master password (master)
 // hide_attributes
 //		Hide the attributes strength and last changed date
 // hide_passwords
@@ -24,6 +30,8 @@
 //		Hide usernames by showing them as '*****'
 // icons_show
 //		Show website icons, using service selected by admin
+// master_password
+//		SHA-2 (512-bit) password that is needed to enter the app
 // timer
 //		Use countdown timer, user will be logged off when it reaches 0
 
@@ -51,36 +59,34 @@ $(document).ready(function() {
 		},
 
 		setUserKey: function(key, value) {
-			var deferred = $.Deferred();
-			$.ajax({
+			var request = $.ajax({
 				url: this._baseUrl + '/' + key + '/' + value,
 				method: 'POST'
-			}).done(function( data ) {
-				deferred.resolve(data);
-			}).fail(function() {
+			});
+			request.done(function(msg) {
+				$('.msg-passwords').removeClass("msg_error");
+				$('.msg-passwords').text('');
+			});
+			request.fail(function( jqXHR, textStatus ) {
 				$('.msg-passwords').addClass("msg_error");
 				$('.msg-passwords').text(t('passwords', 'Error while saving field') + ' ' + key + '!');
-				deferred.reject();
 			});
 		},
 
 		setAdminKey: function(key, value) {
-			var deferred = $.Deferred();
-			$.ajax({
-				// route is based on URL!
-				// /admin1/ only saves a userkey with value 'admin1'
-				// so /admin1/admin2 is needed. Ugly but functional.
+			var request = $.ajax({
 				url: this._baseUrl + '/' + key + '/' + value + '/admin1/admin2',
 				method: 'POST'
-			}).done(function( data ) {
-				deferred.resolve(data);
-			}).fail(function() {
+			});
+			request.done(function(msg) {
+				$('.msg-passwords').removeClass("msg_error");
+				$('.msg-passwords').text('');
+			});
+			request.fail(function( jqXHR, textStatus ) {
 				$('.msg-passwords').addClass("msg_error");
 				$('.msg-passwords').text(t('passwords', 'Error while saving field') + ' ' + key + '!');
-				deferred.reject();
 			});
 		},
-
 		getKey: function(key) {
 			for (var k in this._settings)
 			{
@@ -93,12 +99,16 @@ $(document).ready(function() {
 		}
 	};
 
-	var settings = new Settings(OC.generateUrl('/apps/passwords/settings'));
+
+
+	var settings = new Settings(generateUrl('/settings'));
 	settings.load();
 
 // ADMIN SETTINGS
 
 	// fill the boxes
+	$('#app_path').val(settings.getKey('app_path'));
+
 	$('#https_check').prop('checked', (settings.getKey('https_check').toLowerCase() == 'true'));
 	$('#backup_allowed').prop('checked', (settings.getKey('backup_allowed').toLowerCase() == 'true'));
 	$('#disable_contextmenu').prop('checked', (settings.getKey('disable_contextmenu').toLowerCase() == 'true'));
@@ -118,6 +128,10 @@ $(document).ready(function() {
 	updateRed();
 
 	// Admin settings
+	$('#app_path').keyup(function() {
+		settings.setAdminKey('app_path', $(this).val());
+	});
+
 	$('#https_check').change(function () {
 		settings.setAdminKey('https_check', $(this).is(":checked"));
 	});
@@ -189,7 +203,6 @@ $(document).ready(function() {
 		}
 	}
 
-
 	// Personal settings
 	$('#icons_show').change(function () {
 		settings.setUserKey('icons_show', $(this).is(":checked"));
@@ -228,7 +241,7 @@ $(document).ready(function() {
 			settings.setUserKey('timer', 0);
 		} else {
 			if (!isNumeric($('#timer').val())) {
-				OCdialogs.alert(t('passwords', 'Fill in a number between %s and %s').replace('%s', '10').replace('%s', '3599'), t('passwords', 'Use inactivity countdown'), null, true);
+				OCdialogs.alert(t('passwords', 'Fill in a number between %s and %s').replace('%s', '10').replace('%s', '3599'), t('passwords', 'Use inactivity countdown'), function() { return false; }, true);
 				$('#timer').val(60);
 				settings.setUserKey('timer', 60);
 				return false;
@@ -269,7 +282,6 @@ function updateOrange() {
 }
 function updateIconService() {
 	if ($('#icons_allowed').prop('checked')) {
-		$('#ddg_value').prop("checked", true);
 		$('#ggl_value').prop("enabled", true);
 		$('#ddg_value').prop("enabled", true);
 		$('#ggl_value').prop("disabled", false);
@@ -290,4 +302,13 @@ function int2time(integer) {
 	if (integer !== undefined) {
 		return new Date(null, null, null, null, null, integer).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0].substr(3, 5);
 	}
+}
+function generateUrl(extra_path) {
+	var serverroot = $('#password-settings').attr('root-folder');
+	var approot = $('#password-settings').attr('app-path') + '/passwords';
+	approot = approot.replace(/\/\//g, '/');
+	var url = approot.replace(serverroot, '');
+	var OCurl = OC.generateUrl(url + '/' + extra_path);
+	OCurl = OCurl.replace(/\/\//g, '/');
+	return OCurl;
 }

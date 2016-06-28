@@ -20,7 +20,8 @@ class PasswordService {
 	public function findAll($userId) {
 
 		$result = $this->mapper->findAll($userId);
-		$arr = json_decode(json_encode($result), true);
+		$arr_enc = json_encode($result);
+		$arr = json_decode($arr_enc, true);
 
 		$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 		
@@ -43,7 +44,9 @@ class PasswordService {
 			if ($userKey != $userId && $arr[$row]['id'] != 0) {
 				// check for sharekey
 				$getShare = $this->mapper->getShareKey($arr[$row]['id'], $userId);
-				$getSharearr = json_decode(json_encode($getShare), true);
+				$getShare_enc = json_encode($getShare);
+				$getSharearr = json_decode($getShare_enc, true);
+				
 				$sharekey_activeuser = $getSharearr['sharekey'];
 				$pos = strrpos($arr[$row]['properties'], $sharekey_activeuser);
 				if ($pos !== false) {
@@ -73,8 +76,9 @@ class PasswordService {
 	public function find($id, $userId) {
 		try {
 			$result = $this->mapper->find($id, $userId);
-			$arr = json_decode(json_encode($result), true);
-
+			$arr_enc = json_encode($result);
+			$arr = json_decode($arr_enc, true);
+			
 			$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 
 			$userKey = $arr['user_id'];
@@ -159,7 +163,7 @@ class PasswordService {
 
 		// remove old sharekeys and shares of this password
 		$removesharekey = $this->mapper->deleteSharesbyID($id);
-		if (count($sharewith) > 0) {
+		if (count($sharewith) > 0 AND $sharewith != '') {
 			if (function_exists('random_bytes')) {
 				// PHP 7 only
 				$sharekey = bin2hex(random_bytes(32)); 
@@ -185,7 +189,7 @@ class PasswordService {
 			'"datechanged" : "' . $datechanged . '", ' .
 			'"notes" : "' . $notes . '"';
 
-		if (count($sharewith) > 0) {
+		if (count($sharewith) > 0 AND $sharewith != '') {
 			$properties = 
 				$properties . ', ' .
 				'"sharekey" : "' . $sharekey . '", ' .

@@ -1,3 +1,27 @@
+/* make OC dialog functional, readable, just... useable. */
+div.oc-dialog {
+	left: 15% !important;
+	width: 70% !important;
+}
+.oc-dialog-buttonrow.twobuttons button:nth-child(1) {
+	float: right !important;
+	margin-left: 10px;
+}
+.oc-dialog-buttonrow button {
+	width: 70px !important;
+}
+.oc-dialog h3 {
+	width: 100%;
+	margin: 0;
+}
+.ui-icon-notice {
+	background-image: url('../../../core/img/actions/info.svg') !important;
+	background-position: 0px !important;
+	height: 30px !important;
+	width: 30px !important;
+	background-size: 30px !important;
+}
+
 #CSVcontent,
 #CSVcolumnCount {
 	display: none;
@@ -256,7 +280,8 @@ tr.activerow > .red span,
 tr.activerow > .orange span {
 	display: none;
 }
-.hidden_value {
+td[type="loginname"]:hover,
+td[type="pass"]:hover {
 	cursor: pointer;
 }
 .btn_commands_open{
@@ -439,13 +464,39 @@ td:hover > .edit_value {
 	height: 16px;
 	width: 16px;
 	margin-right: 5px;
+	margin-bottom: 1px;
 }
-#add_password_div {
-	border: 1px solid #ddd;
-	margin-top: 10px;
+#app-settings-content {
+	overflow-y: scroll !important;
+	max-height: 400px;
+}
+#app-settings-content h3 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 13px
+}
+#app-settings-content h3,
+#app-settings-content p {
+	color: #777;
+}
+#nav_buttons {
+	margin-top: 20px;
+}
+.nav-btn {
+	padding-left: 30px;
+	background-size: 20px 20px;
+	background-position: left center;
+	background-position-x: 5px;
 	margin-left: 5%;
-	margin-right: 5%;
-	padding: 4%;
+	width: 90%;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+hr {
+	border: 0;
+	color: #eee;
+	background-color: #eee;
+	height: 1px;
 }
 .icon-passwords {
 	background-image: url(../img/app_black.svg);
@@ -453,8 +504,98 @@ td:hover > .edit_value {
 .icon-passwords-blocked {
 	background-image: url(../img/app_red.svg);
 }
-h3,
-#new_password_add,
+#auth_div {
+	background-image: url(../img/app_black.svg);
+	background-size: 10%;
+	background-repeat: no-repeat;
+	background-position: center left;
+	background-position-x: 10%;
+	background-position: center left+10%;
+	text-align: center;
+	position: absolute;
+	margin-left: 10%;
+	margin-right: 10%;
+	width: 80%;
+	top: 10%;
+	background-color: #efefef;
+	padding: 25px;
+}
+#auth_div h2 {
+	font-size: 2.5em;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+#auth_div h3 {
+	font-size: 1.5em;
+	font-weight: normal;
+	margin-bottom: 2px;
+}
+#auth_div p {
+	margin-top: 25px;
+}
+#auth_pass {
+	font-size: 1.5em;
+	width: 50%;
+	text-align: center;
+}
+#auth_footer {
+	position:absolute;
+	text-align: center;
+	width: 100%;
+	bottom: 20px;
+}
+#auth_btn {
+	transform: scale(1.5);
+	margin-top: 15px;
+	margin-right: 0px
+}
+#auth_timer {
+	width: 40px !important;
+	text-align: center;
+	margin-right: 0px;
+}
+#extra_password {
+	width: 90%;
+	margin-left: 5%;
+}
+#new_masterkey1,
+#new_masterkey2 {
+	width: 95%;
+}
+#div_master_password,
+#div_edit_master_password {
+	display: none;
+}
+#div_extra_auth_password,
+#div_master_password,
+#div_extra_auth_password,
+#div_edit_master_password {
+	margin-left: 5%;
+}
+#invalid_auth {
+	display: none;
+	background-color: #a00;
+	color: #fff;
+	width: 30%;
+	margin-left: 35%;
+	margin-top: 0px !important;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+}
+#lock_btn {
+	display: none;
+	width: 90%;
+	margin-left: 5%;
+	background-color: #a00;
+	color: #fff;
+}
+#lock_btn:hover {
+	background-color: #d00;
+}
+#add_password_div {
+	display: none;
+}
 #new_generate,
 #new_website,
 #new_address,
@@ -463,12 +604,16 @@ h3,
 #new_category select,
 #new_category p,
 #new_notes {
-	margin-left: 3%;
-	margin-bottom: 2%;
-	width: 85%;
-	height: 26px;
-	padding-top: 3px;
+	margin-left: 1%;
+	margin-bottom: 1%;
+	width: 90%;
+	height: 28px;
+	padding-top: 2px;
 }
+#new_generate {
+	margin-left: 33px;
+}
+
 #new_category,
 #new_category p {
 	display: inline;
@@ -483,28 +628,24 @@ h3,
 #new_notes {
 	height: 52px !important;
 }
-#new_password_add,
-#new_generate {
-	margin-left: 12%;
-}
 .icon-rename {
-	margin-bottom: 22px;
+	margin-top: -45px;
 }
-#add_password_div img {
-	width: 18px;
+#popupContent img {
+	width: 4%;
 	opacity: 0.5;
 	background-size: 100%;
-	vertical-align: sub;
+	vertical-align: middle;
+	margin-left: 2%;
+	height: 28px;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 .password_field {
 	font-family: Consolas, Courier !important;
 	font-size: 1.1em !important;
 }
-#gen_lower,
-#gen_upper,
-#gen_numbers,
-#gen_special,
-#gen_length,
+#generate_passwordtools label,
 #generate_strength {
 	margin-left: 10%;
 }
@@ -524,9 +665,6 @@ h3 {
 	color: #555;
 	font-weight: bold;
 	text-align: center;
-}
-#new_password_add {
-	font-weight: bold !important;
 }
 #PasswordsTable table {
 	border: 0;
@@ -619,12 +757,7 @@ h3 {
   color: #a00;
   font-weight: bold;
 }
-#btn_edit:hover,
-#btn_copy:hover {
-	/*fix for ZeroClipboard*/
-	background-color: rgba(240, 240, 240, .9) !important;
-	color: #555;
-}
+
 #app-navigation {
 	border-right: 0 !important;
 }
@@ -726,19 +859,15 @@ orange {
 #PasswordsTableSearch p {
 	font-style: italic;
 }
-#search_clear {
-	height: 26px;
-	float: right;
-	margin-right: 0px;
-	width: 30%;
-	padding-top: 3px;
-}
 #search_text {
 	background: #fff url(../../../core/img/actions/search.svg) no-repeat 6px center;
 	padding-left: 26px;
 	padding-top: 3px;
-	width: 65%;
-	height: 26px;
+	width: 100%;
+	height: 30px;
+}
+#search_clear {
+	width: 100%;
 }
 /* hover on x days ago */
 .dateChanged {
@@ -879,6 +1008,7 @@ p#generate_strength_popup,
 	background-color: #eee;
 	width: 95%;
 	margin: 0;
+	font-size: 12px;
 }
 #passwordSidebar {
 	margin-left: 12px;
@@ -1036,7 +1166,7 @@ h2 {
 }
 
 /* hide if screen too small */
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1150px) {
 	/* sidebar */
 	#column_info, .icon-info, #app-sidebar-wrapper {
 		display: none !important;
@@ -1052,7 +1182,7 @@ h2 {
 		display: none;
 	}
 }
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1000px) {
 	#column_strength, .cell_strength {
 		display: none;
 	}
@@ -1076,6 +1206,30 @@ h2 {
 		left: 10% !important;
 		width: 80% !important;
 		margin-left: 0px !important;
+	}
+	#popupContent img {
+		display: none;
+	}
+	#popupContent input[type="text"]:not(#gen_length):not(#gen_length_popup),
+	#popupContent input[type="button"],
+	#popupContent textarea,
+	#popupContent select {
+		margin-left: 2%;
+		width: 96%;
+		margin-bottom: 1%;
+	}
+	#popupTitle {
+		font-size: 1.5em;
+	}
+	#PasswordsTableContent .icon-category,
+	#PasswordsTableContent .icon-notes,
+	#PasswordsTableContent .icon-info,
+	#PasswordsTableContent .icon-history,
+	#PasswordsTableContent .icon-share,
+	#PasswordsTableContent .icon-shared,
+	#PasswordsTableContent .icon-public,
+	#PasswordsTableContent .icon-delete {
+		background-size: 20px !important;
 	}
 }
 @media screen and (max-width: 450px) {

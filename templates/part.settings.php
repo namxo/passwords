@@ -1,7 +1,10 @@
 <div id="app-settings" 
 sharing-allowed="<?php p(OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes')) ?>" 
 active-table="active" 
-session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifetime', 60*15)) ?>">
+session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifetime', 60*15)) ?>"
+root-folder="<?php p(OC::$SERVERROOT) ?>"
+app-path="<?php p(OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT.'/apps')) ?>" 
+>
 	<textarea id="session_lifetime" disabled="true"></textarea>
 	<div id="CSVtableDIV">
 		<textarea id="CSVcontent"></textarea>
@@ -38,24 +41,51 @@ session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifet
 		</div>
 	</div>
 	<div id="app-settings-header">
-		<button class="settings-button"
-				data-apps-slide-toggle="#app-settings-content"
-		><?php p($l->t('Backup and import')); ?></button>
+		<button id="settingsbtn" class="settings-button" data-apps-slide-toggle="#app-settings-content"></button>
 	</div>
 	<div id="app-settings-content">
-		<div id="app-settings-editcategories">
-			<button id="editCategories"><?php p($l->t('Edit categories')); ?></button>
-			<hr>
+
+		<div id="app-settings-authentication">
+			<h3><?php p($l->t('Extra authentication')); ?></h3>
+
+			<label for="extra_password"><?php p($l->t('When entering app, require:')); ?></label>
+			<select id="extra_password">
+				<option value="none"><?php p($l->t('No extra password')); ?></option>
+				<option value="owncloud"><?php 
+					// easier for translators than '%s password'
+					p(preg_replace('/owncloud/i', $theme->getName(), $l->t('ownCloud password'))); ?></option>
+				<option value="master"><?php p($l->t('Master password')); ?></option>
+			</select>
+			<div id="div_edit_master_password">
+				<input class="button nav-btn" type="button" id="edit_masterkey" value="<?php p($l->t('Edit')); ?>">
+			</div>
+			<div id="div_extra_auth_password">
+				<div id="show_lockbutton_div">
+					<input class="checkbox" type="checkbox" id="show_lockbutton">
+					<label for="show_lockbutton"><?php p($l->t('Show lock button')); ?></label>
+				</div>
+				<p><?php p($l->t('Stay authenticated for:')); ?></p>
+				<input type="text" id="auth_timer" value="90">
+				<label for="auth_timer" id="auth_timersettext"><?php p($l->t('seconds')); ?></label>
+			</div>
 		</div>
-		<div id="app-settings-trashall">
-			<button id="trashAll"><?php p($l->t('Move all to trash')); ?></button>
-			<p><?php p($l->t('Click to move all active passwords to the trash')); ?>.</p>
-			<hr>
+
+		<div id="div_master_password">
+			<input type="password" id="new_masterkey1" placeholder="<?php p($l->t("Enter new password")); ?>">
+			<br>
+			<input type="password" id="new_masterkey2" placeholder="<?php p($l->t("Confirm new password")); ?>">
+			<p>
+				<?php p($l->t('Note: when you lose this password, you can never enter the %s app again!',  $theme->getName() . ' ' . $l->t("Passwords"))); ?>
+			</p>
+			<input class="button nav-btn" type="button" id="save_masterkey" value="<?php p($l->t('Save')); ?>">
 		</div>
+
+		<hr>
+	
 		<div id="app-settings-backup">
 			<h3><?php p($l->t('Download Backup')); ?></h3>
-			<button id="backupDL"><?php p($l->t('Download Backup')); ?></button>
-			<p><?php p($l->t('Click to download a backup as an UNENCRYPTED plain text file')); ?>.</p>
+			<p><?php p($l->t('Click to download a backup as an UNENCRYPTED plain text file')); ?>:</p>
+			<button id="backupDL" class="button icon-history nav-btn" type="button"><?php p($l->t("Download Backup")); ?></button>
 			<hr>
 		</div>
 		<?php if (\OC::$server->getConfig()->getAppValue('passwords', 'backup_allowed', 'false') == 'false') { ?>
@@ -69,7 +99,6 @@ session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifet
 			<h3><?php p($l->t('Import CSV File')); ?></h3>
 			<input type="file" id="upload_csv" accept=".csv" >
 		</div>
-		<br>
 		<?php
 			$instancename = $theme->getName();
 			$passwordsname = $l->t("Passwords");

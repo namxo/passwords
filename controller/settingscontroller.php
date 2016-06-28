@@ -40,6 +40,10 @@ class SettingsController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function set($setting, $value){
+		if ($setting == 'auth_timer' && $value < 3) {
+			// will else never work; the auth will keep coming
+			$value = 3;
+		}
 		return $this->handleNotFound(function () use ($setting, $value) {
 			return $this->settingsService->set($setting, $value);
 		});

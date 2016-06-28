@@ -1,3 +1,7 @@
+#passwords-admin #app_path {
+	width: 200px;
+	text-align: right;
+}
 #passwords-admin red {
 	color: #a00;
 	line-height: 3;
@@ -47,8 +51,17 @@
 }
 #passwords-personal #timer {
 	width: 30px;
-
+	text-align: center;
 }
 #passwords-personal #timersettext {
 	display: none;
+}
+#passwords-personal hr {
+	width: 100%;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+	height: 1px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }

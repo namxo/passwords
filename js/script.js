@@ -3,15 +3,16 @@
 
 	$(document).ready(function() {
 
-		$(document.body).click(function(e){
+		$(document.body).click(function (e){
 			var $command_box = $('#commands_popup');
 			if (!$command_box.has(e.target).length) { // if the click was not within $command_box
 				//$command_box.hide();
 				$command_box.slideUp(100);
 				$('.activerow').removeClass('activerow');
 			}
-			
 		});
+
+		$('#settingsbtn').text(t('core', 'Settings'));
 
 		// this passwords object holds all our passwords
 		var Passwords = function(baseUrl) {
@@ -258,6 +259,18 @@
 				});
 				return deferred.promise();
 			},
+			setUserKey: function(key, value) {
+				var deferred = $.Deferred();
+				$.ajax({
+					url: this._baseUrl + '/' + key + '/' + value,
+					method: 'POST'
+				}).done(function( data ) {
+					deferred.resolve(data);
+				}).fail(function() {
+					alert(t('passwords', 'Error while saving field') + ' ' + key + '!');
+					deferred.reject();
+				});
+			},
 			getKey: function(key) {
 				for (var k in this._settings)
 				{
@@ -360,6 +373,8 @@
 						$('#commands_popup input').css('width', '80px');
 					}
 
+					$('#btn_copy').attr('data-clipboard-text', $('#cmd_value').val());
+
 					if ($('#app-navigation').css('position') == 'absolute') {
 						var left = $(this).position().left;
 					} else {
@@ -410,30 +425,20 @@
 					}
 				});
 
-				// use ZeroClipboard to copy the password
-				$('#app-settings').attr("ZeroClipboard", isFlashEnabled());
+				$('#btn_copy').click(function() {
 
-				if ($('#app-settings').attr("ZeroClipboard") == 'true') {
-					var client = new ZeroClipboard($('#btn_copy'));
-					client.on( 'ready', function(event) {
-						client.on( 'copy', function(event) {
-							event.clipboardData.setData('text/plain', $('#cmd_value').val());
-						});
-						client.on( 'aftercopy', function(event) {
-							//alert('Copied text to clipboard: ' + event.data['text/plain']);
-							$('#zeroclipboard_copied').slideDown(50);
-							setTimeout(function() {
+					var clipboard = new Clipboard('#btn_copy');
+
+					clipboard.on('success', function(e) {
+						$('#zeroclipboard_copied').slideDown(50);
+					 		setTimeout(function() {
 								$('#zeroclipboard_copied').slideUp(100);
-							}, 1500); 
-						});
+					 		}, 1500); 
+						e.clearSelection();
 					});
-					client.on('error', function(event) {
-						//alert('Clipboard error: "' + event.name + '" - ' + event.message);
-						$('#app-settings').attr("ZeroClipboard", false);
-						ZeroClipboard.destroy();
-					});
-				} else {
-					$('#btn_copy').click(function() {
+
+					clipboard.on('error', function(e) {
+
 						var typeTitle = '';
 						switch ($('#cmd_type').val()) {
 							case 'website':
@@ -446,11 +451,15 @@
 								typeTitle = t('passwords', 'Password');
 								break;
 						}
+
 						$('#commands_popup').slideUp(100);
 						$('.activerow').removeClass('activerow');
-						window.prompt(typeTitle + ':', $('#cmd_value').val());
+						setTimeout(function() {
+							window.prompt(typeTitle + ':', $('#cmd_value').val());
+							e.stopPropagation;
+						}, 100);
 					});
-				}
+				});
 
 				$('#btn_invalid_sharekey').click(function() {
 					OCdialogs.alert(t('passwords', 'You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it.'), t('passwords', 'Invalid share key'), function() { return false; }, true);
@@ -502,15 +511,10 @@
 							var newaddress = $('#new_address_popup').val();
 						}
 
-						var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+						var passwords = new Passwords(generateUrl('/passwords'));
 
 						if ($('#keep_old_popup').prop('checked') == true) {
 							// save row to trash bin first
-							var d = new Date();
-							// date as YYYY-MM-DD
-							var changedDate = d.getFullYear()
-								+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
-								+ '-' + ('0' + d.getDate()).slice(-2);
 							var pass_old = $('#cmd_pass').val();
 							var password = {
 								'website': $('#cmd_website').val(),
@@ -522,7 +526,7 @@
 								'deleted': '1'
 							};
 							passwords.create(password).done(function() {
-								var passwords2 = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+								var passwords2 = new Passwords(generateUrl('/passwords'));
 								var view = new View(passwords2);
 								passwords2.loadAll().done(function() {
 									view.renderContent();
@@ -549,7 +553,7 @@
 
 						var success = passwords.updateActive($('#cmd_id').val(), $('#cmd_loginname').val(), $('#cmd_website').val(), $('#cmd_address').val(), $('#cmd_pass').val(), $('#cmd_notes').val(), $('#cmd_sharedwith').val(), $('#cmd_category').val(), $('#cmd_deleted').val());
 						if (success) {
-							var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+							var passwords = new Passwords(generateUrl('/passwords'));
 							var view = new View(passwords);
 							passwords.loadAll().done(function() {
 								view.renderContent();
@@ -570,6 +574,22 @@
 						removePopup();
 					});
 					return false;
+				});
+
+				$('#btn_share').click(function() {
+					var id = $('#cmd_id').val();
+					var row = findRow(id);
+					$(row).find('.icon-share').click();
+				});
+				$('#btn_clone').click(function() {
+					$('#new_address').attr('value', $('#cmd_address').val());
+					$('#new_notes').text($('#cmd_notes').val());
+					$('#new_website').attr('value', $('#cmd_website').val());
+					$('#new_username').attr('value', $('#cmd_loginname').val());
+					$('#new_password').attr('value', $('#cmd_pass').val());
+					webimg2new();
+					strength_str($('#cmd_pass').val(), false);
+					$('#add_new').click();
 				});
 
 				$('#app-settings-content').hide();
@@ -599,10 +619,10 @@
 					if (is_trash) {
 						OCdialogs.confirm(t('passwords', 'This will delete the category') + " '" + cat_name + "'. " + t('passwords', 'Are you sure?'), t('passwords', 'Category'), function(res) {
 							if (res) {
-								var categories = new Passwords(OC.generateUrl('/apps/passwords/categories'));
+								var categories = new Passwords(generateUrl('/categories'));
 								categories.removeByID(cat_id).done(function() {
 									setTimeout(function() {
-										categories = new Categories(OC.generateUrl('/apps/passwords/categories'));
+										categories = new Categories(generateUrl('/categories'));
 										categories.loadAll().done(function() {
 											renderCategories(categories);
 										}).fail(function() {
@@ -621,7 +641,7 @@
 					if ($('#cat_name').val().length == 0) {
 						return false;
 					}
-					var categories = new Categories(OC.generateUrl('/apps/passwords/categories'));
+					var categories = new Categories(generateUrl('/categories'));
 					var cat_name = $('#cat_name').val();
 					var cat_colour = $('#cat_colour').val();
 					cat_colour = cat_colour.replace('#', '');
@@ -636,7 +656,7 @@
 						$('#cat_colour').val('#eeeeee');
 						$('#colorpicker').spectrum('set', 'eeeeee');
 						setTimeout(function() {
-							categories = new Categories(OC.generateUrl('/apps/passwords/categories'));
+							categories = new Categories(generateUrl('/categories'));
 							categories.loadAll().done(function() {
 								renderCategories(categories);
 							}).fail(function() {
@@ -664,7 +684,7 @@
 									var $row = $(this);
 									var is_deleted = $row.hasClass('is_deleted');
 									var id = $row.attr('attr_id');
-									var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+									var passwords = new Passwords(generateUrl('/passwords'));
 									if (is_deleted) {
 										passwords.removeByID(id).done(function() {
 											$row.remove();
@@ -695,14 +715,17 @@
 					var is_trash = $cell.hasClass('icon-delete');
 					var is_restore = $cell.hasClass('icon-history');
 					var active_table = $('#app-settings').attr("active-table");
+					var loginname_pass = $cell.attr('type') == 'loginname' || $cell.attr('type') == 'pass';
 					var $cmd_buttons = $cell.find('.btn_commands_open');
 
-					if ($cell.html().substr(0, 6) == '******') {
+					if (loginname_pass) {
 						$cmd_buttons.click();
+						$('#btn_copy').click();
+						$(document.body).click();
 						return false;
 					}
 
-					var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+					var passwords = new Passwords(generateUrl('/passwords'));
 
 					// popUp function works with parameters: 
 					// popUp(title, value, type, address_value, website, username);
@@ -857,8 +880,16 @@
 			},
 			renderNavigation: function() {
 
+				// lock down app
+				$('#lock_btn').click(function() {
+					// remove cookie
+					document.cookie = "oc_passwords_auth=" + SHA512($('head').attr('data-user')) + "; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+					// and reload page, the auth will initiate
+					window.location = window.location;
+				});
+
 				// set settings
-				var settings = new Settings(OC.generateUrl('/apps/passwords/settings'));
+				var settings = new Settings(generateUrl('/settings'));
 				settings.load();
 				if ((settings.getKey('backup_allowed').toLowerCase() == 'true') == false) {
 					// was already hidden with CSS at default for IE7 and lower
@@ -880,12 +911,350 @@
 				$('#app-settings').attr('hide-passwords', settings.getKey('hide_passwords').toLowerCase() == 'true');
 				$('#app-settings').attr('hide-usernames', settings.getKey('hide_usernames').toLowerCase() == 'true');
 				$('#app-settings').attr('hide-attributes', settings.getKey('hide_attributes').toLowerCase() == 'true');
+				$('#app-settings').attr('auth_type', settings.getKey('extra_auth_type'));
+				
+				// get and set authentication settings
+				$('#extra_password').val(settings.getKey('extra_auth_type'));
+				if (settings.getKey('extra_auth_type') == 'master') {
+					$('#div_edit_master_password').show();
+				}
+				$('#show_lockbutton').prop('checked', (settings.getKey('show_lockbutton').toLowerCase() == 'true'));
+				if (settings.getKey('extra_auth_type') == 'none') {
+					$('#show_lockbutton_div').hide();
+					$('#div_extra_auth_password').hide();
+				} else {
+					$('#lock_btn').show(200);
+				}
+				$('#auth_timer').val(settings.getKey('auth_timer'));
+				if ($('#auth_timer').val() < 61) {
+					$('#auth_timersettext').text(t('passwords', 'seconds'));
+				} else {
+					$('#auth_timersettext').text(t('passwords', 'seconds') + ' (' + int2time($('#auth_timer').val()) + ' ' + t('passwords', 'minutes') + ')');
+				}
+				$('#auth_timer').keyup(function () {
+					if ($('#auth_timer').val() == '') {
+						settings.setUserKey('auth_timer', 3);
+					} else {
+						if (!isNumeric($('#auth_timer').val())) {
+							OCdialogs.alert(t('passwords', 'Fill in a number between %s and %s').replace('%s', '10').replace('%s', '3599'), t('passwords', 'Passwords'), function() { return false; }, true);
+							$('#auth_timer').val(300);
+							settings.setUserKey('auth_timer', 300);
+							return false;
+						}
+						if ($('#auth_timer').val() > 3599) {
+							$('#auth_timer').val(3599);
+						}
+						if ($('#auth_timer').val() < 61) {
+							$('#auth_timersettext').text(t('passwords', 'seconds'));
+						} else {
+							$('#auth_timersettext').text(t('passwords', 'seconds') + ' (' + int2time($('#auth_timer').val()) + ' ' + t('passwords', 'minutes') + ')');
+						}
+						settings.setUserKey('auth_timer', $('#auth_timer').val());
+					}
+				});
+				$('#show_lockbutton').change(function () {
+					settings.setUserKey('show_lockbutton', $(this).is(":checked"));
+					if ($(this).is(":checked")) {
+						$('#lock_btn').show(100);
+					} else {
+						$('#lock_btn').hide(100);
+					}
+				});
+				$('#div_edit_master_password').click(function () {
+					$('#div_master_password').show(300);
+					$(this).hide(150);
+				});
+				$('#extra_password').change(function () {
+					var new_value = $('#extra_password option:selected').val();
+
+					if (new_value == 'master' || new_value == 'owncloud') {
+						settings.setUserKey('show_lockbutton', true);
+						$('#show_lockbutton').prop('checked', true);
+						$('#lock_btn').show(300)
+						$('#show_lockbutton_div').show(300);
+						$('#div_extra_auth_password').show(300);
+					} else {
+						$('#show_lockbutton_div').hide(300);
+						$('#div_extra_auth_password').hide(300);
+						$('#lock_btn').hide(100);
+					}
+
+					if (new_value != 'master') {
+						$('#div_master_password').hide(300);
+						$('#div_edit_master_password').hide(300);
+						// remove master key and hide old master password field
+						if (settings.getKey('master_password') != '0') {
+							var OldIsMaster = true;
+						} else {
+							var OldIsMaster = false;
+						}
+						settings.setUserKey('master_password', '0');
+						settings.setUserKey('extra_auth_type', new_value);
+						$('#app-settings').attr('auth_type', new_value);
+						if (OldIsMaster) {
+							OCdialogs.info(t('passwords', 'The master password has been removed.'), t('passwords', 'Master password'), function() { return false; }, true);
+						}
+					} else {
+						// do not save yet
+						$('#div_master_password').show(300);
+					}
+				});
+				$('#save_masterkey').click(function () {
+					var new_pass1 = $('#new_masterkey1').val();
+					var new_pass2 = $('#new_masterkey2').val();
+					if (new_pass1 == new_pass2) {
+						settings.setUserKey('extra_auth_type', 'master');
+						$('#app-settings').attr('auth_type', 'master');
+						settings.setUserKey('master_password', SHA512(new_pass1));
+						OCdialogs.info(t('passwords', 'The master password has been set.'), t('passwords', 'Master password'), function() { return false; }, true);
+						$('#new_masterkey1').val('');
+						$('#new_masterkey2').val('');
+						$('#div_master_password').hide();
+						$('#div_edit_master_password').show();
+					} else {
+						OCdialogs.alert(t('passwords', 'The new passwords do not match.'), t('passwords', 'Master password'), function() { return false; }, true);
+					}
+				});
 
 				// set timer if set by user
 				if ($('#app-settings').attr('timer') != '0') {
 					resetTimer(false);
 				}
 
+				$('#add_new').click(function() {
+
+					popUp('', '', 'new_password', '', '', '');
+
+					// clean up website: https://www.Google.com -> google.com
+					$('#new_website').focusout(function() {
+						if ((this.value.substring(0,7).toLowerCase() == 'http://' 
+								|| this.value.substring(0,8).toLowerCase() == 'https://'
+								|| this.value.substring(0,4).toLowerCase() == 'www.') 
+							&& $('#new_address').val() == '') {
+							$('#new_address').val(this.value.toLowerCase());
+							$('#new_website').val(strip_website(this.value).toLowerCase());
+						}
+						webimg2new();
+					});
+					// try to set a domain entry on website field
+					$('#new_address').focusout(function() {
+						if ((this.value.substring(0,7).toLowerCase() == 'http://' 
+								|| this.value.substring(0,8).toLowerCase() == 'https://'
+								|| this.value.substring(0,4).toLowerCase() == 'www.') 
+							&& $('#new_website').val() == '') {
+							$('#new_website').val(URLtoDomain(this.value));
+						}
+						webimg2new();
+					});
+
+					// clear
+					$('#clear').click(function() {
+						$('#new_username').val('');
+						$('#new_website').val('');
+						$('#new_password').val('');
+						$('#new_address').val('');
+						$('#new_notes').val('');
+						$('#new_category select').val(0);
+						$('#new_category select').attr('style', '');
+						$('#generate_strength').text('');
+						$('#generate_passwordtools').hide();
+						$('#gen_length').val('30');
+						webimg2new();
+					});
+
+					// create a new password
+					$('#accept').click(function() {
+
+						if ($('#new_username').val() == '' 
+							|| $('#new_website').val() == '' 
+							|| $('#new_password').val() == '') 
+						{
+							OCdialogs.alert(t('passwords', 'Fill in the website, user name and password.'), t('passwords', 'Add password'), function() { return false; }, true);
+							return false;
+						}
+
+						if ($('#new_address').val() != '' 
+							&& $('#new_address').val().substring(0,7).toLowerCase() != 'http://' 
+							&& $('#new_address').val().substring(0,8).toLowerCase() != 'https://'
+							&& $('#new_address').val().substring(0,4).toLowerCase() != 'www.') 
+						{
+							if (isUrl($('#new_address').val())) {
+								// valid URL, so add http
+								$('#new_address').val('http://' + $('#new_address').val());
+								// now check if valid
+								if (!isUrl($('#new_address').val())) {
+									OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), function() { return false; }, true);
+									$('#new_address').select();
+									return false;
+								}
+							} else {
+								OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), function() { return false; }, true);
+								$('#new_address').select();
+								return false;
+							}
+						}
+
+						var password = {
+							'website': $('#new_website').val(),
+							'pass': $('#new_password').val(),
+							'loginname': $('#new_username').val(),
+							'address': $('#new_address').val(),
+							'category': $('#new_category select').val(),
+							'notes': $('#new_notes').val(),
+							'deleted': '0'
+						};
+
+						// it all works, so hide the popup
+						removePopup();
+
+						var passwordsCreate = new Passwords(generateUrl('/passwords'));
+						passwordsCreate.create(password).done(function() {
+
+							$('#new_username').val('');
+							$('#new_website').val('');
+							$('#new_password').val('');
+							$('#new_address').val('');
+							$('#new_notes').val('');
+							$('#new_category select').val(0);
+							$('#new_category select').attr('style', '');
+							$('#generate_strength').text('');
+							$('#generate_passwordtools').hide();
+							$('#gen_length').val('30');
+
+							var passwords = new Passwords(generateUrl('/passwords'));
+							var view = new View(passwords);
+							passwords.loadAll().done(function() {
+								view.renderContent();
+							});
+
+							// building new table
+							var source_passwords = $('#template-passwords-serialize').html();
+							var template_passwords = Handlebars.compile(source_passwords);
+							var html_passwords_serialize = template_passwords({
+								passwords: passwords.getAll()
+							});
+							html_passwords_serialize = html_passwords_serialize.replace(/&quot;/g, '"');
+							var rows = html_passwords_serialize.split('<br>');
+							formatTable(false, rows);
+
+						}).fail(function() {
+							OCdialogs.alert(t('passwords', 'Error: Could not create password.'), t('passwords', 'Add password'), function() { return false; }, true);
+							return false;
+						});
+
+					});
+					
+					// ### change category
+					// for select box in 'new password' part
+					$('#new_category').change(function() {
+						if ($('#new_category select').val() == '(change)') {
+							$('#new_category select').val(0);
+							$('#new_category select').attr('style', '');
+							$('#editCategories').click();
+						} else if ($('#new_category select').val() != 0) {
+							var bg = $('#new_category').find(':selected').attr('bg');
+							var fg = $('#new_category').find(':selected').attr('fg')
+							$('#new_category select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important; font-weight: bold !important;');
+						} else {
+							// 'none' chosen
+							$('#new_category select').attr('style', '');
+						}
+					});
+					// for select box above search bar
+					$('#nav_category_list').change(function() {
+
+						if ($('#nav_category_list select').val() == '(change)') {
+							$('#nav_category_list select').val(0);
+							$('#nav_category_list select').attr('style', '');
+							if ($('#app-settings').attr("active-table") == 'active') {
+								$('#list_active').click();
+							} else {
+								$('#list_trash').click();
+							}
+							$('#editCategories').click();
+						} else if ($('#nav_category_list select').val() != 0) {
+							$('#list_active').click(); // first to active list; filter must not work on trashed items
+							var bg = $('#nav_category_list').find(':selected').attr('bg');
+							var fg = $('#nav_category_list').find(':selected').attr('fg')
+							$('#nav_category_list select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important;');
+							// filter
+							var $rows = $('#PasswordsTableContent tr').not('thead tr').not('.is_deleted');
+							var val = $('#nav_category_list select option:selected').text();
+							$rows.show().filter(function() {
+								var text = $(this).find('.cell_category').text();
+								return !~text.indexOf(val);
+							}).hide();
+						} else {
+							// 'none' chosen
+							$('#nav_category_list select').attr('style', '');
+							if ($('#app-settings').attr("active-table") == 'active') {
+								$('#list_active').click();
+							} else {
+								$('#list_trash').click();
+							}
+						}
+					});
+
+					// allow tabs in textareas (notes)
+					$("textarea").keydown(function(e) {
+						var $this, end, start;
+						if (e.keyCode === 9) {
+							start = this.selectionStart;
+							end = this.selectionEnd;
+							$this = $(this);
+							$this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end));
+							this.selectionStart = this.selectionEnd = start + 1;
+							return false;
+						}
+					});
+
+					// calculate strength
+					$("#new_password").keyup(function() {
+						strength_str(this.value, false);
+					});
+
+					// select whole password when entering field
+					$('#new_password').click(function() {
+						this.select();
+					});
+
+					// generate password
+					$('#new_generate').click(function() {
+
+						// show options
+						$('#generate_passwordtools').fadeIn(500);
+						document.getElementById('generate_passwordtools').scrollIntoView({
+							behavior: "smooth"
+						});
+
+						var lower_checked = $('#gen_lower').prop('checked');
+						var upper_checked = $('#gen_upper').prop('checked');
+						var numbers_checked = $('#gen_numbers').prop('checked');
+						var special_checked = $('#gen_special').prop('checked');
+						var length_filled = $('#gen_length').val();
+						var generate_new = '';
+
+						if (!isNumeric(length_filled) || length_filled.length == 0 || length_filled < 4) {
+							OCdialogs.alert(t('passwords', 'Fill in a valid number as length with a minimum of 4.'), t('passwords', 'Generate password'), function() { return false; }, true);
+							return false;
+						}
+						if (!lower_checked && !upper_checked && !numbers_checked && !special_checked) {
+							OCdialogs.alert(t('passwords', 'Select at least one option to generate a password.'), t('passwords', 'Generate password'), function() { return false; }, true);
+							return false;
+						}
+
+						// run
+						generate_new = generatepw(lower_checked, upper_checked, numbers_checked, special_checked, length_filled);
+						
+						// calculate strength
+						strength_str(generate_new, false);
+
+						// fill in
+						$('#new_password').val(generate_new);
+					});
+
+				});
+			
 				// edit categories
 				$('#editCategories').click(function() {
 					$('#app-settings-content').hide(200);
@@ -989,228 +1358,6 @@
 					formatTable(true);
 				});
 
-				// clean up website: https://www.Google.com -> google.com
-				$('#new_website').focusout(function() {
-					if ((this.value.substring(0,7).toLowerCase() == 'http://' 
-							|| this.value.substring(0,8).toLowerCase() == 'https://'
-							|| this.value.substring(0,4).toLowerCase() == 'www.') 
-						&& $('#new_address').val() == '') {
-						$('#new_address').val(this.value.toLowerCase());
-						$('#new_website').val(strip_website(this.value).toLowerCase());
-					}
-					
-				});
-				// try to set a domain entry on website field
-				$('#new_address').focusout(function() {
-					if ((this.value.substring(0,7).toLowerCase() == 'http://' 
-							|| this.value.substring(0,8).toLowerCase() == 'https://'
-							|| this.value.substring(0,4).toLowerCase() == 'www.') 
-						&& $('#new_website').val() == '') {
-						$('#new_website').val(URLtoDomain(this.value));
-					}
-				});
-
-				// create a new password
-				var self = this;
-				$('#new_password_add').click(function() {
-
-					if ($('#new_username').val() == '' 
-						|| $('#new_website').val() == '' 
-						|| $('#new_password').val() == '') 
-					{
-						OCdialogs.alert(t('passwords', 'Fill in the website, user name and password.'), t('passwords', 'Add password'), function() { return false; }, true);
-						return false;
-					}
-
-					if ($('#new_address').val() != '' 
-						&& $('#new_address').val().substring(0,7).toLowerCase() != 'http://' 
-						&& $('#new_address').val().substring(0,8).toLowerCase() != 'https://'
-						&& $('#new_address').val().substring(0,4).toLowerCase() != 'www.') 
-					{
-						if (isUrl($('#new_address').val())) {
-							// valid URL, so add http
-							$('#new_address').val('http://' + $('#new_address').val());
-							// now check if valid
-							if (!isUrl($('#new_address').val())) {
-								OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), function() { return false; }, true);
-								$('#new_address').select();
-								return false;
-							}
-						} else {
-							OCdialogs.alert(t('passwords', 'Fill in a valid URL in the first field.') + ' ' + t('passwords', 'Note: This field is optional and can be left blank.'), t('passwords', 'Add password'), function() { return false; }, true);
-							$('#new_address').select();
-							return false;
-						}
-					}
-
-					var d = new Date();
-					// date as YYYY-MM-DD
-					var changedDate = d.getFullYear()
-						+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
-						+ '-' + ('0' + d.getDate()).slice(-2);
-
-					var password = {
-						'website': $('#new_website').val(),
-						'pass': $('#new_password').val(),
-						'loginname': $('#new_username').val(),
-						'address': $('#new_address').val(),
-						'category': $('#new_category select').val(),
-						'notes': $('#new_notes').val(),
-						'deleted': '0'
-					};
-
-					self._passwords.create(password).done(function() {
-
-						$('#new_username').val('');
-						$('#new_website').val('');
-						$('#new_password').val('');
-						$('#new_address').val('');
-						$('#new_notes').val('');
-						$('#new_category select').val(0);
-						$('#new_category select').attr('style', '');
-						$('#generate_strength').text('');
-						$('#generate_passwordtools').fadeOut(250);
-						$('#gen_length').val('30');
-
-						var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
-						var view = new View(passwords);
-						passwords.loadAll().done(function() {
-							view.renderContent();
-						})
-
-						// building new table
-						var source_passwords = $('#template-passwords-serialize').html();
-						var template_passwords = Handlebars.compile(source_passwords);
-						var html_passwords_serialize = template_passwords({
-							passwords: passwords.getAll()
-						});
-						html_passwords_serialize = html_passwords_serialize.replace(/&quot;/g, '"');
-						var rows = html_passwords_serialize.split('<br>');
-						formatTable(false, rows);
-
-					}).fail(function() {
-						OCdialogs.alert(t('passwords', 'Error: Could not create password.'), t('passwords', 'Add password'), function() { return false; }, true);
-						return false;
-					});
-
-				});
-				
-				// ### change category
-				// for select box in 'new password' part
-				$('#new_category').change(function() {
-					if ($('#new_category select').val() == '(change)') {
-						$('#new_category select').val(0);
-						$('#new_category select').attr('style', '');
-						$('#editCategories').click();
-					} else if ($('#new_category select').val() != 0) {
-						var bg = $('#new_category').find(':selected').attr('bg');
-						var fg = $('#new_category').find(':selected').attr('fg')
-						$('#new_category select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important; font-weight: bold !important;');
-					} else {
-						// 'none' chosen
-						$('#new_category select').attr('style', '');
-					}
-				});
-				// for select box above search bar
-				$('#nav_category_list').change(function() {
-
-					if ($('#nav_category_list select').val() == '(change)') {
-						$('#nav_category_list select').val(0);
-						$('#nav_category_list select').attr('style', '');
-						if ($('#app-settings').attr("active-table") == 'active') {
-							$('#list_active').click();
-						} else {
-							$('#list_trash').click();
-						}
-						$('#editCategories').click();
-					} else if ($('#nav_category_list select').val() != 0) {
-						$('#list_active').click(); // first to active list; filter must not work on trashed items
-						var bg = $('#nav_category_list').find(':selected').attr('bg');
-						var fg = $('#nav_category_list').find(':selected').attr('fg')
-						$('#nav_category_list select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important;');
-						// filter
-						var $rows = $('#PasswordsTableContent tr').not('thead tr').not('.is_deleted');
-						var val = $('#nav_category_list select option:selected').text();
-						$rows.show().filter(function() {
-							var text = $(this).find('.cell_category').text();
-							return !~text.indexOf(val);
-						}).hide();
-					} else {
-						// 'none' chosen
-						$('#nav_category_list select').attr('style', '');
-						if ($('#app-settings').attr("active-table") == 'active') {
-							$('#list_active').click();
-						} else {
-							$('#list_trash').click();
-						}
-					}
-				});
-
-				// allow tabs in textareas (notes)
-				$("textarea").keydown(function(e) {
-					var $this, end, start;
-					if (e.keyCode === 9) {
-						start = this.selectionStart;
-						end = this.selectionEnd;
-						$this = $(this);
-						$this.val($this.val().substring(0, start) + "\t" + $this.val().substring(end));
-						this.selectionStart = this.selectionEnd = start + 1;
-						return false;
-					}
-				});
-
-				// calculate strength
-				$("#new_password").keyup(function() {
-					strength_str(this.value, false);
-				});
-
-				// select whole password when entering field
-				$('#new_password').click(function() {
-					this.select();
-				});
-
-				// generate password
-				$('#new_generate').click(function() {
-					var popup_exist = ($('#gen_length_popup').val() > 0)
-
-					if (!popup_exist) {
-						// show options
-						$('#generate_passwordtools').fadeIn(500);
-						document.getElementById('generate_passwordtools').scrollIntoView();
-					}
-
-					var lower_checked = $('#gen_lower').prop('checked');
-					var upper_checked = $('#gen_upper').prop('checked');
-					var numbers_checked = $('#gen_numbers').prop('checked');
-					var special_checked = $('#gen_special').prop('checked');
-					var length_filled = $('#gen_length').val();
-					var generate_new = '';
-
-					if (!isNumeric(length_filled) || length_filled.length == 0 || length_filled < 4) {
-						OCdialogs.alert(t('passwords', 'Fill in a valid number as length with a minimum of 4.'), t('passwords', 'Generate password'), function() { return false; }, true);
-						return false;
-					}
-					if (!lower_checked && !upper_checked && !numbers_checked && !special_checked) {
-						OCdialogs.alert(t('passwords', 'Select at least one option to generate a password.'), t('passwords', 'Generate password'), function() { return false; }, true);
-						return false;
-					}
-
-					// run
-					generate_new = generatepw(lower_checked, upper_checked, numbers_checked, special_checked, length_filled);
-					
-					// calculate strength
-					strength_str(generate_new, false);
-
-					// fill in
-					if (popup_exist) {
-						$('#new_value_popup').val(generate_new);
-						$("#generate_strength").text('');
-						$('#generate_passwordtools').hide();
-					} else {
-						$('#new_password').val(generate_new);
-					}
-				});
-
 			},
 			render: function() {
 				$('#loading').show();
@@ -1223,10 +1370,10 @@
 			}
 		};
 
-		var settings = new Settings(OC.generateUrl('/apps/passwords/settings'));
-		var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+		var settings = new Settings(generateUrl('/settings'));
+		var passwords = new Passwords(generateUrl('/passwords'));
 		var view = new View(passwords);
-		var categories = new Categories(OC.generateUrl('/apps/passwords/categories'));
+		var categories = new Categories(generateUrl('/categories'));
 		
 		settings.load();
 
@@ -1602,7 +1749,7 @@ function formatTable(update_only, rows) {
 	$('#PasswordsTable').show();
 	$('.menu_passwords_active').text(total - deleted);
 	$('.menu_passwords_trashbin').text(deleted);
-	if (active_table == 'active' && total - deleted == 0) {
+	if (active_table == 'active' && (total - deleted == 0)) {
 		$('#emptycontent').show();
 		$('#PasswordsTable').hide();
 	}
@@ -1705,6 +1852,21 @@ function strength_func(Password) {
 }
 
 function generatepw(lower, upper, number, special, length_chars) {
+	// loop 10 ten times and return the strongest of them
+	var check_pass;
+	var new_pass;
+	var new_strength = 0;
+	for (var i = 0; i < 10; i++) {
+		check_pass = generate(lower, upper, number, special, length_chars);
+		if (new_strength < strength_func(check_pass)) {
+			new_strength = strength_func(check_pass);
+			new_pass = check_pass;
+		}
+	}
+	return new_pass;
+}
+
+function generate(lower, upper, number, special, length_chars) {
 
 	var length_calc = Math.floor(length_chars / (lower + upper + number + special));
 
@@ -2049,6 +2211,36 @@ function strength_str(passw, return_string_only) {
 	$("#generate_strength_popup").attr("class", $("#generate_strength").attr("class"));
 
 }
+function webimg2new() {
+	// try to replace the website icon with the favicon of the website
+	if (isUrl($('#new_website').val()) || $('#new_address').val() != '') {
+		var show_icons = ($('#app-settings').attr("icons-show") == 'true');
+
+		if ($('#new_address').val() != '') {
+			if ($('#new_address').val().substr(0, 7) == "http://" || $('#new_address').val().substr(0, 8) == "https://") {
+				var websiteURL = $('#new_address').val();
+			} else {
+				var websiteURL = 'http://' + $('#new_address').val();
+			}
+		} else {
+			var websiteURL = 'http://' + $('#new_website').val();
+		}
+
+		if (show_icons) {
+			var icons_service = $('#app-settings').attr("icons-service");
+			$('#websiteimg').removeClass('icon-share');
+			if (icons_service == 'ddg') { // DuckDuckGo
+				$('#websiteimg').attr('style', 'opacity: 1; background-image: url(https://icons.duckduckgo.com/ip2/' + URLtoDomain(websiteURL) + '.ico);');
+			}
+			if (icons_service == 'ggl') { // Google
+				$('#websiteimg').attr('style', 'opacity: 1; background-image: url(https://www.google.com/s2/favicons?domain=' + URLtoDomain(websiteURL) + ');');
+			}
+		}
+	} else {
+		$('#websiteimg').addClass('icon-share');
+		$('#websiteimg').attr('style', '');
+	}
+}
 function escapeHTML(text, only_brackets) {
 	if (typeof text !== 'undefined') {
 		if (only_brackets) {
@@ -2142,11 +2334,190 @@ function URLtoDomain(website) {
 
 	return domain;
 }
-function markRow(row) {
-	var rows = $('tr', $('#PasswordsTableContent'));
-	rows.eq(row).animate( { backgroundColor: '#ffa' }, 400, function() {
-		$(this).animate( { backgroundColor: 'none' }, 3000);
+function findRow(id) {
+	var $row = $("tr").filter(function() {
+		 return $(this).attr('attr_id') == id;
+		});
+	return $row;
+}
+function findHighestID() {
+	var maxID = 0;
+	$("tr").each(function() {
+		if (maxID < parseInt($(this).attr('attr_id'))) {
+			maxID = parseInt($(this).attr('attr_id'));
+		}
 	});
+	return maxID;
+}
+function findNewestRow() {
+	// must be the one with the highest database ID, so look for that
+	return findRow(findHighestID());
+}
+function markRow(row) {
+	$(row).animate( { backgroundColor: '#ffa' }, 400, function() {
+		$(this).animate( { backgroundColor: 'none' }, 1500);
+	});
+}
+function createRow(password) {
+
+	var hide_usernames = $('#app-settings').attr("hide-usernames") == 'true';
+	var hide_passwords = $('#app-settings').attr("hide-passwords") == 'true';
+	var hide_attributes = $('#app-settings').attr("hide-attributes") == 'true';
+	var row = password;
+	// fictional ID for now, has a valid one in db but we're not pulling from db
+	row.id = findHighestID() + 1;
+
+	var html_row = '<tr ';
+
+	var d = new Date();
+	// date as YYYY-MM-DD
+	var dateNow = d.getFullYear()
+		+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
+		+ '-' + ('0' + d.getDate()).slice(-2);
+	row.datechanged = dateNow;
+	row.strength = strength_func(row.pass);
+
+	html_row += 'attr_id="' + row.id + '" '
+				+ 'attr_website="' + row.website + '" '
+				+ 'attr_address="' + row.address + '" '
+				+ 'attr_loginname="' + row.loginname + '" '
+				+ 'attr_pass="' + row.pass + '" '
+				+ 'attr_category="' + (row.category || '0') + '" '
+				+ 'attr_notes="' + row.notes.replace(/\\n/g, '\n').replace(/\\t/g, '\t') + '" '
+				+ 'attr_datechanged="' + row.datechanged + '" '
+				+ 'attr_strength="' + strength_int2str(row.strength) + '" '
+				+ 'attr_length="' + row.pass.length + '" '
+				+ 'attr_lower="' + row.lower + '" '
+				+ 'attr_upper="' + row.upper + '" '
+				+ 'attr_number="' + row.number + '" '
+				+ 'attr_special="' + row.special + '">'
+
+	// start website
+	if (isUrl(row.website) || row.address != '') {
+		html_row += '<td type="website" sorttable_customkey=' + row.website + ' class="is_website cell_website">';
+		var show_icons = ($('#app-settings').attr("icons-show") == 'true');
+
+		// set real website url if available
+		if (row.address != '') {
+			if (row.address.substr(0, 7) == "http://" || row.address.substr(0, 8) == "https://") {
+				var websiteURL = row.address;
+			} else {
+				var websiteURL = 'http://' + row.address;
+			}
+		} else {
+			var websiteURL = 'http://' + row.website;
+		}
+
+		if (show_icons) {
+			var icons_service = $('#app-settings').attr("icons-service");
+			if (icons_service == 'ddg') { // DuckDuckGo
+				html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" src="https://icons.duckduckgo.com/ip2/' + URLtoDomain(websiteURL) + '.ico">' + row.website + '</a>';
+			}
+			if (icons_service == 'ggl') { // Google
+				html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" src="https://www.google.com/s2/favicons?domain=' + URLtoDomain(websiteURL) + '">' + row.website + '</a>';
+			}
+		} else {
+			html_row += '<a href="' + websiteURL + '" target="_blank">' + row.website + '</a>';
+		}
+	} else { // no valid website url
+		html_row += '<td type="website" sorttable_customkey=' + row.website + ' class="cell_website">' + row.website; // or else doesn't align very well
+	}
+
+	if (row.website.length > 45) {
+		html_row += '<div class="btn_commands_newline">' +
+					'<input class="btn_commands_open" type="button">' +
+				'</div>' +
+				'</td>';
+	} else {
+		html_row += '<div class="btn_commands_inline">' +
+					'<input class="btn_commands_open" type="button">' +
+				'</div>' +
+				'</td>';
+	}
+	// end website
+
+	// start loginname
+	if (hide_usernames) {
+		html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname, false) + ' class="hidden_value">' +
+					'******' + 
+					'<div class="btn_commands_inline">' +
+						'<input class="btn_commands_open" type="button">' +
+					'</div></td>';
+	} else { // place button before value for very long login names
+		html_row += '<td type="loginname" sorttable_customkey=' + escapeHTML(row.loginname, false) + ' class="cell_username">' +
+					'<div class="btn_commands_inline">' +
+						'<input class="btn_commands_open" type="button">' +
+					'</div>' +
+					escapeHTML(row.loginname, true) +
+					'</td>';
+	}
+	// end loginname
+
+	// start password
+	if (row.pass == 'oc_passwords_invalid_sharekey') {
+		html_row += '<td class="cell_password">' +
+					'<input id="btn_invalid_sharekey" type="button" value="' + t('passwords', 'Invalid share key') + '"></td>';
+	} else if (hide_passwords) {
+		html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass, false) + ' class="hidden_value">' +
+					'******' + 
+					'<div class="btn_commands_inline">' +
+						'<input class="btn_commands_open" type="button">' +
+					'</div></td>';
+	} else { // place button before value for very long passwords
+		html_row += '<td type="pass" sorttable_customkey=' + escapeHTML(row.pass, false) + ' class="cell_password">' +
+					'<div class="btn_commands_inline">' +
+						'<input class="btn_commands_open" type="button">' +
+					'</div>' +
+					escapeHTML(row.pass, true) +
+					'</td>';
+	}
+
+	if (!hide_attributes) {
+		// start strength
+		html_row += '<td sorttable_customkey=' + 1 / row.strength + ' class="' + strength_int2class(row.strength) + ' cell_strength">' + 
+						strength_int2str(row.strength) +
+					'<div class="btn_commands_inline">' +
+						'(' + row.strength + ')' +
+					'</div></td>';
+		// end strength
+		// start date
+		var d = new Date(row.datechanged);
+		html_row += '<td sorttable_customkey=' + date2sortkey(d) + ' class="' + date2class(d) + ' cell_datechanged"><span>' + 
+						date2str(d, true) +
+					'</span><div class="btn_commands_inline dateChanged">' +
+						date2str(d, false) +
+					'</div></td>';
+		// end date
+	} else {
+		$('#column_strength').hide();
+		$('#column_datechanged').hide();
+	}
+
+	// category
+	html_row += '<td class="icon-category cell_category"></td>';
+
+	// notes
+	if (row.notes) {
+		html_row += '<td class="icon-notes has-note"></td>';
+	} else {
+		html_row += '<td class="icon-notes"></td>';
+	}
+
+	// sidebar (info icon)
+	html_row += '<td class="icon-info"></td>';
+
+	// share
+	html_row += '<td class="icon-share"><div class="sharedto_count"><span>0</span></div></td>';
+
+	// delete
+	html_row += '<td class="icon-delete"></td>';
+
+	html_row += '</tr>';
+
+	$('#PasswordsTableContent tbody').append(html_row);
+
+	formatTable(true);
+
 }
 
 function backupPasswords() {
@@ -2541,11 +2912,6 @@ function importCSV() {
 	var passwordCSV = '';
 	var notesCSV = '';
 	var passarray = [];
-	var d = new Date();
-	// date as YYYY-MM-DD
-	var changedDate = d.getFullYear()
-		+ '-' + ('0' + (d.getMonth() + 1)).slice(-2)
-		+ '-' + ('0' + d.getDate()).slice(-2);
 
 	for (var r = 1; r < CSVtable.rows.length; r++) {
 		if ($('#CSVcheckRow' + r).is(":checked")) {
@@ -2616,7 +2982,7 @@ function importPassword(array) {
 		$('#CSVprogressText1').text(password.website);
 		$('#CSVprogressText2').text($('#CSVprogressActive').val() + ' / ' + $('#CSVprogressTotal').val() + ' (' + Math.round(done) + '%)');
 		var success = $.ajax({
-			url: OC.generateUrl('/apps/passwords/passwords'),
+			url: generateUrl('/passwords'),
 			method: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(password),
@@ -2662,7 +3028,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 		if (ShareUsersAvailable) {
 			$('<p/>', {text:t('passwords', 'Choose one or more users and press Share.')}).appendTo($('#popupContent'));
 		}
-	} else {
+	} else if (!(type == 'new_password')) {
 		if (!sharedby) {
 			$('<p/>', {text:t('passwords', 'Enter a new value and press Save to keep the new value.\nThis cannot be undone.')}).appendTo($('#popupContent'));
 		}
@@ -2700,6 +3066,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 		});
 
 	} else if (type == 'share') {
+		var is_shared = false;
 		if (!ShareUsersAvailable) {
 			$('<p/>', {text:t('passwords', 'There are no users available you can share with.') + '\n' + t('passwords', 'LDAP is unsupported in this version.')}).appendTo($('#popupContent'));
 		} else {
@@ -2708,9 +3075,19 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 				var sharedusers = value.replace( /(:|\.|@|\[|\])/g, "\\$1" ).split(',');
 				$.each(sharedusers, function(index, value2) {
 					$('#new_value_popup input[value=' + value2 + ']').attr('checked', true);
+					is_shared = true;
 				});
 			}
 		}
+
+	} else if (type == 'new_password') {
+
+		$('#popupContent').append($('#add_password_div').html());
+		// give ID's in add_password_div other names
+		$('#add_password_div').html($('#add_password_div').html().replace(/id="/g, 'id="disabled'));
+		$('#popupTitle span').text(t('passwords', 'Add new password'));
+		$('#popupSubTitle').remove();
+		$('#new_website').focus();
 
 	} else {
 		$('<input/>', {type:'text', id:"new_value_popup", autocorrect:'off', autocapitalize:'off', spellcheck:'false'}).val(value).appendTo($('#popupContent'));
@@ -2749,8 +3126,8 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 		}
 
 		if (type == 'website' || type == 'loginname' || type == 'password') {
-			$('<input>', {type:'checkbox', id:"keep_old_popup"}).prop("checked", 'true').appendTo($('#popupContent'));
-			$('<label/>', {for:'keep_old_popup', id:"keep_old_popuplbl", text:t('passwords', 'Move old value to trash bin')}).appendTo($('#popupContent'));
+			$('<input>', {type:'checkbox', class:'checkbox', id:"keep_old_popup"}).prop("checked", 'true').appendTo($('#popupContent'));
+			$('<label/>', {for:'keep_old_popup', text:t('passwords', 'Move old value to trash bin')}).appendTo($('#popupContent'));
 		}
 
 	}
@@ -2760,15 +3137,23 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 	if (!sharedby) {
 		if (type == 'share' && ShareUsersAvailable) {
 			$('<button/>', {id:'accept', text:t('passwords', 'Share')}).appendTo($('#popupButtons'));
-			$('<button/>', {id:'stop', text:t('passwords', 'Stop sharing')}).appendTo($('#popupButtons'));
-			$('#stop').click(function() {
-				$('#new_value_popup input').each(function() {
-					this.checked = false;
+			if (is_shared) {
+				// only show Stop Sharing button when the link has been shared already
+				$('<button/>', {id:'stop', text:t('passwords', 'Stop sharing')}).appendTo($('#popupButtons'));
+				$('#stop').click(function() {
+					$('#new_value_popup input').each(function() {
+						this.checked = false;
+					});
+					$('#accept').click();
 				});
-				$('#accept').click();
-			});
+			}
 		} else {
-			$('<button/>', {id:'accept', text:t('passwords', 'Save')}).appendTo($('#popupButtons'));
+			if (type == 'new_password') {
+				$('<button/>', {id:'accept', text:t('core', 'Add')}).appendTo($('#popupButtons'));
+				$('<button/>', {id:'clear', text:t('passwords', 'Clear')}).appendTo($('#popupButtons'));
+			} else {
+				$('<button/>', {id:'accept', text:t('passwords', 'Save')}).appendTo($('#popupButtons'));
+			}
 		}
 	}
 
@@ -2788,23 +3173,33 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 			strength_str(this.value, false);
 			$('#generate_strength').text('');
 		});
-		$('#gen_lower_popup').change(function() {
-			$('#gen_lower').prop("checked", $('#gen_lower_popup').is(":checked"));
-		});
-		$('#gen_upper_popup').change(function() {
-			$('#gen_upper').prop("checked", $('#gen_upper_popup').is(":checked"));
-		});
-		$('#gen_numbers_popup').change(function() {
-			$('#gen_numbers').prop("checked", $('#gen_numbers_popup').is(":checked"));
-		});
-		$('#gen_special_popup').change(function() {
-			$('#gen_special').prop("checked", $('#gen_special_popup').is(":checked"));
-		});
-		$('#gen_length_popup').change(function() {
-			$('#gen_length').val($('#gen_length_popup').val());
-		});
+
 		$('#new_generate_popup').click(function() {
-			$('#new_generate').click();
+			var lower_checked = $('#gen_lower_popup').prop('checked');
+			var upper_checked = $('#gen_upper_popup').prop('checked');
+			var numbers_checked = $('#gen_numbers_popup').prop('checked');
+			var special_checked = $('#gen_special_popup').prop('checked');
+			var length_filled = $('#gen_length_popup').val();
+			var generate_new = '';
+
+			if (!isNumeric(length_filled) || length_filled.length == 0 || length_filled < 4) {
+				OCdialogs.alert(t('passwords', 'Fill in a valid number as length with a minimum of 4.'), t('passwords', 'Generate password'), function() { return false; }, true);
+				return false;
+			}
+			if (!lower_checked && !upper_checked && !numbers_checked && !special_checked) {
+				OCdialogs.alert(t('passwords', 'Select at least one option to generate a password.'), t('passwords', 'Generate password'), function() { return false; }, true);
+				return false;
+			}
+
+			// run
+			generate_new = generatepw(lower_checked, upper_checked, numbers_checked, special_checked, length_filled);
+			
+			// calculate strength
+			strength_str(generate_new, false);
+
+			// fill in
+			$('#new_value_popup').val(generate_new);
+			$('#generate_strength').text('');
 		});
 	}
 
@@ -2826,6 +3221,9 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 	$('#popupTitle').click(); // for deactivating the active row
 }
 function removePopup() {
+	// set back id's of add_password_div
+	$('#add_password_div').html($('#add_password_div').html().replace(/id="disabled/g, 'id="'));
+
 	$('#overlay').css('opacity', 0);
 	$('#popup').hide(200);
 	$('#popup').css('top', '0');
@@ -2836,7 +3234,7 @@ function removePopup() {
 }
 function trashAllPasswords(Passwords) {
 
-	var passwords = new Passwords(OC.generateUrl('/apps/passwords/passwords'));
+	var passwords = new Passwords(generateUrl('/passwords'));
 	var doneTotal = 0;
 
 	$('#PasswordsTableContent tbody tr').each(function() {
@@ -2969,20 +3367,40 @@ function resetTimer(kill_old) {
 			$('#countSec').css('font-size', '16px');
 		}
 		// kill on 0, 'click' on logoff entry in top right menu
-		if (settimer == 0 || session_timeout == 0) {
+		if (settimer <= 1 || session_timeout <= 1) {
 			$('#PasswordsTable table td').hide();
 		}
 		if (settimer <= 0) {
 			clearInterval(intervalID);
-			alert(t('passwords', 'You will be logged off due to inactivity of %s seconds.').replace('%s', $('#app-settings').attr('timer')) 
+			if ($('#app-settings').attr('auth_type') == 'none') {
+				alert(t('passwords', 'You will be logged off due to inactivity of %s seconds.').replace('%s', $('#app-settings').attr('timer')) 
 					+ '\n\n'
 					+ t('passwords', "You can change the timer settings in the '%s' menu.").replace('%s', t('core', 'Personal'))
 				);
-			window.location = document.getElementById('logout').href;
+				document.cookie = "oc_sessionPassphrase=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+				window.location = window.location;
+			} else {
+				// lock app; delete cookie and reload
+				document.cookie = "oc_passwords_auth=" + SHA512($('head').attr('data-user')) + "; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+				document.cookie = "oc_passwords_auth=" + SHA512($('head').attr('data-user')) + "; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+				setTimeout(function() {
+					$('#lock_btn').click();
+				}, 1000);
+			}
 		}
 		if (session_timeout <= 0) {
-			alert(t('passwords', 'You will be logged off due to expiration of your session cookie (set to %s minutes).').replace('%s', int2time($('#app-settings').attr('session-timeout'), true)));
-			window.location = document.getElementById('logout').href;
+			if ($('#app-settings').attr('auth_type') == 'none') {
+				alert(t('passwords', 'You will be logged off due to expiration of your session cookie (set to %s minutes).').replace('%s', int2time($('#app-settings').attr('session-timeout'), true)));
+				document.cookie = "oc_sessionPassphrase=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+				window.location = window.location;
+			} else {
+				// lock app; delete cookie and reload
+				document.cookie = "oc_passwords_auth=" + SHA512($('head').attr('data-user')) + "; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+				document.cookie = "oc_passwords_auth=" + SHA512($('head').attr('data-user')) + "; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+				setTimeout(function() {
+					$('#lock_btn').click();
+				}, 1000);
+			}
 		}
 	}, 1000);
 
@@ -3077,18 +3495,12 @@ function updateDone() {
 	$('#section_table').show();
 	$('#section_categories').show();
 }
-function isFlashEnabled() {
-	var hasFlash = false;
-	try	{
-		var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
-		if (fo) {
-			hasFlash = true;
-		}
-	}
-	catch (e) {
-		if (navigator.mimeTypes ["application/x-shockwave-flash"] != undefined) {
-			hasFlash = true
-		}
-	}
-	return hasFlash;
+function generateUrl(extra_path) {
+	var serverroot = $('#app-settings').attr('root-folder');
+	var approot = $('#app-settings').attr('app-path') + '/passwords';
+	approot = approot.replace(/\/\//g, '/');
+	var url = approot.replace(serverroot, '');
+	var OCurl = OC.generateUrl(url + '/' + extra_path);
+	OCurl = OCurl.replace(/\/\//g, '/');
+	return OCurl;
 }
