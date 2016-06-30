@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Kodeord",
+"Continue" => "Videre",
+"Settings" => "Indstillinger",
 "Error while saving field" => "Fejl under lagring af feltet.",
 "Website or company" => "Websted eller virksomhed",
 "Login name" => "Loginnavn",
@@ -98,6 +100,7 @@ $TRANSLATIONS = array(
 "Move old value to trash bin" => "Flyt den gamle værdi til papirkurven.",
 "Cancel" => "Annullér",
 "Stop sharing" => "Stop deling",
+"Add" => "Tilføj",
 "Clear" => "Ryd",
 "All passwords were moved to the trash bin." => "Alle kodeord flyttet til papirkurven.",
 "There are no passwords to be moved." => "Der er ingen kodeord at flytte.",
@@ -140,6 +143,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Slet alt indhold i papirkurven.",
 "Edit" => "Redigér",
 "Copy" => "Kopiér",
+"Clone" => "Kopier",
 "Value copied to clipboard" => "Værdien er kopieret til udklipsholderen.",
 "Last changed" => "Senest ændret",
 "Click on a <b>column head</b> to sort the column." => "Klik på en <b>kolonneoverskrift</b> for at sortere kolonnen.",

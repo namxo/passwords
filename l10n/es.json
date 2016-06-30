@@ -1,5 +1,7 @@
 { "translations": {
     "Passwords" : "Contraseñas",
+    "Continue" : "Continuar",
+    "Settings" : "Ajustes",
     "Error while saving field" : "Error al guardar campo",
     "Website or company" : "Sitio web o empresa",
     "Login name" : "Usuario",
@@ -97,6 +99,7 @@
     "Move old value to trash bin" : "Mover valor antiguo a la papelera",
     "Cancel" : "Cancelar",
     "Stop sharing" : "Parar de compatir",
+    "Add" : "Añadir",
     "Clear" : "Borrar",
     "All passwords were moved to the trash bin." : "Todas las contraseñas se han movido a la papelera.",
     "There are no passwords to be moved." : "No hay contraseñas para mover.",
@@ -139,6 +142,7 @@
     "Delete all items in trash bin" : "Vaciar la papelera",
     "Edit" : "Editar",
     "Copy" : "Copiar",
+    "Clone" : "Clonar",
     "Value copied to clipboard" : "Valor copiado al portapapeles",
     "Last changed" : "Última modificación",
     "Click on a <b>column head</b> to sort the column." : "Clica en el <b>título de una columna</b> para ordenarla.",

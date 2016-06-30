@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Contrasinais",
+"Continue" => "Continuar",
+"Settings" => "Axustes",
 "Error while saving field" => "Erro mentras se gardaba o campo",
 "Website or company" => "Sitio web ou empresa",
 "Login name" => "Nome de usuario",
@@ -89,6 +91,7 @@ $TRANSLATIONS = array(
 "Fill in a valid URL." => "Escriba un URL válido.",
 "Move old value to trash bin" => "Mover o valor antigo ao caldeiro do lixo",
 "Cancel" => "Cancelar",
+"Add" => "Engadir",
 "Clear" => "Limpar",
 "All passwords were moved to the trash bin." => "Todos os contrasinais movéronse ao caldeiro do lixo.",
 "There are no passwords to be moved." => "Non hai contrasinais que mover",
@@ -131,6 +134,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Eliminar todos os elementos do caldeiro do lixo",
 "Edit" => "Editar",
 "Copy" => "Copiar",
+"Clone" => "Clonar",
 "Value copied to clipboard" => "Valor copiado ao portapapeis",
 "Last changed" => "Último cambio",
 "Click on a <b>column head</b> to sort the column." => "Pulse na <b>cabeceira da columna</b> para ordenar a columna.",

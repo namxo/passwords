@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Lösenord",
+"Continue" => "Fortsätt",
+"Settings" => "Inställningar",
 "Error while saving field" => "Fel uppstod medans fält sparades",
 "Website or company" => "Webbsida eller företag",
 "Login name" => "Användarnamn",
@@ -98,6 +100,7 @@ $TRANSLATIONS = array(
 "Move old value to trash bin" => "Släng det gamla värdet i soptunnan",
 "Cancel" => "Avbryt",
 "Stop sharing" => "Sluta dela",
+"Add" => "Lägg till",
 "Clear" => "Rensa",
 "All passwords were moved to the trash bin." => "Alla lösenord har slängts i soptunnan.",
 "There are no passwords to be moved." => "Det finns inga lösenord att flytta.",
@@ -140,6 +143,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Radera alla objekt i papperskorgen",
 "Edit" => "Ändra",
 "Copy" => "Kopiera",
+"Clone" => "Klona",
 "Value copied to clipboard" => "Värde kopierat till clipboard",
 "Last changed" => "Sista ändring",
 "Click on a <b>column head</b> to sort the column." => "Klicka på en <b>kolumnrubrik</b> för att sortera kolumnen.",

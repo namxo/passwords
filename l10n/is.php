@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Lykilorð",
+"Continue" => "Halda áfram",
+"Settings" => "Stillingar",
 "Error while saving field" => "Villa kom upp við að vista gagnasvið",
 "Website or company" => "Vefsvæði eða fyrirtæki",
 "Login name" => "Innskráningarnafn",
@@ -90,6 +92,7 @@ $TRANSLATIONS = array(
 "Move old value to trash bin" => "Setja eldra gildi í ruslið",
 "Cancel" => "Hætta við",
 "Stop sharing" => "Hætta deilingu",
+"Add" => "Bæta við",
 "Clear" => "Hreinsa",
 "All passwords were moved to the trash bin." => "Öllum lykilorðum var hent í ruslið.",
 "There are no passwords to be moved." => "Það eru engin lykilorð til að flytja í ruslið.",
@@ -132,6 +135,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Eyða öllum atriðum í ruslinu",
 "Edit" => "Breyta",
 "Copy" => "Afrita",
+"Clone" => "Klóna",
 "Value copied to clipboard" => "Gildi afritað á klippispjaldið",
 "Last changed" => "Síðast breytt",
 "Click on a <b>column head</b> to sort the column." => "Smelltu á <b>haus dálks</b> til að raða dálknum.",

@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Palavras-passe",
+"Continue" => "Continuar",
+"Settings" => "Definições",
 "Error while saving field" => "Erro ao gravar o campo",
 "Website or company" => "Site ou empresa",
 "Login name" => "Nome de utilizador",
@@ -98,6 +100,7 @@ $TRANSLATIONS = array(
 "Move old value to trash bin" => "Mover valor antigo para o lixo",
 "Cancel" => "Cancelar",
 "Stop sharing" => "Parar partilha",
+"Add" => "Adicionar",
 "Clear" => "Limpar.",
 "All passwords were moved to the trash bin." => "As palavras-passe foram todas movidas para a reciclagem.",
 "There are no passwords to be moved." => "Não existem palavras-passe para serem movidas.",
@@ -140,6 +143,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Eliminar todos os itens no lixo",
 "Edit" => "Editar",
 "Copy" => "Copiar",
+"Clone" => "Clonar",
 "Value copied to clipboard" => "Valor copiado para a área de transferência",
 "Last changed" => "Última modificação",
 "Click on a <b>column head</b> to sort the column." => "Clique num <b>cabeçalho</b> para ordenar a coluna.",

@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Passwords",
+"Continue" => "Continue",
+"Settings" => "Settings",
 "Error while saving field" => "Error whilst saving field",
 "Website or company" => "Website or company",
 "Login name" => "Login name",
@@ -98,6 +100,7 @@ $TRANSLATIONS = array(
 "Move old value to trash bin" => "Move old value to trash bin",
 "Cancel" => "Cancel",
 "Stop sharing" => "Stop sharing",
+"Add" => "Add",
 "Clear" => "Clear",
 "All passwords were moved to the trash bin." => "All passwords were moved to the trash bin.",
 "There are no passwords to be moved." => "There are no passwords to be moved.",
@@ -140,6 +143,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Delete all items in trash bin",
 "Edit" => "Edit",
 "Copy" => "Copy",
+"Clone" => "Clone",
 "Value copied to clipboard" => "Value copied to clipboard",
 "Last changed" => "Last changed",
 "Click on a <b>column head</b> to sort the column." => "Click on a <b>column head</b> to sort the column.",

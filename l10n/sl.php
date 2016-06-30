@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Gesla",
+"Continue" => "Nadaljuj",
+"Settings" => "Nastavitve",
 "Error while saving field" => "Prišlo je do napake med shranjevanjem podatkov polja",
 "Website or company" => "Spletna stran ali podjetje",
 "Login name" => "Prijavno ime",
@@ -95,6 +97,7 @@ $TRANSLATIONS = array(
 "Move old value to trash bin" => "Premakni staro vrednost v smeti",
 "Cancel" => "Prekliči",
 "Stop sharing" => "Prekini souporabo",
+"Add" => "Dodaj",
 "Clear" => "Počisti",
 "All passwords were moved to the trash bin." => "Vsa gesla so premaknjena v smetnjak.",
 "There are no passwords to be moved." => "Ni gesel, ki bi jih bilo mogoče premakniti.",
@@ -128,6 +131,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Brisanje vseh elementov v kanti.",
 "Edit" => "Uredi",
 "Copy" => "Kopiraj",
+"Clone" => "Kloniraj",
 "Value copied to clipboard" => "Vrednost je kopirana v odložišče",
 "Last changed" => "Zadnjič spremenjeno",
 "No passwords yet" => "Ni še nobenega gesla.",

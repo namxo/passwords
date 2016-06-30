@@ -1,6 +1,8 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Parole",
+"Continue" => "Continuă",
+"Settings" => "Setări",
 "Error while saving field" => "Eroare la salvarea câmpului",
 "Website or company" => "Site Web sau companie",
 "Login name" => "Nume utilizator",
@@ -98,6 +100,7 @@ $TRANSLATIONS = array(
 "Move old value to trash bin" => "Mută valoarea veche în coșul de gunoi",
 "Cancel" => "Anulează",
 "Stop sharing" => "Oprește partajarea",
+"Add" => "Adaugă",
 "Clear" => "Curăță",
 "All passwords were moved to the trash bin." => "Toate parolele au fost mutate în coșul de gunoi.",
 "There are no passwords to be moved." => "Nu este nicio parolă care să poată fi mutată.",
@@ -130,6 +133,7 @@ $TRANSLATIONS = array(
 "Delete all items in trash bin" => "Șterge toate elementele din coșul de gunoi",
 "Edit" => "Editează",
 "Copy" => "Copiază",
+"Clone" => "Clonează",
 "Value copied to clipboard" => "Valoarea a fost copiată în memoria temporară",
 "Last changed" => "Modificat ultima dată",
 "or" => "sau",
