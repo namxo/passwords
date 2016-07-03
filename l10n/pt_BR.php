@@ -120,6 +120,7 @@ $TRANSLATIONS = array(
 "days" => "dias",
 "Orange" => "Laranja",
 "to" => "para",
+"App location" => "Aplicativo de localização",
 "Security" => "Segurança",
 "Block app when not connected to %s using a secured connection" => "Bloquear aplicativo quando não estiver conectado a %s usando uma conexão segura",
 "Turning this off is HIGHLY DISCOURAGED" => "Desativar essa opção é altamente DESENCORAJADO",
