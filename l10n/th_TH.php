@@ -192,6 +192,7 @@ $TRANSLATIONS = array(
 "File contains headers" => "ไฟล์ที่ประกอบด้วยส่วนหัว",
 "Values are separated by quotation marks" => "ค่าจะถูกคั่นด้วยเครื่องหมายคำพูด",
 "Characters %s and %s need to be escaped" => "จะต้องเอาตัวอักษร %s และ %s ออก",
+"Lines are split on" => "เปิดใช้งานเส้นแบ่ง",
 "Select all" => "เลือกทั้งหมด",
 "Select none" => "ไม่เลือก",
 "Extra authentication" => "การตรวจสอบสิทธิ์แบบพิเศษ",
