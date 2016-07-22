@@ -964,10 +964,7 @@ orange {
 	margin-left: 10px;
 	margin-right: 10px;
 }
-#gen_lower_popup,
-#gen_upper_popup,
-#gen_numbers_popup,
-#gen_special_popup,
+#popupContent .checkbox,
 #gen_length_popup,
 #new_generate_popup,
 #keep_old_popup,
