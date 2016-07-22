@@ -1,4 +1,5 @@
 ####19-beta - NOT YET RELEASED
+* Support for ownCloud 9.1 (now works on all version of OC 8 and OC 9, and on the latest NextCloud too)
 * Added the possibility for a master password! Users can choose between their own **ownCloud password** (default after you update), a self chosen **master password** or **no extra password** at all.
  * A master password will be hashed with a 512-bit SHA2-hash. This hash contains no retrievable information and is useless, even for database administrators. It will only be used to verify it with the hashed version of the user's input.
  * This is particularly handy when other users know your ownCloud password (for practical reasons).
@@ -12,7 +13,7 @@
 * Added 'Stop sharing' button to popup for passwords that have been shared
 * Added immediate clipboard copy when you click on a username or password, hidden or not
 * Added 'Clear' button to popup
-* Added support for Danish, Romanian, Russian and Turkish. Now available in 21 languages: English, German, Spanish, French, Italian, Dutch, Danish, Czech, Norwegian Bokmål, Russian, Polish, Portuguese (Brazil), Portuguese (Portugal), Turkish, Swedish, Catalan, Hebrew, Romanian, Albanian, Icelandic and Galician.
+* Added support for Danish, Romanian, Russian, Slovenian, Spanish (Mexico), Thai and Turkish. Now available in 24 languages: English, German, Spanish, French, Italian, Dutch, Danish, Czech, Norwegian Bokmål, Russian, Polish, Portuguese (Brazil), Portuguese (Portugal), Spanish (Mexico), Turkish, Swedish, Catalan, Thai, Hebrew, Romanian, Albanian, Slovenian, Icelandic, Galician.
 * Added auto load of website picture (favicon) when creating a password so it is instantly visible
 * Changed appearance of left navigation pane, including removal of password form (which has moved to a popup)
 * Changed password generation (pre-)algorithm, it now loops 10 times and returns the strongest of them
