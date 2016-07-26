@@ -2,7 +2,8 @@
 * Support for ownCloud 9.1 (now works on all version of OC 8 and OC 9, and on the latest NextCloud too)
 * Added the possibility for a master password! Users can choose between their own **ownCloud password** (default after you update), a self chosen **master password** or **no extra password** at all.
  * Authentication is served over POST requests (safer than URL requests)
- * A master password will be hashed with a 512-bit SHA2-hash. This hash contains no retrievable information and is useless, even for database administrators. It will only be used to verify it with the hashed version of the user's input.
+ * A timer (cookie) is available and can be set per user
+ * A master password and the cookie timer will be hashed with a 512-bit SHA2-hash. This hash contains no retrievable information and is useless, even for database administrators. It will only be used to verify it with the hashed version of the user's input.
  * This is particularly handy when other users know your ownCloud password (for practical reasons).
  * Master passwords do not re-encrypt existing passwords, it is only used for entering the app.
  * The countdown timer will lock the app instead of log you off when it reaches zero and you use an extra authentication
