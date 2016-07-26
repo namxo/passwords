@@ -1559,7 +1559,7 @@ function formatTable(update_only, rows) {
 						+ 'attr_loginname="' + row.loginname + '" '
 						+ 'attr_pass="' + row.pass + '" '
 						+ 'attr_category="' + (row.category || '0') + '" '
-						+ 'attr_notes="' + row.notes.replace(/\\n/g, '\n').replace(/\\t/g, '\t') + '" '
+						+ 'attr_notes="' + String(row.notes).replace(/\\n/g, '\n').replace(/\\t/g, '\t') + '" '
 						+ 'attr_datechanged="' + row.datechanged + '" '
 						+ 'attr_strength="' + strength_int2str(row.strength) + '" '
 						+ 'attr_length="' + row.length + '" '
@@ -1575,7 +1575,7 @@ function formatTable(update_only, rows) {
 
 				// set real website url if available
 				if (row.address != '') {
-					if (row.address.substr(0, 7) == "http://" || row.address.substr(0, 8) == "https://") {
+					if (String(row.address).substr(0, 7) == "http://" || String(row.address).substr(0, 8) == "https://") {
 						var websiteURL = row.address;
 					} else {
 						var websiteURL = 'http://' + row.address;
