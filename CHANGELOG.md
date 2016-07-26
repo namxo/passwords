@@ -23,6 +23,7 @@
 * Fix for notes and categories not being saved on unshared passwords
 * Fix for sharing with users whose username contains a `.` or `@`
 * Fix for SQLite databases
+* Fix for import of addresses and notes
 * Fix for Not Found Exception
 * Fix for many small CSS bugs
 * Fixed ownCloud dialogs with own CSS so they actually work and the buttons are always in sight
