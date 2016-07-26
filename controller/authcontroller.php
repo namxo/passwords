@@ -24,7 +24,11 @@ class AuthController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 */
-	public function checkauth($pass, $type) {
+	public function checkauth() {
+
+		$pass = $_POST['password'];
+		$type = $_POST['authtype'];
+
 		return $this->handleNotFound(function () use ($pass, $type) {
 			return $this->authService->checkauth($pass, $type);
 		});

@@ -8,20 +8,36 @@ $(document).ready(function() {
 
 	Auth.prototype = {
 		checkAuth: function(pass, type) {
+			// this._baseUrl already ends with /auth, found in routes.php
 			var result = 'error';
 			var request = $.ajax({
-				url: this._baseUrl + '/' + pass + '/' + type,
-				method: 'POST',
-				async: false
+				url: this._baseUrl,
+				data: {'password' : pass, 'authtype' : type},
+				method: 'POST'
 			});
 			
 			request.done(function(msg) {
+
 				// will be 'pass' or 'fail';
 				result = msg;
+
 				if (result == 'pass') {
 					// create cookie on 'pass'
 					setCookie();
+					// has auth cookie, so go for it
+					window.location = window.location;
+				} else if (result == 'fail') {
+					if ($('#auth_pass').val() == $('#auth_pass').val().toUpperCase()) {
+						$('#invalid_auth').text($('#invalid_auth').text() + t('passwords', ' Caps Lock might be on.'));	
+					} else {
+						$('#invalid_auth').text(t('passwords', 'This password is invalid. Please try again.'));
+					}
+					$('#invalid_auth').slideDown(200);
+					setTimeout(function() {
+						$('#invalid_auth').slideUp(500);
+					}, 4500);
 				}
+
 			});
  
 			request.fail(function( jqXHR, textStatus ) {
@@ -49,20 +65,6 @@ $(document).ready(function() {
 		var auth_type =  $('#auth_pass').attr('auth-type');
 		
 		var authenticate = auth.checkAuth($('#auth_pass').val(), auth_type);
-		if (authenticate == 'pass') {
-			// has auth cookie, so go for it
-			window.location = window.location;
-		} else if (authenticate == 'fail') {
-			if ($('#auth_pass').val() == $('#auth_pass').val().toUpperCase()) {
-				$('#invalid_auth').text($('#invalid_auth').text() + t('passwords', ' Caps Lock might be on.'));	
-			} else {
-				$('#invalid_auth').text(t('passwords', 'This password is invalid. Please try again.'));
-			}
-			$('#invalid_auth').slideDown(200);
-			setTimeout(function() {
-				$('#invalid_auth').slideUp(500);
-			}, 4500);
-		}
 
 		return false;
 	});
