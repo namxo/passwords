@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Mots de passe",
-    "Continue" : "Continuer",
     " Caps Lock might be on." : "La touche Verr. Maj. semble activée.",
     "This password is invalid. Please try again." : "Le mot de passe est incorrect. Veuillez réessayer.",
+    "Continue" : "Continuer",
     "Settings" : "Paramètres",
     "Error while saving field" : "Erreur lors de l'enregistrement du champ.",
     "Website or company" : "Site web ou entreprise",

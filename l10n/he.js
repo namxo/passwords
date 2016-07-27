@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "סיסמאות",
-    "Continue" : "המשך",
     " Caps Lock might be on." : "יתכן ולחצן ה- Caps Lock מופעל.",
     "This password is invalid. Please try again." : "הסיסמא שגויה. יש לנסות שוב.",
+    "Continue" : "המשך",
     "Settings" : "הגדרות",
     "Error while saving field" : "שגיאה בזמן שמירת השדה",
     "Website or company" : "אתר אינטרנט או חברה",

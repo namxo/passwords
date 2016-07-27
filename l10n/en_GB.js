@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Passwords",
-    "Continue" : "Continue",
     " Caps Lock might be on." : " Caps Lock might be on.",
     "This password is invalid. Please try again." : "This password is invalid. Please try again.",
+    "Continue" : "Continue",
     "Settings" : "Settings",
     "Error while saving field" : "Error whilst saving field",
     "Website or company" : "Website or company",

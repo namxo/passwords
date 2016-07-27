@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Parolalar",
-    "Continue" : "Devam et",
     " Caps Lock might be on." : " Caps Lock açık olabilir.",
     "This password is invalid. Please try again." : "Parola geçersiz. Lütfen tekrar deneyin.",
+    "Continue" : "Devam et",
     "Settings" : "Ayarlar",
     "Error while saving field" : "Alan kaydedilirken hata oluştu",
     "Website or company" : "websitesi ya da şirket",

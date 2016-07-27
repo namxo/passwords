@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Fjalëkalime",
-    "Continue" : "Vazhdo",
     " Caps Lock might be on." : " Mund të keni aktiv tastin Caps Lock.",
     "This password is invalid. Please try again." : "Ky fjalëkalim është i pavlefshëm. Ju lutemi, riprovoni.",
+    "Continue" : "Vazhdo",
     "Settings" : "Rregullime",
     "Error while saving field" : "Gabim teksa ruhej fusha",
     "Website or company" : "Sajt ose shoqëri",

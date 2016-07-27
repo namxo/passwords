@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Passwörter",
-    "Continue" : "Fortsetzen",
     " Caps Lock might be on." : "Die Feststelltaste könnte aktiviert sein.",
     "This password is invalid. Please try again." : "Das Passwort ist falsch. Bitte versuchen Sie es erneut.",
+    "Continue" : "Fortsetzen",
     "Settings" : "Einstellungen",
     "Error while saving field" : "Fehler während des Speicherns",
     "Website or company" : "Webseite oder Firma",

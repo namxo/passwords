@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Password",
-    "Continue" : "Continua",
     " Caps Lock might be on." : "Il blocco maiuscole potrebbe essere attivo.",
     "This password is invalid. Please try again." : "La password non è valida. Prova ancora.",
+    "Continue" : "Continua",
     "Settings" : "Impostazioni",
     "Error while saving field" : "Errore durante il salvataggio del campo",
     "Website or company" : "Sito web o azienda",

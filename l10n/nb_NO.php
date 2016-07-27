@@ -1,9 +1,9 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Passord",
-"Continue" => "Fortsett",
 " Caps Lock might be on." => "Caps Lock kan være på.",
 "This password is invalid. Please try again." => "Dette passordet er ugyldig. Prøv på nytt.",
+"Continue" => "Fortsett",
 "Settings" => "Innstillinger",
 "Error while saving field" => "Feil ved lagring av felt",
 "Website or company" => "Webside eller firma",

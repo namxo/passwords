@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "รหัสผ่าน",
-    "Continue" : "ดำเนินการต่อ",
     " Caps Lock might be on." : "Caps Lock อาจเปิดใช้งานอยู่",
     "This password is invalid. Please try again." : "รหัสผ่านนี้ไม่ถูกต้อง กรุณาลองอีกครั้ง",
+    "Continue" : "ดำเนินการต่อ",
     "Settings" : "ตั้งค่า",
     "Error while saving field" : "ข้อผิดพลาดขณะกำลังบันทึกช่อง",
     "Website or company" : "เว็บไซต์หรือบริษัท",

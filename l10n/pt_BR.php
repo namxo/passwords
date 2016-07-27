@@ -1,9 +1,9 @@
 <?php
 $TRANSLATIONS = array(
 "Passwords" => "Senhas",
-"Continue" => "Continuar",
 " Caps Lock might be on." => "Caps Lock pode estar ligado.",
 "This password is invalid. Please try again." => "Esta senha é inválida. Por favor, tente novamente.",
+"Continue" => "Continuar",
 "Settings" => "Configurações",
 "Error while saving field" => "Erro ao salvar campo",
 "Website or company" => "Site na web ou empresa",

@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Kodeord",
-    "Continue" : "Videre",
     " Caps Lock might be on." : "Versal-lås er aktiv",
     "This password is invalid. Please try again." : "Denne adgangskode er ugyldig. Prøv venligst igen.",
+    "Continue" : "Videre",
     "Settings" : "Indstillinger",
     "Error while saving field" : "Fejl under lagring af feltet.",
     "Website or company" : "Websted eller virksomhed",

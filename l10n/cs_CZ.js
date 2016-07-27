@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Hesla",
-    "Continue" : "Pokračovat",
     " Caps Lock might be on." : "Nejspíše je zapnut Caps Lock.",
     "This password is invalid. Please try again." : "Toto heslo není platné. Zkuste prosím znovu.",
+    "Continue" : "Pokračovat",
     "Settings" : "Nastavení",
     "Error while saving field" : "Chyba při ukládání pole",
     "Website or company" : "Webová stránka nebo společnost",

@@ -1,8 +1,8 @@
 { "translations": {
     "Passwords" : "Passwörter",
-    "Continue" : "Fortsetzen",
     " Caps Lock might be on." : "Die Feststelltaste könnte aktiviert sein.",
     "This password is invalid. Please try again." : "Das Passwort ist falsch. Bitte versuche es erneut.",
+    "Continue" : "Fortsetzen",
     "Settings" : "Einstellungen",
     "Error while saving field" : "Fehler beim Speichern der Datei.",
     "Website or company" : "Webseite oder Firma",

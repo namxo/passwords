@@ -2,9 +2,9 @@ OC.L10N.register(
     "passwords",
     {
     "Passwords" : "Wachtwoorden",
-    "Continue" : "Verder",
     " Caps Lock might be on." : " Caps Lock zou aan kunnen staan.",
     "This password is invalid. Please try again." : "Het wachtwoord is onjuist. Probeer het opnieuw.",
+    "Continue" : "Verder",
     "Settings" : "Instellingen",
     "Error while saving field" : "Fout bij het opslaan van veld",
     "Website or company" : "Website of bedrijf",
