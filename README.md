@@ -1,7 +1,7 @@
 # Passwords
-#### for ownCloud Server 8 and 9
+#### for ownCloud Server 8 and 9 (and NextCloud 9)
 ##### 2015-2016, Fallon Turner <fcturner@users.noreply.github.com>
-Available in languages: 
+Available in 24 languages: 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" title="English" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" title="German" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" title="Spanish" height="15" /> 
@@ -26,12 +26,25 @@ Available in languages:
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/sismall.gif" title="Slovenian" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/issmall.gif" title="Icelandic" height="15" /> 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" title="Galician" height="15" />  
-
+###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions. (read more below under [Installation](https://github.com/fcturner/passwords#installation))
 [View this app on apps.owncloud.org.](https://apps.owncloud.com/content/show.php/Passwords?content=170480)
 
-###### This app cannot be installed from within ownCloud, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions. (read more below under Installation)
+## Contents
+*  [Overview](https://github.com/fcturner/passwords#overview)
+*  [Summary](https://github.com/fcturner/passwords#summary)
+*  [Security](https://github.com/fcturner/passwords#security)
+ * [Password generation](https://github.com/fcturner/passwords#-password-generation)
+ * [Encryption (for storage in database)](https://github.com/fcturner/passwords#-encryption-for-storage-in-database)
+ * [Decryption (for pulling from database)](https://github.com/fcturner/passwords#-decryption-for-pulling-from-database)
+ * [Sharing](https://github.com/fcturner/passwords#-sharing)
+*  [Remote control](https://github.com/fcturner/passwords#remote-control)
+*  [Website icons](https://github.com/fcturner/passwords#website-icons)
+*  [Translations](https://github.com/fcturner/passwords#translations)
+*  [**Installation**](https://github.com/fcturner/passwords#installation)
+*  [Credits](https://github.com/fcturner/passwords#credits)
 
-#### Overview
+
+## Overview
 :camera: [More pictures in the gallery](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots)).
 ![Overview of ownCloud Passwords](img/screenshot3.PNG)
 
@@ -130,15 +143,15 @@ ownCloud Passwords is available in:
 
 ## Installation
 Use one of the following options, login as admin on ownCloud and enable the app. The database tables `oc_passwords`, `oc_passwords_categories` and `oc_passwords_share` will be created automatically (assuming `_oc` as prefix).
+* **Git clone (fastest)** 
+ * Use these commands (assuming `/var/www/owncloud` as your ownCloud root location). The first one is optional to remove an existing folder with contents.
+ ```
+rm -rf /var/www/owncloud/apps/passwords
+git clone https://github.com/fcturner/passwords.git /var/www/owncloud/apps/passwords
+```
 * **Manual download and installation** 
  * [Click here to view the latest official release](https://github.com/fcturner/passwords/releases/latest) or, for the very last master version, [click here to download the zip](https://github.com/fcturner/passwords/archive/master.zip) or [here to download the tar.gz](https://github.com/fcturner/passwords/archive/master.tar.gz).
  * Copy, unzip or untar the folder 'passwords' to /owncloud/apps/ (**remember that the folder must be called 'passwords'**).
-* **Git clone** 
- * Use the command 
- ```
-git clone https://github.com/fcturner/passwords.git /var/www/owncloud/apps/passwords
-```
-(assuming `/var/www/owncloud` as your ownCloud root location).
 * **ownCloud App store** 
  * I refuse to support this. This system demands repackaging of releases and kills the possibility to freely use GitHub master versions. Repackaging of releases is prone to human error and, more importantly, adds invisible system files to a release when doing this on Mac (like `.DS_Store`) and Windows (like `Thumbs.db`). This means local user properties and file system info (**privacy sensitive possibly**) are sent to a server, which **should be avoided at all costs**. Did you know forensic scientists can use these files against you? You surely don't want them on any server, any cloud, or anywhere on the internet! Dr Sarah Morris and Dr Howard Chivers [wrote an article about this](http://www.identatron.co.uk/wp-content/uploads/2013/11/cyberforensics2013.pdf). The ownCloud team should really alter the behaviour of ownCloud pulling apps from their app store, instead of letting app developers interfere with a decent, solid and closed GitHub workflow (as I've been telling them for months). **This app is all about privacy and security, the ownCloud app store apparently isn't.**
 
