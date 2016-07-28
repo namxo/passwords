@@ -47,13 +47,17 @@ class PasswordService {
 				$getShare_enc = json_encode($getShare);
 				$getSharearr = json_decode($getShare_enc, true);
 				
-				$sharekey_activeuser = $getSharearr['sharekey'];
-				$pos = strrpos($arr[$row]['properties'], $sharekey_activeuser);
+				if (isset($getSharearr['sharekey'])) {
+					$sharekey_activeuser = $getSharearr['sharekey'];
+					$pos = strrpos($arr[$row]['properties'], $sharekey_activeuser);
+				} else {
+					$pos = false;
+				}
 				if ($pos !== false) {
 				    $arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
 				} else {
 					$arr[$row]['pass'] = 'oc_passwords_invalid_sharekey';
-					\OCP\Util::writeLog('passwords', "No valid sharekey found for user '" . $userId . "' while decrypting passwords.id: " . $arr[$row]['id'], \OCP\Util::WARN);
+					\OCP\Util::writeLog('passwords', "No valid sharekey found for user '" . $userId . "' before decrypting passwords.id " . $arr[$row]['id'] . " (" . $userSuppliedKey . "), possibly revoked by owner '" . $userKey . "'", \OCP\Util::WARN);
 				}
 			} else {
 				$arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
