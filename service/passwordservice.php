@@ -43,16 +43,8 @@ class PasswordService {
 
 			if ($userKey != $userId && $arr[$row]['id'] != 0) {
 				// check for sharekey
-				$getShare = $this->mapper->getShareKey($arr[$row]['id'], $userId);
-				$getShare_enc = json_encode($getShare);
-				$getSharearr = json_decode($getShare_enc, true);
-				
-				if (isset($getSharearr['sharekey'])) {
-					$sharekey_activeuser = $getSharearr['sharekey'];
-					$pos = strrpos($arr[$row]['properties'], $sharekey_activeuser);
-				} else {
-					$pos = false;
-				}
+				$sharekey_activeuser = $this->mapper->getShareKey($arr[$row]['id'], $userId);
+				$pos = strrpos($arr[$row]['properties'], $sharekey_activeuser);
 				if ($pos !== false) {
 				    $arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
 				} else {
