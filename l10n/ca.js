@@ -177,7 +177,7 @@ OC.L10N.register(
     "List of categories" : "Llista de categories",
     "No categories yet" : "Sense categories encara",
     "You will be logged off automatically when this countdown reaches 0" : "La sessió finalitzarà automàticament quan aquest compte arribi a zero",
-    "Lock app" : "Bloquejar l'aplicació",
+    "Lock app" : "Bloquejar l'app",
     "Active passwords" : "Contrasenyes actives",
     "Search for" : "Cerca",
     "Filter" : "Filtre",
