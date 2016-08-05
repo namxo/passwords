@@ -89,7 +89,7 @@
     "Do not import" : "Ne uvozi",
     "This is not a valid URL, so this value will not be saved:" : "Naveden je neveljaven naslov URL, zato vrednost ne bo shranjena:",
     "Import of passwords done. This page will now reload." : "Uvoz gesel je končan. Stran se sedaj bo osvežila.",
-    "Choose one or more users and press Share." : "Izberite enega ali več uporabnikov in pritisnite Deli.",
+    "Choose one or more users and press Share." : "Izberite enega ali več uporabnikov in pritisnite gumb za omogočanje souporabe.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Vpišite novo vrednost in jo shranite.\nOpravila ni mogoče povrniti!",
     "There are no users available you can share with." : "Ni uporabnikov, s katerimi bi lahko delili vsebino.",
     "LDAP is unsupported in this version." : "V tej različici LDAP ni podprt.",
