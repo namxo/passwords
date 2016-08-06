@@ -1511,11 +1511,8 @@ function formatTable(update_only, rows) {
 					'</tr>'
 				);
 				if (displayname != $('#expandDisplayName').text()) { // do not include yourself
-					if (uid != displayname) {
-						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span><strong>' + displayname + '</strong> (' + uid + ')</span></label><br>');
-					} else {
-						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + displayname + '</span></label><br>');
-					}
+					// 'displayname' will be 'uid' when real ownCloud display name is unavailable
+					$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + displayname + '</span></label><br>');
 					$('.avatar_' + uid_escaped).avatar(uid, 32);
 				}
 				continue;
