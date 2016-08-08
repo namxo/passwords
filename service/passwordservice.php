@@ -125,7 +125,7 @@ class PasswordService {
 			'"length" : "' . strlen($pass) . '", ' .
 			'"lower" : "' . Calculations::strhaslower($pass) . '", ' .
 			'"upper" : "' . Calculations::strhasupper($pass) . '", ' .
-			'"number" : "' . Calculations::strhasspecial($pass) . '", ' .
+			'"number" : "' . Calculations::strhasnumber($pass) . '", ' .
 			'"special" : "' . Calculations::strhasspecial($pass) . '", ' .
 			'"category" : "' . $category . '", ' .
 			'"datechanged" : "' . date('Y-m-d') . '", ' .
@@ -179,7 +179,7 @@ class PasswordService {
 			'"length" : "' . strlen($pass) . '", ' .
 			'"lower" : "' . Calculations::strhaslower($pass) . '", ' .
 			'"upper" : "' . Calculations::strhasupper($pass) . '", ' .
-			'"number" : "' . Calculations::strhasspecial($pass) . '", ' .
+			'"number" : "' . Calculations::strhasnumber($pass) . '", ' .
 			'"special" : "' . Calculations::strhasspecial($pass) . '", ' .
 			'"category" : "' . $category . '", ' .
 			'"datechanged" : "' . $datechanged . '", ' .
