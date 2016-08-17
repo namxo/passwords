@@ -121,6 +121,7 @@
     "App location" : "Pot do programa",
     "Change this to support other app folders" : "Spremenite, če želite podporo za mape drugih programov",
     "Security" : "Varnost",
+    "Block app when not connected to %s using a secured connection" : "Blokiraj program, če ta ni povezan s strežnikom %s prek varne povezave.",
     "Turning this off is HIGHLY DISCOURAGED" : "Te možnosti NI PRIPOROČLJIVO izklopiti!",
     "Allow users to download a backup as an unencrypted, plain text file" : "Dovoli uporabnikom, da si shranijo varnostno kopijo kot nešifrirano besedilno datoteko",
     "Disable browsers context menu" : "Onemogoči vsebinski meni brskalnika",
