@@ -162,6 +162,7 @@ OC.L10N.register(
     "Add category" : "Dodaj kategorijo",
     "List of categories" : "Seznam kategorij",
     "No categories yet" : "Ni še nobene ustvarjene kategorije",
+    "Lock app" : "Zakleni program",
     "Active passwords" : "Dejavna gesla",
     "Search for" : "Poišči",
     "Filter" : "Filter",
