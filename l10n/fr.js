@@ -122,6 +122,7 @@ OC.L10N.register(
     "Orange" : "Orange ",
     "to" : "à",
     "App location" : "Emplacement de l'Application",
+    "Change this to support other app folders" : "Changez ceci pour prendre en charge d'autres dossiers d'applications",
     "An invalid folder name will break the app and these settings too! The value is saved to the database table %s" : "Un nom de dossier invalide peux casser l'application et ses paramètres. La valeur est suvegardé dans la table %s de la base de données",
     "Security" : "Sécurité",
     "Block app when not connected to %s using a secured connection" : "Bloquer l'app lorsque connecté à %s via une connexion non sécurisée",
