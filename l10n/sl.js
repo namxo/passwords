@@ -141,6 +141,7 @@ OC.L10N.register(
     "ACCESS BLOCKED" : "DOSTOP JE BLOKIRAN",
     "There is no secure, encrypted connection." : "Ni vzpostavljene varne in šifrirane povezave.",
     "Click here" : "Kliknite tu",
+    "Please note that without a secure connection, your passwords may be accessible by everyone who is also connected to your network (WiFi or 3G/4G). The only security that remains, is the security of the network you are connected to. A company network is safer than a public network like in restaurants or shops." : "Brez ustrezne varne povezave je dostop do gesel odprt za vse, ki so povezani v isto omrežje (WiFi ali 3G/4G). Edina varnost, ki ostane, je varnost omrežja. Poslovna omrežja je bolj varna kot javna.",
     "Decrypting passwords" : "Dešifriranje gesel",
     "Update required" : "Zahtevana je posodobitev",
     "Update" : "Posodobi",
