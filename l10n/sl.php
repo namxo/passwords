@@ -113,6 +113,7 @@ $TRANSLATIONS = array(
 "You will be logged off due to inactivity of %s seconds." => "Zaradi nedejavnosti %s sekund bo seja odjavljena.",
 "You can change the timer settings in the '%s' menu." => "Nastavitve časomera je mogoče spremeniti v meniju '%s'.",
 "Personal" => "Osebno",
+"You will be logged off due to expiration of your session cookie (set to %s minutes)." => "Zaradi nedejavnosti bo povezava potekla (omejitev je nastavljena na %s minut).",
 "Use inactivity countdown" => "Uporabi odštevalnik časa nedejavnosti",
 "Red" => "Rdeča",
 "after" => "po",
