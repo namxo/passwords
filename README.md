@@ -12,7 +12,7 @@ Available in 25 languages:
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" title="Czech" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" title="Norwegian Bokmål" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/rusmall.gif" title="Russian" height="15" /> 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/jasmall.gif" title="Russian" height="15" /> 
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/jpsmall.gif" title="Japanese" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" title="Polish" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" title="Portuguese (Brazil)" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" title="Portuguese (Portugal)" height="15" /> 
@@ -114,7 +114,7 @@ ownCloud Passwords is available in:
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/rusmall.gif" height="16" /> Russian
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/jasmall.gif" height="16" /> Japanese
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/jpsmall.gif" height="16" /> Japanese
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" height="16" /> Polish
 
