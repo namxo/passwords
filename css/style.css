@@ -3,6 +3,12 @@ div.oc-dialog {
 	left: 15% !important;
 	width: 70% !important;
 }
+.oc-dialog {
+	z-index: 9999999999;
+}
+.oc-dialog-dim {
+	z-index: 999999999;
+}
 .oc-dialog-buttonrow.twobuttons button:nth-child(1) {
 	float: right !important;
 	margin-left: 10px;
