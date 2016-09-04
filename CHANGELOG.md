@@ -1,5 +1,5 @@
 ####19-beta - NOT YET RELEASED
-* Support for ownCloud 9.1 (now works on all version of OC 8 and OC 9, and on the latest NextCloud too)
+* Support for ownCloud 9.1 and NextCloud 9 and 10 (now works on all versions of OC 8 and OC 9, and NC 9 and NC 10 too)
 * Added the possibility for a master password! Users can choose between their own **ownCloud password** (default after you update), a self chosen **master password** or **no extra password** at all.
  * Authentication is served over POST requests (safer than URL requests)
  * A timer (cookie) is available and can be set per user
@@ -7,6 +7,7 @@
  * This is particularly handy when other users know your ownCloud password (for practical reasons).
  * Master passwords do not re-encrypt existing passwords, it is only used for entering the app.
  * The countdown timer will lock the app instead of log you off when it reaches zero and you use an extra authentication
+* Support for sharing with LDAP
 * Added 'Lock app' button as option for users who have set an extra authentication
 * Added support for different app locations. If you use `/owncloud/apps2/passwords` for an instance, this will now be supported too. Admins can change this in the admin settings of ownCloud.
 * Readded support for PostgreSQL (changed database format for BLOB-types)
@@ -15,7 +16,7 @@
 * Added 'Stop sharing' button to popup for passwords that have been shared
 * Added immediate clipboard copy when you click on a username or password, hidden or not
 * Added 'Clear' button to popup
-* Added support for Danish, Romanian, Russian, Slovenian, Spanish (Mexico), Thai and Turkish. Now available in 24 languages: English, German, Spanish, French, Italian, Dutch, Danish, Czech, Norwegian Bokmål, Russian, Polish, Portuguese (Brazil), Portuguese (Portugal), Spanish (Mexico), Turkish, Swedish, Catalan, Thai, Hebrew, Romanian, Albanian, Slovenian, Icelandic, Galician.
+* Added support for Danish, Japanese, Romanian, Russian, Slovenian, Spanish (Mexico), Thai and Turkish. Now available in 25 languages: English, German, Spanish, French, Italian, Dutch, Danish, Czech, Norwegian Bokmål, Russian, Japanese, Polish, Portuguese (Brazil), Portuguese (Portugal), Spanish (Mexico), Turkish, Swedish, Catalan, Thai, Hebrew, Romanian, Albanian, Slovenian, Icelandic, Galician.
 * Added auto load of website picture (favicon) when creating a password so it is instantly visible
 * Changed appearance of left navigation pane, including removal of password form (which has moved to a popup)
 * Changed password generation (pre-)algorithm, it now loops 10 times and returns the strongest of them
