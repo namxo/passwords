@@ -2,7 +2,7 @@
 <info>
 	<id>passwords</id>
 	<name>Passwords</name>
-	<description>This is a Password Manager with both client side and server side encryption for generating, SHARING, editing, and categorizing passwords. 
+	<description>This is a Password Manager with both client side and server side encryption for generating, SHARING (including LDAP), editing, and categorizing passwords. 
 	NOTE! THIS APP CANNOT BE INSTALLED FROM WITHIN OWNCLOUD, since this system demands repackaging of releases and kills the possibility to freely use GitHub master versions. Repackaging of releases is prone to human error and, more importantly, adds invisible system files to a release when doing this on Mac (like .DS_Store) and Windows (like Thumbs.db). This means local user properties and file system info (privacy sensitive possibly) are sent to a server, which should be avoided at all costs. Did you know forensic scientists can use these files against you? You surely don't want them on any server, any cloud, or anywhere on the internet!
 
 	It features both client side and server side encryption (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read Security part in documentation for details). You can insert or import your own passwords (KeePass, LastPass, ...) or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).
@@ -13,7 +13,7 @@
 	</description>
 	<licence>AGPL</licence>
 	<author>Fallon Turner</author>
-	<version>19-beta4</version>
+	<version>19-beta5</version>
 	<namespace>Passwords</namespace>
 	<category>tool</category>
 	<website>https://github.com/fcturner/passwords</website>
@@ -22,6 +22,7 @@
 	<ocsid>170480</ocsid>
 	<dependencies>
 		<owncloud min-version="8.0" max-version="9.1"/>
+		<nextcloud min-version="9.0" max-version="10.1"/>
 		<database>sqlite</database>
 		<database>mysql</database>
 		<database>pgsql</database>
