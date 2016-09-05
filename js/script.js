@@ -3508,6 +3508,6 @@ function generateUrl(extra_path) {
 }
 function IsGUID(str) {
 	var regex = /[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}/i;
-	var match = regex.exec(value);
+	var match = regex.exec(str);
 	return match != null;
 }
