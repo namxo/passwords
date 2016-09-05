@@ -431,9 +431,9 @@
 
 					clipboard.on('success', function(e) {
 						$('#zeroclipboard_copied').slideDown(50);
-					 		setTimeout(function() {
+							setTimeout(function() {
 								$('#zeroclipboard_copied').slideUp(100);
-					 		}, 1500); 
+							}, 1500); 
 						e.clearSelection();
 					});
 
@@ -1511,9 +1511,14 @@ function formatTable(update_only, rows) {
 					'</tr>'
 				);
 				if (displayname != $('#expandDisplayName').text()) { // do not include yourself
-					// 'displayname' will be 'uid' when real ownCloud display name is unavailable
-					$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + displayname + '</span></label><br>');
-					$('.avatar_' + uid_escaped).avatar(uid, 32);
+					if (IsGUID(displayname)) { // With LDAP, uid is ownCloud login name, and displayname is GUID
+						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + uid + '</span></label><br>');
+						$('.avatar_' + uid_escaped).avatar(displayname, 32);
+					} else {
+						// 'displayname' will be 'uid' when real ownCloud display name is unavailable
+						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + displayname + '</span></label><br>');
+						$('.avatar_' + uid_escaped).avatar(uid, 32);
+					}
 				}
 				continue;
 			}
@@ -3500,4 +3505,9 @@ function generateUrl(extra_path) {
 	var OCurl = OC.generateUrl(url + '/' + extra_path);
 	OCurl = OCurl.replace(/\/\//g, '/');
 	return OCurl;
+}
+function IsGUID(str) {
+	var regex = /[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}/i;
+	var match = regex.exec(value);
+	return match != null;
 }
