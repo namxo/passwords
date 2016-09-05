@@ -20,7 +20,13 @@ class AuthService {
 		$result = false;
 
 		if ($type == 'owncloud') {
-			$result = (\OC::$server->getUserManager()->checkPassword($this->userId, $pass) != false);
+			// LDAP fix: check if username is GUID, then authenticate with uid
+			if (preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/', $this->userId)) {
+				$username = \OC::$server->getUserSession()->getUser()->getUID();
+				$result = (\OC::$server->getUserManager()->checkPassword($username, $pass) != false);	
+			} else {
+				$result = (\OC::$server->getUserManager()->checkPassword($this->userId, $pass) != false);
+			}
 			// on fail, OC will add an entry to the log, so clarify that:
 			if ($result == false) {
 				\OCP\Util::writeLog('passwords', "Authentication failed: '" . $this->userId . "'", \OCP\Util::WARN);
