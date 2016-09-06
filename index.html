@@ -1,47 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <title>Passwords by fcturner</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Passwords by fcturner</title>
   </head>
-
   <body>
-    <div id="container">
-      <div class="inner">
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Passwords</h1>
+        <p class="header">Password manager for ownCloud 8 and later and NextCloud 9 and later</p>
 
-        <header>
-          <h1>Passwords</h1>
-          <h2>Password manager for ownCloud Server 8 and 9</h2>
-        </header>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/fcturner/passwords/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/fcturner/passwords/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/fcturner/passwords">View On GitHub</a></li>
+        </ul>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/fcturner/passwords/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/fcturner/passwords/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/fcturner/passwords" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/fcturner">fcturner</a></p>
 
-        <hr>
 
-        <section id="main_content">
-          <h1>
+      </header>
+      <section>
+        <h1>
 <a id="passwords" class="anchor" href="#passwords" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Passwords</h1>
 
 <h4>
-<a id="for-owncloud-server-8-and-9-and-nextcloud-9" class="anchor" href="#for-owncloud-server-8-and-9-and-nextcloud-9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>for ownCloud Server 8 and 9 (and NextCloud 9)</h4>
+<a id="for-owncloud-8-and-later-and-nextcloud-9-and-later" class="anchor" href="#for-owncloud-8-and-later-and-nextcloud-9-and-later" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>for ownCloud 8 and later and NextCloud 9 and later</h4>
 
 <h5>
 <a id="2015-2016-fallon-turner-fcturnerusersnoreplygithubcom" class="anchor" href="#2015-2016-fallon-turner-fcturnerusersnoreplygithubcom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2015-2016, Fallon Turner <a href="mailto:fcturner@users.noreply.github.com">fcturner@users.noreply.github.com</a>
 </h5>
 
-<p>Available in 24 languages: 
+<p>Available in 25 languages: 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" title="English" height="15"> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/desmall.gif" title="German" height="15"> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/essmall.gif" title="Spanish" height="15"> 
@@ -52,6 +51,7 @@
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/czsmall.gif" title="Czech" height="15"> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/nosmall.gif" title="Norwegian Bokmål" height="15"> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/rusmall.gif" title="Russian" height="15"> 
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/jpsmall.gif" title="Japanese" height="15"> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" title="Polish" height="15"> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" title="Portuguese (Brazil)" height="15"> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" title="Portuguese (Portugal)" height="15"> 
@@ -112,11 +112,11 @@
 <h2>
 <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary</h2>
 
-<p>This is a Password Manager for generating, <strong>SHARING</strong>, editing, and categorizing passwords in ownCloud 8 and ownCloud 9 (<a href="/img/">see 'img'-folder</a> for screenshots or <a href="https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots)">here for the gallery</a>). It features <strong>both client side and server side encryption</strong> (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read <a href="https://github.com/fcturner/passwords#security">Security part</a> for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0).</p>
+<p>This is a Password Manager for generating, <strong>SHARING</strong>, editing, and categorizing passwords in ownCloud 8 and ownCloud 9 (<a href="/img/">see 'img'-folder</a> for screenshots or <a href="https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots)">here for the gallery</a>). It features <strong>both client side and server side encryption</strong> (using combined EtM [Encrypt-then-MAC] and MCRYPT_BLOWFISH encryption with user-specific, ownCloud-specific, and database entry-specific data), where only the user who creates the password is able to decrypt and view it. So passwords are stored heavily encrypted into the ownCloud database (read <a href="https://github.com/fcturner/passwords#security">Security part</a> for details). You can insert or import your own passwords or randomly generate new ones. Some characters are excluded upon password generation for readability purposes (1, I, l and B, 8 and o, O, 0). Passwords has full LDAP support.</p>
 
 <p>This app is primarily intended as a password MANAGER, e.g. for a local ownCloud instance on your own WPA2 protected LAN. If you trust yourself enough as security expert, you can use this app behind an SSL secured server for a neat cloud solution. The app will be blocked (with message) if not accessed thru https, which will result in your passwords not being loaded (decrypted) and shown. To prevent this, use ownClouds own 'Force SSL'-function on the admin page, or use HSTS (HTTP Strict Transport Security) on your server. Also, make sure your server hasn't any kind of vulnerabilities (POODLE, CSRF, XSS, SQL Injection, Privilege Escalation, Remote Code Execution, to name a few).</p>
 
-<p>The script for creating passwords can be found in <a href="/js/script.js#L1705-L1784"><code>/js/script.js</code></a>.</p>
+<p>The script for creating passwords can be found in <a href="/js/script.js#L1896-L1948"><code>/js/script.js</code></a>.</p>
 
 <h2>
 <a id="security" class="anchor" href="#security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security</h2>
@@ -201,6 +201,8 @@
 
 <p><img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/rusmall.gif" height="16"> Russian</p>
 
+<p><img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/jpsmall.gif" height="16"> Japanese</p>
+
 <p><img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/plsmall.gif" height="16"> Polish</p>
 
 <p><img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/brsmall.gif" height="16"> Portuguese (Brazil)</p>
@@ -269,15 +271,12 @@ git clone https://github.com/fcturner/passwords.git /var/www/owncloud/apps/passw
 <a id="credits" class="anchor" href="#credits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Credits</h2>
 
 <p>A big thanks to all participants in this project. I thank Anthony Ferrara (<a href="http://careers.stackoverflow.com/ircmaxell">ircmaxell</a>), for <a href="http://stackoverflow.com/questions/5089841/two-way-encryption-i-need-to-store-passwords-that-can-be-retrieved/5093422#5093422">teaching the world how to properly set up</a> security in PHP.</p>
-        </section>
-
-        <footer>
-          Passwords is maintained by <a href="https://github.com/fcturner">fcturner</a><br>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
     </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
