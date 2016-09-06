@@ -34,6 +34,7 @@ $version = \OC::$server->getConfig()->getAppValue('passwords', 'installed_versio
 
 	<div id="commands_popup">
 		<input type="button" id="btn_edit" value="<?php p(strtolower($l->t("Edit"))); ?>">
+		<input type="button" id="btn_view" value="<?php p(strtolower($l->t("View"))); ?>">
 		<input type="button" id="btn_copy" value="<?php p(strtolower($l->t("Copy"))); ?>">
 		<input type="button" id="btn_share" value="<?php p(strtolower($l->t("Share"))); ?>">
 		<input type="button" id="btn_clone" value="<?php p(strtolower($l->t("Clone"))); ?>">
