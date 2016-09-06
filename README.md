@@ -18,7 +18,7 @@ Available in 25 languages:
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ptsmall.gif" title="Portuguese (Portugal)" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/mxsmall.gif" title="Spanish (Mexico)" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/trsmall.gif" title="Turkish" height="15" /> 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" title="Swedish" height="15" /> 
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/sesmall.gif" title="Swedish" height="15" /> 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" title="Catalan" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/thsmall.gif" title="Thai" height="15" /> 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/ilsmall.gif" title="Hebrew" height="15" /> 
@@ -126,7 +126,7 @@ ownCloud Passwords is available in:
 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/trsmall.gif" height="16" /> Turkish
 
-<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/svsmall.gif" height="16" /> Swedish
+<img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/sesmall.gif" height="16" /> Swedish
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/150px-Flag_of_Catalonia.svg.png" height="16" /> Catalan
 
