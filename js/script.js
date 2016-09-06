@@ -367,9 +367,13 @@
 					$('#cmd_deleted').val($row.hasClass('is_deleted'));
 					if ($row.hasClass('is_sharedby')) {
 						$('#btn_edit').hide();
+						$('#btn_share').hide();
+						$('#btn_view').show();
 						$('#commands_popup input').css('width', '170px');
 					} else {
 						$('#btn_edit').show();
+						$('#btn_share').show();
+						$('#btn_view').hide();
 						$('#commands_popup input').css('width', '80px');
 					}
 
@@ -463,6 +467,26 @@
 
 				$('#btn_invalid_sharekey').click(function() {
 					OCdialogs.alert(t('passwords', 'You do not have a valid share key, to decrypt this password. Ask the user that shared this password with you, to reshare it.'), t('passwords', 'Invalid share key'), function() { return false; }, true);
+				});
+
+				$('#btn_view').click(function() {
+					var typeVar = '';
+					var typeTitle = '';
+					switch ($('#cmd_type').val()) {
+						case 'website':
+							typeVar = 'website';
+							typeTitle = t('passwords', 'Website or company');
+							break;
+						case 'loginname':
+							typeVar = 'loginname';
+							typeTitle = t('passwords', 'Login name');
+							break;
+						case 'pass':
+							typeVar = 'password';
+							typeTitle = t('passwords', 'Password');
+							break;
+					}
+					popUp(typeTitle, $('#cmd_value').val(), 'view', $('#cmd_address').val(), $('#cmd_website').val(), $('#cmd_loginname').val());
 				});
 				
 				$('#btn_edit').click(function() {
@@ -1458,6 +1482,7 @@ function formatTable(update_only, rows) {
 	var hide_usernames = $('#app-settings').attr("hide-usernames") == 'true';
 	var hide_passwords = $('#app-settings').attr("hide-passwords") == 'true';
 	var hide_attributes = $('#app-settings').attr("hide-attributes") == 'true';
+	var user_backend = $('#app-settings').attr("user-backend");
 
 	// btn_commands_newline 
 	// will put the popup button with edit/copy/share buttons on a new line in the cell
@@ -1511,7 +1536,7 @@ function formatTable(update_only, rows) {
 					'</tr>'
 				);
 				if (displayname != $('#expandDisplayName').text()) { // do not include yourself
-					if (IsGUID(displayname)) { // With LDAP, uid is ownCloud login name, and displayname is GUID
+					if (user_backend == 'LDAP') { // With LDAP, uid is ownCloud login name, and displayname is GUID
 						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + uid + '</span></label><br>');
 						$('.avatar_' + uid_escaped).avatar(displayname, 32);
 					} else {
@@ -3031,7 +3056,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 			$('<p/>', {text:t('passwords', 'Choose one or more users and press Share.')}).appendTo($('#popupContent'));
 		}
 	} else if (!(type == 'new_password')) {
-		if (!sharedby) {
+		if (!sharedby && !(type == 'view')) {
 			$('<p/>', {text:t('passwords', 'Enter a new value and press Save to keep the new value.\nThis cannot be undone.')}).appendTo($('#popupContent'));
 		}
 		$('<br/>').appendTo($('#popupContent'));
@@ -3153,7 +3178,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 			if (type == 'new_password') {
 				$('<button/>', {id:'accept', text:t('core', 'Add')}).appendTo($('#popupButtons'));
 				$('<button/>', {id:'clear', text:t('passwords', 'Clear')}).appendTo($('#popupButtons'));
-			} else {
+			} else if (!(type == 'view')) {
 				$('<button/>', {id:'accept', text:t('passwords', 'Save')}).appendTo($('#popupButtons'));
 			}
 		}
@@ -3505,9 +3530,4 @@ function generateUrl(extra_path) {
 	var OCurl = OC.generateUrl(url + '/' + extra_path);
 	OCurl = OCurl.replace(/\/\//g, '/');
 	return OCurl;
-}
-function IsGUID(str) {
-	var regex = /[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}/i;
-	var match = regex.exec(str);
-	return match != null;
 }
