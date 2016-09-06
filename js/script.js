@@ -3095,13 +3095,15 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 	} else if (type == 'share') {
 		var is_shared = false;
 		if (!ShareUsersAvailable) {
-			$('<p/>', {text:t('passwords', 'There are no users available you can share with.') + '\n' + t('passwords', 'LDAP is unsupported in this version.')}).appendTo($('#popupContent'));
+			$('<p/>', {text:t('passwords', 'There are no users available you can share with.')}).appendTo($('#popupContent'));
 		} else {
 			$('#popupContent').append('<div class="share_scroll"><div id="new_value_popup">' + $('#ShareUsers').html() + '</div></div>');
 			if (typeof value != 'undefined') {
 				var sharedusers = value.replace( /(:|\.|@|\[|\])/g, "\\$1" ).split(',');
 				$.each(sharedusers, function(index, value2) {
-					$('#new_value_popup input[value=' + value2 + ']').attr('checked', true);
+					if (value2 != '') {
+						$('#new_value_popup input[value=' + value2 + ']').attr('checked', true);
+					}
 					is_shared = true;
 				});
 			}
