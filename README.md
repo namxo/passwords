@@ -1,5 +1,5 @@
 # Passwords
-#### for ownCloud Server 8 and 9 (and NextCloud 9)
+#### for ownCloud 8 and later and NextCloud 9 and later
 ##### 2015-2016, Fallon Turner <fcturner@users.noreply.github.com>
 Available in 25 languages: 
 <img src="http://www.worldatlas.com/webimage/flags/countrys/zzzflags/uksmall.gif" title="English" height="15" /> 
