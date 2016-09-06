@@ -3,7 +3,8 @@ sharing-allowed="<?php p(OC::$server->getConfig()->getAppValue('core', 'shareapi
 active-table="active" 
 session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifetime', 60*15)) ?>"
 root-folder="<?php p(OC::$SERVERROOT) ?>"
-app-path="<?php p(OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT.'/apps')) ?>" 
+app-path="<?php p(OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT.'/apps')) ?>"
+user-backend="<?php p(OC::$server->getUserSession()->getUser()->getBackendClassName()) ?>" 
 >
 	<textarea id="session_lifetime" disabled="true"></textarea>
 	<div id="CSVtableDIV">
@@ -105,6 +106,6 @@ app-path="<?php p(OC::$server->getConfig()->getAppValue('passwords', 'app_path',
 			$passwordsversion = OC::$server->getConfig()->getAppValue('passwords', 'installed_version', '');
 		?>
 		<hr>
-		<p id="githubref"><a href="https://github.com/fcturner/passwords/" target="_blank"><?php p($instancename . ' ' . $passwordsname) ?></a>, v<?php p($passwordsversion) ?></p>
+		<p id="githubref"><a href="https://github.com/fcturner/passwords/" target="_blank"><?php p($instancename . ' ' . $passwordsname) ?></a> <small>v<?php p($passwordsversion) ?></small></p>
 	</div>
 </div>
