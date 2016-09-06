@@ -10,6 +10,7 @@
 			break;
 		case 'owncloud':
 		default:
+			// this will set the text to 'NextCloud password' on NextCloud
 			$auth_str = preg_replace('/owncloud/i', $theme->getName(), $l->t('ownCloud password'));
 			break;
 	}
@@ -26,5 +27,5 @@
 	</form>
 </div>
 <div id="auth_footer">
-	<p id="githubref"><a href="https://github.com/fcturner/passwords/" target="_blank"><?php p($instancename . ' ' . $passwordsname) ?></a>, v<?php p($passwordsversion) ?></p>
+	<p id="githubref"><a href="https://github.com/fcturner/passwords/" target="_blank"><?php p($instancename . ' ' . $passwordsname) ?></a> <small>v<?php p($passwordsversion) ?></small</p>
 </div>
