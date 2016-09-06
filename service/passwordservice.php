@@ -357,7 +357,11 @@ class Calculations {
 	public static function uniord($c) {
 		// http://stackoverflow.com/a/10333324
 		// used to replace JS's 'charCodeAt' function
-		$h = ord($c{0});
+		try {
+			$h = ord($c{0});
+		} catch (Exception $e) {
+			return false;
+		}	
 		if ($h <= 0x7F) {
 			return $h;
 		} else if ($h < 0xC2) {
