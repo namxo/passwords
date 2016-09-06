@@ -15,19 +15,6 @@ class PasswordMapper extends Mapper {
 		return $this->findEntity($sql, [$id, $userId]);
 	}
 
-	public function checkldap() {
-		$sql = "SELECT SUM(CASE WHEN appid = 'user_ldap' AND configkey = 'enabled' AND configvalue <> 'no' THEN 1 ELSE 0 END) AS ldap_enabled FROM oc_appconfig";
-		$sql = $this->db->prepare($sql);
-		$sql->execute();
-		$row = $sql->fetch();
-		$sql->closeCursor();
-		if ($row['ldap_enabled'] == '1') {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public function findAll($userId) {
 
 		// get all passwords of this user and all passwords that are shared with this user (still encrypted)
@@ -37,7 +24,7 @@ class PasswordMapper extends Mapper {
 		// now get all uid's and displaynames this user is eligable to share with
 		$sharing_allowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes') == 'yes';
 		if ($sharing_allowed) {
-			$has_ldap = PasswordMapper::checkldap();
+			$has_ldap = (\OC::$server->getUserSession()->getUser()->getBackendClassName() == 'LDAP');
 			if ($has_ldap) {
 				$sql = $sql . 'UNION ALL ' .
 						'SELECT  ' .
