@@ -23,13 +23,13 @@ class AuthService {
 			// support for LDAP
 			if (\OC::$server->getUserSession()->getUser()->getBackendClassName() == 'LDAP') {
 				$username = \OC::$server->getUserSession()->getLoginName();
-				$result = (\OC::$server->getUserManager()->checkPassword($username, $pass) != false);	
 			} else {
-				$result = (\OC::$server->getUserManager()->checkPassword($this->userId, $pass) != false);
+				$username = $this->userId;
 			}
+			$result = (\OC::$server->getUserManager()->checkPassword($username, $pass) != false);	
 			// on fail, OC will add an entry to the log, so clarify that:
 			if ($result == false) {
-				\OCP\Util::writeLog('passwords', "Authentication failed: '" . $this->userId . "'", \OCP\Util::WARN);
+				\OCP\Util::writeLog('passwords', "Authentication failed: '" . $username . "'", \OCP\Util::WARN);
 			}
 		}
 		
