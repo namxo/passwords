@@ -1,6 +1,7 @@
 #passwords-admin .gitcode {
 	font-family: "Courier New";
 	font-size: 0.9em;
+	color: #000;
 }
 #passwords-admin #app_path {
 	width: 200px;
