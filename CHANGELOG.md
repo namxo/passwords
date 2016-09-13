@@ -26,6 +26,7 @@
 * Removed ZeroClipboard in favour of Clipboard.js, so Flash is fully eliminated and copy support has been extended (except for Safari)
 * CSS-fixes for checkboxes to comply with the ownCloud 9 standard
 * Fixed responsive design, especially for mobile screens (OC Passwords looks great on iPhone!)
+* Fix for loading avatars on share dialog
 * Fix for notes and categories not being saved on unshared passwords
 * Fix for sharing with users whose username contains a `.` or `@`
 * Fix for SQLite databases
