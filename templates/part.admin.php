@@ -1,3 +1,15 @@
+<?php
+$thisVersion = OC::$server->getConfig()->getAppValue('passwords', 'installed_version', '');
+$doc = new DOMDocument();
+$doc->load('https://raw.githubusercontent.com/fcturner/passwords/master/appinfo/info.xml');
+
+$root = $doc->getElementsByTagName( "info" );
+foreach($root as $element) {
+	$versions = $element->getElementsByTagName( "version" );
+	$version = $versions->item(0)->nodeValue;
+}
+$gitubVersion = $version;
+?>
 <div class="section" id="passwords-admin">
 	<div 
 		id="password-settings" 
@@ -5,6 +17,21 @@
 		app-path="<?php p(OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT.'/apps')) ?>" >
 	</div>
 	<h2><?php p($l->t('Passwords')); ?></h2>
+
+	<div>
+		<h3><?php p($l->t('Version')); ?></h3>
+		<?php if (version_compare($thisVersion, $gitubVersion) != 0) { ?>
+			<p><?php p($l->t('A new master version is available! This might however be a beta version.')); ?></p>
+			<p><?php p($l->t('Installed') . ': v' . $thisVersion); ?></p>
+			<p><strong><?php p($l->t('Available') . ': v' . $gitubVersion); ?></strong></p>
+			<a href="https://github.com/fcturner/passwords" class="button" target="_blank"><?php p($l->t('Visit %s', 'GitHub')); ?></a>
+			<a href="https://github.com/fcturner/passwords/archive/master.zip" class="button""><?php p($l->t('Download %s', 'ZIP')); ?></a>
+			<a href="https://github.com/fcturner/passwords/archive/master.tar.gz" class="button"><?php p($l->t('Download %s', 'TAR')); ?></a>
+			<a href="https://github.com/fcturner/passwords/releases" class="button" target="_blank"><?php p($l->t('View all releases')); ?></a>
+		<?php } else { ?>
+			<p><?php p($l->t('The latest version is already installed') . ': v' . $thisVersion . '.'); ?></p>
+		<?php } ?>
+	</div>
 
 	<div>
 		<h3><?php p($l->t('App location')); ?></h3>
