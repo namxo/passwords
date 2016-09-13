@@ -24,7 +24,7 @@
 * Changed appearance of left navigation pane, including removal of password form (which has moved to a popup)
 * Changed password generation (pre-)algorithm, it now loops 10 times and returns the strongest of them
 * Removed ZeroClipboard in favour of Clipboard.js, so Flash is fully eliminated and copy support has been extended (except for Safari)
-* CSS-fixes for checkboxes to comply with the ownCloud 9 standard
+* CSS fixes for checkboxes to comply with the ownCloud 9 standard
 * Fixed responsive design, especially for mobile screens (OC Passwords looks great on iPhone!)
 * Fix for loading avatars on share dialog
 * Fix for notes and categories not being saved on unshared passwords
