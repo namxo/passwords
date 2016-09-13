@@ -9,12 +9,14 @@ foreach($root as $element) {
 	$version = $versions->item(0)->nodeValue;
 }
 $gitubVersion = $version;
+
+$app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT . '/apps');
 ?>
 <div class="section" id="passwords-admin">
 	<div 
 		id="password-settings" 
 		root-folder="<?php p(OC::$SERVERROOT) ?>"
-		app-path="<?php p(OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT.'/apps')) ?>" >
+		app-path="<?php p($app_path) ?>" >
 	</div>
 	<h2><?php p($l->t('Passwords')); ?></h2>
 
@@ -28,6 +30,9 @@ $gitubVersion = $version;
 			<a href="https://github.com/fcturner/passwords/archive/master.zip" class="button""><?php p($l->t('Download %s', 'ZIP')); ?></a>
 			<a href="https://github.com/fcturner/passwords/archive/master.tar.gz" class="button"><?php p($l->t('Download %s', 'TAR')); ?></a>
 			<a href="https://github.com/fcturner/passwords/releases" class="button" target="_blank"><?php p($l->t('View all releases')); ?></a>
+			<p><?php p($l->t('Or update with CLI')); ?>:</p>
+			<p class="gitcode">rm -rf <?php p($app_path); ?>/passwords</p>
+			<p class="gitcode">git clone https://github.com/fcturner/passwords.git <?php p($app_path); ?>/passwords</p>
 		<?php } else { ?>
 			<p><?php p($l->t('The latest version is already installed') . ': v' . $thisVersion . '.'); ?></p>
 		<?php } ?>
