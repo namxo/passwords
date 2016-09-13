@@ -3,9 +3,9 @@ $thisVersion = OC::$server->getConfig()->getAppValue('passwords', 'installed_ver
 $doc = new DOMDocument();
 $doc->load('https://raw.githubusercontent.com/fcturner/passwords/master/appinfo/info.xml');
 
-$root = $doc->getElementsByTagName( "info" );
+$root = $doc->getElementsByTagName("info");
 foreach($root as $element) {
-	$versions = $element->getElementsByTagName( "version" );
+	$versions = $element->getElementsByTagName("version");
 	$version = $versions->item(0)->nodeValue;
 }
 $gitubVersion = $version;
@@ -31,8 +31,9 @@ $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$
 			<a href="https://github.com/fcturner/passwords/archive/master.tar.gz" class="button"><?php p($l->t('Download %s', 'TAR')); ?></a>
 			<a href="https://github.com/fcturner/passwords/releases" class="button" target="_blank"><?php p($l->t('View all releases')); ?></a>
 			<p><?php p($l->t('Or update with CLI')); ?>:</p>
-			<p class="gitcode">rm -rf <?php p($app_path); ?>/passwords</p>
-			<p class="gitcode">git clone https://github.com/fcturner/passwords.git <?php p($app_path); ?>/passwords</p>
+			<p class="gitcode">sudo rm -rf <?php p($app_path); ?>/passwords</p>
+			<p class="gitcode">sudo git clone https://github.com/fcturner/passwords.git <?php p($app_path); ?>/passwords</p>
+			<p class="gitcode">sudo -u <?php p(posix_getpwuid(fileowner(OC::$SERVERROOT . '/config/config.php'))['name']) ?> php <?php p(OC::$SERVERROOT); ?>/occ upgrade</p>
 		<?php } else { ?>
 			<p><?php p($l->t('The latest version is already installed') . ': v' . $thisVersion . '.'); ?></p>
 		<?php } ?>
