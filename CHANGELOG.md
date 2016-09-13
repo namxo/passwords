@@ -8,7 +8,7 @@
  * Master passwords do not re-encrypt existing passwords, it is only used for entering the app.
  * The countdown timer will lock the app instead of log you off when it reaches zero and you use an extra authentication
 * Full LDAP support
- * LDAP users can now share their passwords with other LDAP users
+ * LDAP users can now share their passwords with other LDAP users and local users
  * Extra authentication using the ownCloud password is possible too 
 * Added 'Lock app' button as option for users who have set an extra authentication
 * Added support for different app locations. If you use `/owncloud/apps2/passwords` for an instance, this will now be supported too. Admins can change this in the admin settings of ownCloud.
