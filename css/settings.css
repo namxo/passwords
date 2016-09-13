@@ -15,7 +15,7 @@
 	line-height: 3;
 }
 #passwords-admin h3 {
-	margin-bottom: 5px;
+	text-decoration: underline;
 }
 #passwords-admin .https_warning {
 	color: #a00;
