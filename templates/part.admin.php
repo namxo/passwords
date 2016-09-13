@@ -8,7 +8,7 @@ foreach($root as $element) {
 	$versions = $element->getElementsByTagName("version");
 	$version = $versions->item(0)->nodeValue;
 }
-$gitubVersion = $version;
+$githubVersion = $version;
 
 $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT . '/apps');
 ?>
@@ -22,10 +22,10 @@ $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$
 
 	<div>
 		<h3><?php p($l->t('Version')); ?></h3>
-		<?php if (version_compare($thisVersion, $gitubVersion) != 0) { ?>
+		<?php if (version_compare($thisVersion, $githubVersion) != 0) { ?>
 			<p><?php p($l->t('A new master version is available! This might however be a beta version.')); ?></p>
 			<p><?php p($l->t('Installed') . ': v' . $thisVersion); ?></p>
-			<p><strong><?php p($l->t('Available') . ': v' . $gitubVersion); ?></strong></p>
+			<p><strong><?php p($l->t('Available') . ': v' . $githubVersion); ?></strong></p>
 			<a href="https://github.com/fcturner/passwords" class="button" target="_blank"><?php p($l->t('Visit %s', 'GitHub')); ?></a>
 			<a href="https://github.com/fcturner/passwords/archive/master.zip" class="button""><?php p($l->t('Download %s', 'ZIP')); ?></a>
 			<a href="https://github.com/fcturner/passwords/archive/master.tar.gz" class="button"><?php p($l->t('Download %s', 'TAR')); ?></a>
