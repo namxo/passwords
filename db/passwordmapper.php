@@ -22,10 +22,11 @@ class PasswordMapper extends Mapper {
 				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?) ';
 
 		// now get all uid's and displaynames this user is eligable to share with
-		$sharing_allowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes') == 'yes';
-		if ($sharing_allowed) {
-			$has_ldap = (\OC::$server->getUserSession()->getUser()->getBackendClassName() == 'LDAP');
-			if ($has_ldap) {
+		$sharingAllowed = \OC::$server->getConfig()->getAppValue('core', 'shareapi_enabled', 'yes') == 'yes';
+		if ($sharingAllowed) {
+			$hasLDAP = (\OC::$server->getUserSession()->getUser()->getBackendClassName() == 'LDAP');
+			$onlyShareWithOwnGroup = \OC::$server->getConfig()->getAppValue('core', 'shareapi_only_share_with_group_members', 'no') == 'yes';
+			if ($hasLDAP) {
 				$sql = $sql . 'UNION ALL ' .
 						'SELECT  ' .
 							"'0' AS id, " .
@@ -38,41 +39,39 @@ class PasswordMapper extends Mapper {
 							'NULL AS notes, ' .
 							'NULL AS creation_date, ' .
 							'NULL AS deleted ' .
-						'FROM *PREFIX*ldap_user_mapping';
+						'FROM *PREFIX*ldap_user_mapping ';
+			}
+			if ($onlyShareWithOwnGroup) {
+				$sql = $sql . 'UNION ALL ' .
+					'SELECT  ' .
+						'DISTINCT CAST(displaynames.uid AS CHAR) AS id, ' .
+						'displaynames.displayname AS user_id, ' .
+						'NULL AS loginname, ' .
+						'displaynames.uid AS website, ' .
+						'NULL AS address, ' .
+						'NULL AS pass, ' .
+						'NULL AS properties, ' .
+						'NULL AS notes, ' .
+						'NULL AS creation_date, ' .
+						'NULL AS deleted ' .
+					'FROM *PREFIX*group_user AS users ' .
+						'LEFT JOIN  ' .
+						'(SELECT CAST(uid AS CHAR) AS uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
+					'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?) ';
 			} else {
-				$only_share_with_own_group = \OC::$server->getConfig()->getAppValue('core', 'shareapi_only_share_with_group_members', 'no') == 'yes';
-				if ($only_share_with_own_group) {
-					$sql = $sql . 'UNION ALL ' .
-						'SELECT  ' .
-							'DISTINCT CAST(displaynames.uid AS CHAR) AS id, ' .
-							'displaynames.displayname AS user_id, ' .
-							'NULL AS loginname, ' .
-							'displaynames.uid AS website, ' .
-							'NULL AS address, ' .
-							'NULL AS pass, ' .
-							'NULL AS properties, ' .
-							'NULL AS notes, ' .
-							'NULL AS creation_date, ' .
-							'NULL AS deleted ' .
-						'FROM *PREFIX*group_user AS users ' .
-							'LEFT JOIN  ' .
-							'(SELECT CAST(uid AS CHAR) AS uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
-						'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?)';
-				} else {
-					$sql = $sql . 'UNION ALL ' .
-						'SELECT  ' .
-							'uid AS id, ' .
-							'CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS user_id, ' .
-							'NULL AS loginname, ' .
-							'uid AS website, ' .
-							'NULL AS address, ' .
-							'NULL AS pass, ' .
-							'NULL AS properties, ' .
-							'NULL AS notes, ' .
-							'NULL AS creation_date, ' .
-							'NULL AS deleted ' .
-						'FROM *PREFIX*users';
-				}
+				$sql = $sql . 'UNION ALL ' .
+					'SELECT  ' .
+						'uid AS id, ' .
+						'CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS user_id, ' .
+						'NULL AS loginname, ' .
+						'uid AS website, ' .
+						'NULL AS address, ' .
+						'NULL AS pass, ' .
+						'NULL AS properties, ' .
+						'NULL AS notes, ' .
+						'NULL AS creation_date, ' .
+						'NULL AS deleted ' .
+					'FROM *PREFIX*users ';
 			}
 		}
 
@@ -89,7 +88,7 @@ class PasswordMapper extends Mapper {
 			$sql = $sql . ' ORDER BY LOWER(website) ASC';
 		}
 		
-		if ($only_share_with_own_group) {
+		if ($onlyShareWithOwnGroup) {
 			return $this->findEntities($sql, [$userId, $userId, $userId]);
 		} else {
 			return $this->findEntities($sql, [$userId, $userId]);

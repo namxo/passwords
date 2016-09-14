@@ -1976,14 +1976,25 @@ function random_characters(char_kind, size_wanted) {
 
 function uid2displayname(uid) {
 	var displayname = uid;
+	var user_backend = $('#app-settings').attr("user-backend");
 	$('#ShareUsersTableContent tr').each(function() {
 		var uid_list = $(this).find('.share_uid').text();
 		var displayname_list = $(this).find('.share_displayname').text();
-		if (uid == uid_list) {
-			displayname = displayname_list;
+		if (user_backend == 'LDAP') {
+			if (displayname == displayname_list) {
+				uid = uid_list;
+			}
+		} else {
+			if (uid == uid_list) {
+				displayname = displayname_list;
+			}
 		}
 	});
-	return displayname;
+	if (user_backend == 'LDAP') {
+		return uid;
+	} else {
+		return displayname;
+	}
 }
 function strength_int2str(integer) {
 

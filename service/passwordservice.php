@@ -18,15 +18,18 @@ class PasswordService {
 	}
 
 	public function findAll($userId) {
-
+		
 		$result = $this->mapper->findAll($userId);
 		$arr_enc = json_encode($result);
 		$arr = json_decode($arr_enc, true);
 
 		$serverKey = \OC::$server->getConfig()->getSystemValue('passwordsalt', '');
 		
-		foreach ($arr as $row => $value)
-		{
+		$has_ldap = (\OC::$server->getUserSession()->getUser()->getBackendClassName() == 'LDAP');
+		
+		foreach ($arr as $row => $value) {
+			
+			// DECRYPT PASSWORDS AND PROPERTIES
 			$userKey = $arr[$row]['user_id'];
 			$userSuppliedKey = $arr[$row]['website'];
 			$encryptedPass = $arr[$row]['pass'];
@@ -53,6 +56,12 @@ class PasswordService {
 				}
 			} else {
 				$arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
+			}
+			
+			// GET DISPLAY NAMES ON LDAP BACKEND
+			if ($has_ldap && $arr[$row]['id'] == '0') {
+				$uuid = $arr[$row]['user_id'];
+				$arr[$row]['website'] = \OC::$server->getUserManager()->get($uuid)->getDisplayName();
 			}
 		}
 
