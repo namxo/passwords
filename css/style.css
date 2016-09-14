@@ -1234,6 +1234,10 @@ h2 {
 	#PasswordsTableContent .icon-delete {
 		background-size: 20px !important;
 	}
+	.websitepic {
+		height: 20px;
+		width: 20px;
+	}
 }
 @media screen and (max-width: 450px) {
 	/* mobile phone etc. */
@@ -1242,5 +1246,9 @@ h2 {
 	}
 	#commands_popup {
 		width: 90px;
+	}
+	.websitepic {
+		height: 16px;
+		width: 16px;
 	}
 }
