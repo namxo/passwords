@@ -61,7 +61,11 @@ class PasswordService {
 			// GET DISPLAY NAMES ON LDAP BACKEND
 			if ($has_ldap && $arr[$row]['id'] == '0') {
 				$uuid = $arr[$row]['user_id'];
-				$arr[$row]['website'] = \OC::$server->getUserManager()->get($uuid)->getDisplayName();
+				try {
+					$arr[$row]['website'] = \OC::$server->getUserManager()->get($uuid)->getDisplayName();
+				} catch(Exception $e) {
+					//$this->handleException($e);
+				}
 			}
 		}
 
