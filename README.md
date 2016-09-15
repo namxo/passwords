@@ -89,7 +89,9 @@ Browser plugins are available for [Firefox here](https://addons.mozilla.org/en-U
 ## Website icons
 There is a built in option to view website icons in the password table. This can be set by the administrator on the settings page of ownCloud. The admin has two services to choose from: DuckDuckGo (default) and Google. Icons are downloaded from their secured server when a user loads the page. Nothing fancy or unsafe (even using Google... although [they track you](http://donttrack.us)), it's just about icons. The icon for the ownCloud's website for example (replace *owncloud.org* with your own domain to try): 
 * [https://icons.duckduckgo.com/ip2/owncloud.org.ico](https://icons.duckduckgo.com/ip2/owncloud.org.ico) (32x32 pixels)
+ * <img src="https://icons.duckduckgo.com/ip2/owncloud.org.ico"/> 
 * [https://www.google.com/s2/favicons?domain=owncloud.org](https://www.google.com/s2/favicons?domain=owncloud.org) (16x16 pixels)
+ * <img src="https://www.google.com/s2/favicons?domain=owncloud.org"/> 
 
 ## Translations
 ownCloud Passwords is available in:
