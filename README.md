@@ -148,9 +148,9 @@ ownCloud/NextCloud Passwords is available in:
 
 ## Installation
 ### Updating from previous version
-From v19 on: Login as admin on ownCloud/NextCloud and go to the passwords section on the admin page. It will notify you whether there's an update, or you're already up to date. When there's an update, buttons will appear to download the latest version and all command lines with adapted file owner names (`www-data` in below example) and right app location (`/var/www/owncloud_prod/apps/passwords` in below example) to run the update very fast on your CLI.
+From v19 on: Login as admin on ownCloud/NextCloud and **go to the passwords section** on the **admin page**. It will notify you whether there's an update, or you're already up to date. When there's an update, buttons will appear to download the latest version and all command lines with adapted file owner names (`www-data` in below example) and right app location (`/var/www/owncloud_prod/apps/passwords` in below example) to run the update very fast on your CLI.
 
-**Note: on versions lower than v19, these commands still work.**
+*Note: on versions lower than v19, these commands still work.*
 
 ![Updating the app](img/versionchecker.png)
 
