@@ -147,8 +147,13 @@ ownCloud/NextCloud Passwords is available in:
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Flag_of_Galicia.svg/150px-Flag_of_Galicia.svg.png" height="16" /> Galician
 
 ## Installation
-### Updates
-Login as admin on ownCloud/NextCloud and go to the passwords section on the admin page. It will notify you whether there's an update, or you're already up to date. When there's an update, buttons will appear to download the latest version and below that all command lines (with adapted file owner names and right location) to run the update very fast on your CLI.
+### Updating from previous version
+From v19 on: Login as admin on ownCloud/NextCloud and go to the passwords section on the admin page. It will notify you whether there's an update, or you're already up to date. When there's an update, buttons will appear to download the latest version and all command lines with adapted file owner names (`www-data` in below example) and right app location (`/var/www/owncloud_prod/apps/passwords` in below example) to run the update very fast on your CLI.
+
+**Note: on versions lower than v19, these commands still work.**
+
+![Updating the app](img/versionchecker.png)
+
 ### Initial installation
 Use one of the following options, login as admin on ownCloud/NextCloud and enable the app. The database tables `oc_passwords`, `oc_passwords_categories` and `oc_passwords_share` will be created automatically (assuming `_oc` as prefix).
 * **Git clone (fastest)** 
