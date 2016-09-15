@@ -55,6 +55,23 @@
 	background-color: #0a0;
 	color: #fff;
 }
+#passwords-personal #icons_size_preview {
+	width: 100%;
+}
+#passwords-personal #icons_size_preview tr {
+	height: 40px;
+}
+#passwords-personal #icons_size_preview td {
+	border-top: 1px dashed #999;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px dashed #999;
+	padding-right: 10px;
+}
+#passwords-personal #icons_size_preview img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
 #passwords-personal #timer {
 	width: 30px;
 	text-align: center;

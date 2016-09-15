@@ -39,6 +39,7 @@ class SettingsService {
 				'hide_usernames' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'hide_usernames', 'false'),
 				'master_password' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'master_password', '0'),
 				'icons_show' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'icons_show', 'true'),
+				'icons_size' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'icons_size', '32'),
 				'show_lockbutton' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'show_lockbutton', 'true'),
 				'timer' => (string)$this->settings->getUserValue($this->userId, $this->appName, 'timer', '60')
 		);

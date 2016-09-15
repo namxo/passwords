@@ -30,6 +30,8 @@
 //		Hide usernames by showing them as '*****'
 // icons_show
 //		Show website icons, using service selected by admin
+// icons_size
+//		Set size of website icons: 16px, 24px or 32px (default)
 // master_password
 //		SHA-2 (512-bit) password that is needed to enter the app
 // timer
@@ -179,6 +181,10 @@ $(document).ready(function() {
 	// fill the boxes
 	if (settings.getKey('icons_allowed').toLowerCase() == 'true') {
 		$('#icons_show').prop('checked', (settings.getKey('icons_show').toLowerCase() == 'true'));
+		var size = settings.getKey('icons_size');
+		var service = settings.getKey('icons_service');
+		$('#icons_size').val(size);
+		$('#icons_size_preview tr').append(updatePreview(size, service));
 	} else {
 		$('#icons_show_div').remove();
 	}
@@ -206,6 +212,13 @@ $(document).ready(function() {
 	// Personal settings
 	$('#icons_show').change(function () {
 		settings.setUserKey('icons_show', $(this).is(":checked"));
+	});
+	$('#icons_size').change(function () {
+		var size = $(this).val();
+		var service = settings.getKey('icons_service');
+		settings.setUserKey('icons_size', size);
+		$('#icons_size_preview tr').html('');
+		$('#icons_size_preview tr').append(updatePreview(size, service));
 	});
 
 	$('#hide_usernames').change(function () {
@@ -311,4 +324,21 @@ function generateUrl(extra_path) {
 	var OCurl = OC.generateUrl(url + '/' + extra_path);
 	OCurl = OCurl.replace(/\/\//g, '/');
 	return OCurl;
+}
+function updatePreview(size, service) {
+	if (service == 'ddg') {
+		var tablerow = '<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://icons.duckduckgo.com/ip2/duckduckgo.com.ico">duckduckgo.com</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://icons.duckduckgo.com/ip2/facebook.com.ico">facebook.com</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://icons.duckduckgo.com/ip2/wikipedia.org.ico">wikipedia.org</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://icons.duckduckgo.com/ip2/owncloud.org.ico">owncloud.org</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://icons.duckduckgo.com/ip2/nextcloud.com.ico">nextcloud.com</td>';
+	}
+	if (service == 'ggl') {
+		var tablerow = '<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://www.google.com/s2/favicons?domain=google.com">google.com</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://www.google.com/s2/favicons?domain=facebook.com">facebook.com</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://www.google.com/s2/favicons?domain=wikipedia.org">wikipedia.org</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://www.google.com/s2/favicons?domain=owncloud.org">owncloud.org</td>' +
+			'<td><img style="width:' + size + 'px;height:' + size + 'px;" src="https://www.google.com/s2/favicons?domain=nextcloud.com">nextcloud.com</td>';
+	}
+	return tablerow;
 }

@@ -929,6 +929,7 @@
 				if ((settings.getKey('icons_allowed').toLowerCase() == 'true')) {
 					$('#app-settings').attr('icons-show', settings.getKey('icons_show').toLowerCase() == 'true');
 					$('#app-settings').attr('icons-service', settings.getKey('icons_service'));
+					$('#app-settings').attr('icons-size', settings.getKey('icons_size'));
 				} else {
 					$('#app-settings').attr('icons-show', 'false');
 				}
@@ -1613,11 +1614,12 @@ function formatTable(update_only, rows) {
 
 				if (show_icons) {
 					var icons_service = $('#app-settings').attr("icons-service");
+					var icons_size = $('#app-settings').attr("icons-size");
 					if (icons_service == 'ddg') { // DuckDuckGo
-						html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" src="https://icons.duckduckgo.com/ip2/' + URLtoDomain(websiteURL) + '.ico">' + row.website + '</a>';
+						html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" style="width:' + icons_size + 'px;height:' + icons_size + 'px;" src="https://icons.duckduckgo.com/ip2/' + URLtoDomain(websiteURL) + '.ico">' + row.website + '</a>';
 					}
 					if (icons_service == 'ggl') { // Google
-						html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" src="https://www.google.com/s2/favicons?domain=' + URLtoDomain(websiteURL) + '">' + row.website + '</a>';
+						html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" style="width:' + icons_size + 'px;height:' + icons_size + 'px;" src="https://www.google.com/s2/favicons?domain=' + URLtoDomain(websiteURL) + '">' + row.website + '</a>';
 					}
 				} else {
 					html_row += '<a href="' + websiteURL + '" target="_blank">' + row.website + '</a>';

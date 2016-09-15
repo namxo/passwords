@@ -33,6 +33,17 @@
 		<input class="checkbox" type="checkbox" id="icons_show">
 		<label for="icons_show"><?php p($l->t('Show website icons')); ?></label>
 		<br>
+		<label for="icons_size"><?php p($l->t('Icon size')); ?>:</label>
+		<select id="icons_size" name="icons_size">
+			<option value="16">16 x 16 px</option>
+			<option value="24">24 x 24 px</option>
+			<option value="32" selected="selected">32 x 32 px</option>
+		</select>
+		<p><?php p($l->t('Preview')); ?>:</p>
+		<table id="icons_size_preview">
+			<tr>
+			</tr>
+		</table>
 	</div>
 
 	<hr>
