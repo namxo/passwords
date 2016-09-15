@@ -49,7 +49,7 @@ class PasswordService {
 				$sharekey_activeuser = $this->mapper->getShareKey($arr[$row]['id'], $userId);
 				$pos = strrpos($arr[$row]['properties'], $sharekey_activeuser);
 				if ($pos !== false) {
-				    $arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
+					$arr[$row]['pass'] = $e2->decrypt($encryptedPass, $key);
 				} else {
 					$arr[$row]['pass'] = 'oc_passwords_invalid_sharekey';
 					\OCP\Util::writeLog('passwords', "No valid sharekey found for user '" . $userId . "' before decrypting passwords.id " . $arr[$row]['id'] . " (" . $userSuppliedKey . "), possibly revoked by owner '" . $userKey . "'", \OCP\Util::WARN);
@@ -62,7 +62,7 @@ class PasswordService {
 			if ($has_ldap && $arr[$row]['id'] == '0') {
 				$uuid = $arr[$row]['user_id'];
 				// check for valid GUID first: e.g. pattern A98C5A1E-A742-4808-96FA-6F409E799937
-				if preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/', $uuid) {
+				if (preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/', $uuid)) {
 					$arr[$row]['website'] = \OC::$server->getUserManager()->get($uuid)->getDisplayName();
 				}
 			}
@@ -108,7 +108,7 @@ class PasswordService {
 				$sharekey_activeuser = $this->mapper->getShareKey($arr['id'], $userId);
 				$pos = strrpos($arr['properties'], $sharekey_activeuser);
 				if ($pos !== false) {
-				    $arr['pass'] = $e2->decrypt($encryptedPass, $key);
+					$arr['pass'] = $e2->decrypt($encryptedPass, $key);
 				} else {
 					$arr['pass'] = 'oc_passwords_invalid_sharekey';
 					\OCP\Util::writeLog('passwords', "No valid sharekey found for user '" . $userId . "' while decrypting passwords.id: " . $arr['id'], \OCP\Util::WARN);
