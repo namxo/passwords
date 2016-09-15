@@ -47,7 +47,7 @@ Available in 25 languages:
 
 ## Overview
 :camera: [More pictures in the gallery](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots)).
-![Overview of ownCloud Passwords](img/screenshot3.PNG)
+![Overview of ownCloud Passwords](https://raw.githubusercontent.com/fcturner/passwords/master/img/screenshot3.PNG)
 
 :camera: [More pictures in the gallery](https://github.com/fcturner/passwords/wiki/ownCloud-Passwords-%7C-Gallery-(screenshots)).
 
@@ -152,7 +152,7 @@ From v19 on: Login as admin on ownCloud/NextCloud and **go to the passwords sect
 
 *Note: on versions lower than v19, these commands still work.*
 
-![Updating the app](img/versionchecker.png)
+![Updating the app](https://raw.githubusercontent.com/fcturner/passwords/master/img/versionchecker.png)
 
 ### Initial installation
 Use one of the following options, login as admin on ownCloud/NextCloud and enable the app. The database tables `oc_passwords`, `oc_passwords_categories` and `oc_passwords_share` will be created automatically (assuming `_oc` as prefix).
