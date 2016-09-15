@@ -61,10 +61,9 @@ class PasswordService {
 			// GET DISPLAY NAMES ON LDAP BACKEND
 			if ($has_ldap && $arr[$row]['id'] == '0') {
 				$uuid = $arr[$row]['user_id'];
-				try {
+				// check for valid GUID first: e.g. pattern A98C5A1E-A742-4808-96FA-6F409E799937
+				if preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/', $uuid) {
 					$arr[$row]['website'] = \OC::$server->getUserManager()->get($uuid)->getDisplayName();
-				} catch(Exception $e) {
-					//$this->handleException($e);
 				}
 			}
 		}
