@@ -36,7 +36,9 @@
 		<label for="icons_size"><?php p($l->t('Icon size')); ?>:</label>
 		<select id="icons_size" name="icons_size">
 			<option value="16">16 x 16 px</option>
+			<option value="20">20 x 20 px</option>
 			<option value="24">24 x 24 px</option>
+			<option value="28">28 x 28 px</option>
 			<option value="32" selected="selected">32 x 32 px</option>
 		</select>
 		<p><?php p($l->t('Preview')); ?>:</p>
