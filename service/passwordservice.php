@@ -296,7 +296,7 @@ class PasswordService {
 }
 
 class Activity {
-	public addPassword($userId) {
+	public function addPassword($userId) {
 		$new_activity = \OC::$server->generateEvent();
 		$new_activity->setApp('passwords');
 		$new_activity->setType('new');
@@ -305,7 +305,7 @@ class Activity {
 		$new_activity->publish();
 	}
 	
-	public editPassword($userId) {
+	public function editPassword($userId) {
 		$new_activity = \OC::$server->generateEvent();
 		$new_activity->setApp('passwords');
 		$new_activity->setType('new');
@@ -314,15 +314,15 @@ class Activity {
 		$new_activity->publish();
 	}
 	
-	public deletePassword() {
+	public function deletePassword() {
 		
 	}
 	
-	public addShare() {
+	public function addShare() {
 		
 	}
 	
-	public deleteShare() {
+	public function deleteShare() {
 		
 	}
 }
