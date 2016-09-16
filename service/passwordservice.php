@@ -298,147 +298,16 @@ class PasswordService {
 	}
 }
 
-class Activity implements IExtension {
-	const TYPE_SHARE_CREATED = 'file_created';
-	const TYPE_SHARE_CHANGED = 'file_changed';
-	const TYPE_SHARE_DELETED = 'file_deleted';
-	const TYPE_SHARE_RESTORED = 'file_restored';
-	const APP_PASSWORDS = 'passwords';
-	/** @var IL10N */
-	protected $l;
-	/** @var IURLGenerator */
-	protected $URLGenerator;
-	/**
-	 * @param IL10N $l
-	 * @param IURLGenerator $URLGenerator
-	 */
-	public function __construct(IL10N $l, $URLGenerator) {
-		$this->l = $l;
-		$this->URLGenerator = $URLGenerator;
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getNotificationTypes($languageCode) {
-		return [
-			'type1' => 'Type1 description',
-			'type2' => 'Type2 description',
-		];
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function filterNotificationTypes($types, $filter) {
-		switch ($filter) {
-			case 'filter1':
-				return array_intersect([
-					'type1',
-				], $types);
-		}
-		return false;
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getDefaultTypes($method) {
-		if ($method === 'stream') {
-			return ['type1', 'type2'];
-		}
-		return ['type2'];
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-		if ($app !== 'passwords') {
-			return false;
-		}
-		switch ($text) {
-			case 'subject1':
-				return vsprintf('Subject1 #%1$s', $params);
-			case 'subject2':
-				return vsprintf('Subject2 @%2$s #%1$s', $params);
-			case 'subject3':
-				return vsprintf('Subject3 #%1$s @%2$s', $params);
-			default:
-				return false;
-		}
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getSpecialParameterList($app, $text) {
-		if ($app === 'passwords') {
-			switch ($text) {
-				case 'subject1':
-					return [0 => 'file'];
-				case 'subject2':
-					return [0 => 'file', 1 => 'username'];
-			}
-		}
-		return false;
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getTypeIcon($type) {
-		switch ($type) {
-			case 'type1':
-				return 'icon-type1';
-			default:
-				return false;
-		}
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getGroupParameter($activity) {
-		if ($activity['app'] === 'passwords') {
-			switch ($activity['subject']) {
-				case 'subject1':
-					return 0;
-			}
-		}
-		return false;
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getNavigation() {
-		return [
-			'apps' => [
-				'files' => [
-					'id' => 'passwords',
-					'name' => (string) $this->l->t('Passwords'),
-					'url' => $this->URLGenerator->linkToRoute('activity.Activities.showList', ['filter' => 'files']),
-				],
-			],
-			'top' => [],
-		];
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function isFilterValid($filterValue) {
-		return $filterValue === 'filter1';
-	}
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getQueryForFilter($filter) {
-		if ($filter === 'passwords') {
-			return ['`app` = ?', ['passwords']];
-		}
-		return false;
-	}
+//class Activity implements IExtension {
+class Activity {
 	
 	public static function addPassword($userId) {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
-		$new_activity->setApp(Activity::APP_PASSWORDS);
-		$new_activity->setType('announcementcenter');
+		$new_activity->setApp('passwords');
+		//$new_activity->setType('announcementcenter');
 		$new_activity->setAffectedUser($userId);
-		$new_activity->setSubject('added', []);
+		$new_activity->setSubject('added!', []);
 		$new_activity->setTimestamp($time);
 		\OC::$server->getActivityManager()->publish($new_activity);
 	}
@@ -446,10 +315,10 @@ class Activity implements IExtension {
 	public static function editPassword($userId) {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
-		$new_activity->setApp(Activity::APP_PASSWORDS);
-		$new_activity->setType('announcementcenter');
+		$new_activity->setApp('passwords');
+		//$new_activity->setType('announcementcenter');
 		$new_activity->setAffectedUser($userId);
-		$new_activity->setSubject('changed', []);
+		$new_activity->setSubject('changed!', []);
 		$new_activity->setTimestamp($time);
 		\OC::$server->getActivityManager()->publish($new_activity);
 	}
