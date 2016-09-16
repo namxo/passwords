@@ -436,7 +436,7 @@ class Activity implements IExtension {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp(Activity::APP_PASSWORDS);
-		$new_activity->setType(Activity::APP_PASSWORDS);
+		$new_activity->setType('announcementcenter');
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('added', []);
 		$new_activity->setTimestamp($time);
@@ -447,7 +447,7 @@ class Activity implements IExtension {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp(Activity::APP_PASSWORDS);
-		$new_activity->setType(Activity::APP_PASSWORDS);
+		$new_activity->setType('announcementcenter');
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('changed', []);
 		$new_activity->setTimestamp($time);
