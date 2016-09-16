@@ -184,7 +184,7 @@ class PasswordService {
 					$userdisplayname = \OC::$server->getUserManager()->get($username)->getDisplayName();
 					$useremail = \OC::$server->getUserManager()->get($username)->getEMailAddress();
 					// You want to mail in the recipients language:
-					$userlanguage = \OC::$server->getConfig()->getUserValue($userId, 'core', 'lang', 'en');
+					$userlanguage = \OC::$server->getConfig()->getUserValue($username, 'core', 'lang', 'en');
 					// object that holds users langage:
 					$userlang = \OC::$server->getL10N('passwords', $userlanguage);
 
