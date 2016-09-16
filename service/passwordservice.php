@@ -304,7 +304,7 @@ class Activity {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		$new_activity->setType('type');
+		$new_activity->setType('passwords');
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('added', []);
 		$new_activity->setTimestamp($time);
@@ -312,9 +312,10 @@ class Activity {
 	}
 	
 	public static function editPassword($userId) {
+		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		$new_activity->setType('type');
+		$new_activity->setType('passwords');
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('changed', []);
 		$new_activity->setTimestamp($time);
