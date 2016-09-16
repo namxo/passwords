@@ -301,12 +301,14 @@ class PasswordService {
 
 class Activity {
 	public static function addPassword($userId) {
+		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
 		$new_activity->setType('type');
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('added', []);
-		$new_activity->publish();
+		$new_activity->setTimestamp($time);
+		\OC::$server->getActivityManager()->publish($new_activity);
 	}
 	
 	public static function editPassword($userId) {
@@ -315,7 +317,8 @@ class Activity {
 		$new_activity->setType('type');
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('changed', []);
-		$new_activity->publish();
+		$new_activity->setTimestamp($time);
+		\OC::$server->getActivityManager()->publish($new_activity);
 	}
 	
 	public static function deletePassword() {
