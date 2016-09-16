@@ -303,6 +303,7 @@ class Activity implements IExtension {
 	const TYPE_SHARE_CHANGED = 'file_changed';
 	const TYPE_SHARE_DELETED = 'file_deleted';
 	const TYPE_SHARE_RESTORED = 'file_restored';
+	const APP_PASSWORDS = 'passwords';
 	/** @var IL10N */
 	protected $l;
 	/** @var IURLGenerator */
@@ -349,7 +350,7 @@ class Activity implements IExtension {
 	 * {@inheritdoc}
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-		if ($app !== 'app1') {
+		if ($app !== 'passwords') {
 			return false;
 		}
 		switch ($text) {
@@ -367,7 +368,7 @@ class Activity implements IExtension {
 	 * {@inheritdoc}
 	 */
 	public function getSpecialParameterList($app, $text) {
-		if ($app === 'app1') {
+		if ($app === 'passwords') {
 			switch ($text) {
 				case 'subject1':
 					return [0 => 'file'];
@@ -392,7 +393,7 @@ class Activity implements IExtension {
 	 * {@inheritdoc}
 	 */
 	public function getGroupParameter($activity) {
-		if ($activity['app'] === 'app1') {
+		if ($activity['app'] === 'passwords') {
 			switch ($activity['subject']) {
 				case 'subject1':
 					return 0;
@@ -407,8 +408,8 @@ class Activity implements IExtension {
 		return [
 			'apps' => [
 				'files' => [
-					'id' => 'files',
-					'name' => (string) $this->l->t('Files'),
+					'id' => 'passwords',
+					'name' => (string) $this->l->t('Passwords'),
 					'url' => $this->URLGenerator->linkToRoute('activity.Activities.showList', ['filter' => 'files']),
 				],
 			],
@@ -425,8 +426,8 @@ class Activity implements IExtension {
 	 * {@inheritdoc}
 	 */
 	public function getQueryForFilter($filter) {
-		if ($filter === 'app1') {
-			return ['`app` = ?', ['app1']];
+		if ($filter === 'passwords') {
+			return ['`app` = ?', ['passwords']];
 		}
 		return false;
 	}
@@ -434,8 +435,8 @@ class Activity implements IExtension {
 	public static function addPassword($userId) {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
-		$new_activity->setApp('passwords');
-		$new_activity->setType('passwords');
+		$new_activity->setApp(Activity::APP_PASSWORDS);
+		$new_activity->setType(Activity::APP_PASSWORDS);
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('added', []);
 		$new_activity->setTimestamp($time);
@@ -445,8 +446,8 @@ class Activity implements IExtension {
 	public static function editPassword($userId) {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
-		$new_activity->setApp('passwords');
-		$new_activity->setType('passwords');
+		$new_activity->setApp(Activity::APP_PASSWORDS);
+		$new_activity->setType(Activity::APP_PASSWORDS);
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('changed', []);
 		$new_activity->setTimestamp($time);
