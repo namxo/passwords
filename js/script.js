@@ -108,6 +108,43 @@
 				});
 				return deferred.promise();
 			},
+			sendmail: function(website, sharewith, domain, fullurl, instancename) {
+				var sharewithArr = [];
+				if ($.isArray(sharewith)) {
+					sharewithArr = sharewith;
+				} else if (!sharewith) {
+					sharewithArr = "";
+				} else {
+					sharewithArr = sharewith.split(', ');
+				}
+				
+				// this._baseUrl ends with /passwords as this is in its Prototype, not /mail as it should be (in routes.php)
+				// so use generateUrl('/mail')
+				var result = false;
+				var request = $.ajax({
+					url: generateUrl('/mail'),
+					data: {
+						'website' : website,
+						'sharewith' : sharewithArr,
+						'domain' : domain,
+						'fullurl' : fullurl,
+						'instancename' : instancename
+					},
+					method: 'POST',
+					async: false
+				});
+				
+				request.done(function(msg) {
+					// will be true or false;
+					result = msg;
+				});
+	 
+				request.fail(function( jqXHR, textStatus ) {
+					//alert( "Error while authenticating: " + textStatus );
+				});
+				
+				return result;
+			},
 			getAll: function() {
 				return this._passwords;
 			},
@@ -782,14 +819,15 @@
 					}
 
 					if (is_share || is_sharedto) {
-						popUp(t('passwords', 'Share'), $row.attr('attr_sharedwith'), 'share', '', $row.attr('attr_website'), $row.attr('attr_loginname'));
+						var website = $row.attr('attr_website');
+						popUp(t('passwords', 'Share'), $row.attr('attr_sharedwith'), 'share', '', website, $row.attr('attr_loginname'));
 						$('#accept').click(function() {
 							var sharearray = [];
 							$("#new_value_popup input:checked").each(function() {
 								sharearray.push($(this).val());
 							});
 
-							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), $row.attr('attr_website'), $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), sharearray, $row.attr('attr_category'), $row.hasClass('is_deleted'));
+							var success = passwords.updateActive($row.attr('attr_id'), $row.attr('attr_loginname'), website, $row.attr('attr_address'), $row.attr('attr_pass'), $row.attr('attr_notes'), sharearray, $row.attr('attr_category'), $row.hasClass('is_deleted'));
 							if (success) {
 								if (sharearray.length == 0) {
 									$row.attr('attr_sharedwith', '');
@@ -808,6 +846,25 @@
 								OCdialogs.alert(t('passwords', 'Error: Could not update password.'), t('passwords', 'Save'), function() { return false; }, true);
 							}
 							removePopup();
+						});
+						$('#mail').click(function() {
+							var usernames = [];
+							var displaynames = [];
+							$("#new_value_popup input:checked").each(function() {
+								usernames.push($(this).val());
+								displaynames.push($(this).siblings('span').text());
+							});
+
+							OCdialogs.confirm(t('passwords', 'This will send a notification email for %s to the following users').replace('%s', website) + ": " + displaynames.join(', ') + ". " + t('passwords', 'The email will not contain your password.') + ' ' + t('passwords', 'Are you sure?'), t('passwords', 'Send email'), function(res) {
+								if (res) {
+									var success = passwords.sendmail(website, usernames, URLtoDomain(window.location.href), window.location.href, $('#app-settings').attr('instance-name'));
+									if (success) {
+										OCdialogs.info(t('passwords', 'The email has been sent to %s users.').replace('%s', usernames.length), t('passwords', 'Send email'), function() { return false; }, true);
+									} else {
+										OCdialogs.alert(t('passwords', 'Error: Could not send email.'), t('passwords', 'Send email'), function() { return false; }, true);
+									}
+								}
+							});
 						});
 						return false;
 					}
@@ -3189,6 +3246,7 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 					$('#accept').click();
 				});
 			}
+			$('<button/>', {id:'mail', text:t('passwords', 'Send email')}).appendTo($('#popupButtons'));
 		} else {
 			if (type == 'new_password') {
 				$('<button/>', {id:'accept', text:t('core', 'Add')}).appendTo($('#popupButtons'));

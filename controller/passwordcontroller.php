@@ -26,11 +26,9 @@ class PasswordController extends Controller {
 	public function index() {
 		return new DataResponse($this->service->findAll($this->userId));
 	}
-
+	
 	/**
 	 * @NoAdminRequired
-	 *
-	 * @param int $id
 	 */
 	public function show($id) {
 		return $this->handleNotFound(function () use ($id) {
@@ -40,9 +38,6 @@ class PasswordController extends Controller {
 
 	/**
 	 * @NoAdminRequired
-	 *
-	 * @param string $loginname
-	 * @param string $website
 	 */
 	public function create($website, $pass, $loginname, $address, $notes, $category, $deleted) {
 		return $this->service->create($website, $pass, $loginname, $address, $notes, $category, $deleted, $this->userId);
@@ -50,11 +45,21 @@ class PasswordController extends Controller {
 
 	/**
 	 * @NoAdminRequired
-	 *
-	 * @param int $id
-	 * @param string $loginname
-	 * @param string $website
-	 */
+	 */	
+	public function sendmail() {
+		$website = $_POST['website'];
+		$sharewith = $_POST['sharewith'];
+		$domain = $_POST['domain'];
+		$fullurl = $_POST['fullurl'];
+		$instancename = $_POST['instancename'];
+		return $this->handleNotFound(function () use ($website, $sharewith, $domain, $fullurl, $instancename) {
+			return $this->service->sendmail($website, $sharewith, $domain, $fullurl, $instancename, $this->userId);
+		});
+	}
+
+	/**
+	 * @NoAdminRequired
+	 */	
 	public function update($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged) {
 		return $this->handleNotFound(function () use ($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged) {
 			return $this->service->update($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged, $this->userId);
@@ -63,8 +68,6 @@ class PasswordController extends Controller {
 
 	/**
 	 * @NoAdminRequired
-	 *
-	 * @param int $id
 	 */
 	public function destroy($id) {
 		return $this->handleNotFound(function () use ($id) {

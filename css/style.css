@@ -987,14 +987,16 @@ p#generate_strength_popup,
 
 #accept,
 #cancel,
-#stop {
+#stop,
+#mail {
 	margin-top: 5px;
 }
 #accept,
 #cancel {
 	float: right;
 }
-#stop {
+#stop,
+#mail {
 	float: left;
 }
 #popupButtons {

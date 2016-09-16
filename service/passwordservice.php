@@ -62,14 +62,13 @@ class PasswordService {
 			if ($has_ldap && $arr[$row]['id'] == '0') {
 				$uuid = $arr[$row]['user_id'];
 				// check for valid GUID first: e.g. pattern A98C5A1E-A742-4808-96FA-6F409E799937
-				if (preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/', $uuid)) {
+				//if (preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/', $uuid)) {
 					$arr[$row]['website'] = \OC::$server->getUserManager()->get($uuid)->getDisplayName();
-				}
+				//}
 			}
 		}
 
 		return $arr;
-
 	}
 
 	private function handleException ($e) {
@@ -165,6 +164,47 @@ class PasswordService {
 		$password->setProperties($encryptedProperties);
 		$password->setDeleted($deleted);
 		return $this->mapper->insert($password);
+	}
+	
+	public function sendmail($website, $sharewith, $domain, $fullurl, $instancename, $userId) {
+		try {
+			if (count($sharewith) > 0 AND $sharewith != '') {
+				$mailer = \OC::$server->getMailer();
+				$senderaddress = \OC::$server->getConfig()->getSystemValue('mail_smtpname', 'noreply@' . $domain);
+				$me_username = $userId;
+				$me_displayname = \OC::$server->getUserManager()->get($me_username)->getDisplayName();
+				$me_email = \OC::$server->getUserManager()->get($me_username)->getEMailAddress();
+				if (!filter_var($me_email, FILTER_VALIDATE_EMAIL)) {
+					$me_email = '';
+				} else {
+					$me_email = '(' . $me_email . ')';
+				}
+				for ($x = 0; $x < count($sharewith); $x++) {
+					$username = $sharewith[$x];
+					$userdisplayname = \OC::$server->getUserManager()->get($username)->getDisplayName();
+					$useremail = \OC::$server->getUserManager()->get($username)->getEMailAddress();
+					// You want to mail in the recipients language:
+					$userlanguage = \OC::$server->getConfig()->getUserValue($userId, 'core', 'lang', 'en');
+					// object that holds users langage:
+					$userlang = \OC::$server->getL10N('passwords', $userlanguage);
+
+					$appname = $userlang->t("Passwords");
+	
+					if (filter_var($useremail, FILTER_VALIDATE_EMAIL)) {
+						$message = $mailer->createMessage();
+						$message->setSubject($userlang->t('A password has been shared with you'));
+						$message->setFrom([$senderaddress => $instancename . ' ' . $appname]);
+						$message->setTo([$useremail => $userdisplayname]);
+						$message->setPlainBody($userdisplayname . ',\n\n' . $userlang->t('A password has been shared with you') . '.\n\n' . $userlang->t('Sender') . ': ' . $me_displayname . ' ' . $me_email . '\n' . $userlang->t('Website or company') . ': ' . $website . '\n\n' . $userlang->t('Login on %s to view the password', $instancename . ' ' . $appname) . ': ' . $fullurl . '.');
+						$message->setHtmlBody($userdisplayname . ',<br><br>' . $userlang->t('A password has been shared with you') . '.<br><br><strong>' . $userlang->t('Sender') . ':</strong> ' . $me_displayname . ' ' . $me_email . '<br><strong>' . $userlang->t('Website or company') . ':</strong> ' . $website . '<br><br>' . $userlang->t('Login on %s to view the password', '<a href="' . $fullurl . '" target="_blank">' . $instancename . ' ' . $appname . '</a>') . '.');
+						$mailer->send($message);
+					}
+				}
+			}
+			return true;
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
 	}
 
 	public function update($id, $website, $pass, $loginname, $address, $notes, $sharewith, $category, $deleted, $datechanged, $userId) {

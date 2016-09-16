@@ -5,6 +5,7 @@ session-timeout="<?php p(OC::$server->getConfig()->getSystemValue('session_lifet
 root-folder="<?php p(OC::$SERVERROOT) ?>"
 app-path="<?php p(OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT.'/apps')) ?>"
 user-backend="<?php p(OC::$server->getUserSession()->getUser()->getBackendClassName()) ?>" 
+instance-name="<?php p($theme->getName()) ?>" 
 >
 	<textarea id="session_lifetime" disabled="true"></textarea>
 	<div id="CSVtableDIV">
