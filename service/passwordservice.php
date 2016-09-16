@@ -6,8 +6,9 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-use OCP\Activity\IManager;
+//use OCP\Activity\IManager;
 // use OCP\Activity\IExtension;
+use OCP\Activity\IExtension;
 
 use OCA\Passwords\Db\Password;
 use OCA\Passwords\Db\PasswordMapper;
