@@ -6,6 +6,9 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
+use OCP\Activity\IManager;
+// use OCP\Activity\IExtension;
+
 use OCA\Passwords\Db\Password;
 use OCA\Passwords\Db\PasswordMapper;
 
@@ -271,6 +274,9 @@ class PasswordService {
 			$password->setPass($encryptedPass);
 			$password->setProperties($encryptedProperties);
 			$password->setDeleted($deleted);
+			
+			//add to Activity stream
+			Activity::editPassword($userId);
 
 			return $this->mapper->update($password);
 		} catch(Exception $e) {
@@ -286,6 +292,38 @@ class PasswordService {
 		} catch(Exception $e) {
 			$this->handleException($e);
 		}
+	}
+}
+
+class Activity {
+	public addPassword($userId) {
+		$new_activity = \OC::$server->generateEvent();
+		$new_activity->setApp('passwords');
+		$new_activity->setType('new');
+		$new_activity->setAffectedUser($userId);
+		$new_activity->setSubject('subject');
+		$new_activity->publish();
+	}
+	
+	public editPassword($userId) {
+		$new_activity = \OC::$server->generateEvent();
+		$new_activity->setApp('passwords');
+		$new_activity->setType('new');
+		$new_activity->setAffectedUser($userId);
+		$new_activity->setSubject('subject');
+		$new_activity->publish();
+	}
+	
+	public deletePassword() {
+		
+	}
+	
+	public addShare() {
+		
+	}
+	
+	public deleteShare() {
+		
 	}
 }
 
