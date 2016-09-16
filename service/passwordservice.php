@@ -160,6 +160,9 @@ class PasswordService {
 		$password->setAddress('');
 		$password->setNotes('');
 		$password->setCreationDate('1970-01-01');
+		
+		//add to Activity stream
+		Activity::addPassword($userId);
 
 		$password->setUserId($userId);
 		$password->setWebsite($website);
@@ -296,33 +299,33 @@ class PasswordService {
 }
 
 class Activity {
-	public function addPassword($userId) {
-		$new_activity = \OC::$server->generateEvent();
+	public static function addPassword($userId) {
+		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		$new_activity->setType('new');
+		$new_activity->setType('type');
 		$new_activity->setAffectedUser($userId);
-		$new_activity->setSubject('subject');
+		$new_activity->setSubject('added', []);
 		$new_activity->publish();
 	}
 	
-	public function editPassword($userId) {
-		$new_activity = \OC::$server->generateEvent();
+	public static function editPassword($userId) {
+		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		$new_activity->setType('new');
+		$new_activity->setType('type');
 		$new_activity->setAffectedUser($userId);
-		$new_activity->setSubject('subject');
+		$new_activity->setSubject('changed', []);
 		$new_activity->publish();
 	}
 	
-	public function deletePassword() {
+	public static function deletePassword() {
 		
 	}
 	
-	public function addShare() {
+	public static function addShare() {
 		
 	}
 	
-	public function deleteShare() {
+	public static function deleteShare() {
 		
 	}
 }
