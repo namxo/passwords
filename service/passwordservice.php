@@ -6,9 +6,9 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-//use OCP\Activity\IManager;
-// use OCP\Activity\IExtension;
+use OCP\Activity\IEvent;
 use OCP\Activity\IExtension;
+use OCP\Activity\IManager;
 
 use OCA\Passwords\Db\Password;
 use OCA\Passwords\Db\PasswordMapper;
@@ -304,7 +304,7 @@ class Activity {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		$new_activity->setType('passwords');
+		$new_activity->setType(Extension::APP_NAME);
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('added', []);
 		$new_activity->setTimestamp($time);
@@ -315,7 +315,7 @@ class Activity {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		$new_activity->setType('passwords');
+		$new_activity->setType(Extension::APP_NAME);
 		$new_activity->setAffectedUser($userId);
 		$new_activity->setSubject('changed', []);
 		$new_activity->setTimestamp($time);
