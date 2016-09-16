@@ -1,6 +1,11 @@
 ####20 - NOT YET RELEASED
+* Added possibility to **send emails to users** you've shared a password with
+ * The email will not contain the password, but does contain the direct link to the Passwords app
+ * The senders name, subject and body text of the email are written in the recipients language, even when you share it with multiple users that have set different languages
+ * Theme name of your ownCloud/NextCloud instance is supported, so the senders name can be MyGreatCloud Passwords (e.g. if the recipients language is German, this will be MyGreatCloud Passwörter)
+ * HTML body and plain body are both supported
+ * Sending emails is not available for use with the API; this is intended
 * Add more picture sizes
-
 
 ####19 - Sept 15th, 2016
 * Support for ownCloud 9.1 and NextCloud 9 and 10 (now works on all versions of OC 8 and OC 9, and NC 9 and NC 10 too)
