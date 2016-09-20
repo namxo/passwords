@@ -93,7 +93,6 @@
     "Choose one or more users and press Share." : "Выберите одного или несколько пользователей и нажмите Общий доступ.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Введите новое значение и нажмите Сохранить для сохранения нового значения.\nЭто действие нельзя отменить.",
     "There are no users available you can share with." : "Нет доступных пользователей с кем Вы можете поделиться.",
-    "LDAP is unsupported in this version." : "LDAP не поддерживается в этой версии.",
     "Add new password" : "Добавить новый пароль",
     "Lowercase characters" : "Символы в нижнем регистре",
     "Uppercase characters" : "Символы в верхнем регистре",

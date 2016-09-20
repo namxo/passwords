@@ -93,7 +93,6 @@
     "Choose one or more users and press Share." : "Vælg en eller flere brugere og tryk Del.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Indtast en ny værdi og tryk Gem for at beholde den. Dette kan ikke annulleres.",
     "There are no users available you can share with." : "Der er ingen brugere, du kan dele med.",
-    "LDAP is unsupported in this version." : "LDAP understøttes ikke i denne version.",
     "Add new password" : "Tilføj nyt kodeord",
     "Lowercase characters" : "Små bogstaver",
     "Uppercase characters" : "Store bogstaver",

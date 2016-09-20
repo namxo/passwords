@@ -93,7 +93,6 @@
     "Choose one or more users and press Share." : "יש לבחור משתמש אחד או יותר וללחוץ על שיתוף.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "יש להכניס ערך חדש וללחוץ על שמירה להשארת הערך החדש.\nלא ניתן לבטל פעולה זו.",
     "There are no users available you can share with." : "אין משתמשים זמינים שניתן לשתף איתם.",
-    "LDAP is unsupported in this version." : "LDAP אינו נתמך בגרסה זו..",
     "Add new password" : "הוספת סיסמא חדשה",
     "Lowercase characters" : "תווים באותיות לטיניות קטנות",
     "Uppercase characters" : "תווים באותיות לטיניות גדולות",

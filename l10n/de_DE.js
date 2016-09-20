@@ -95,7 +95,6 @@ OC.L10N.register(
     "Choose one or more users and press Share." : "Wählen Sie einen oder mehrere Nutze und betätige \"Teilen\"",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Geben Sie einen neuen Wert ein und speichern Sie.\nDies kann nicht rückgängig werden.",
     "There are no users available you can share with." : "Es sind keine Nutzer verfügbar, mit den Sie etwas teilen können.",
-    "LDAP is unsupported in this version." : "LDAP wird in dieser Version nicht unterstützt.",
     "Add new password" : "neues Passwort hinzufügen",
     "Lowercase characters" : "Kleinbuchstaben",
     "Uppercase characters" : "Großbuchstaben",

@@ -95,7 +95,6 @@ OC.L10N.register(
     "Choose one or more users and press Share." : "Zgjidhni një ose më shumë përdorues dhe shtypni Ndaje.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Jepni një vlerë të re dhe shtypni Ruaje që të mbahet vlera e re.\n Kjo s’mund të zhbëhet.",
     "There are no users available you can share with." : "S’ka përdorues që mund të ndajnë me ju.",
-    "LDAP is unsupported in this version." : "LDAP-ja nuk mbulohet në këtë version.",
     "Add new password" : "Shtoni fjalëkalim të ri",
     "Lowercase characters" : "Shenjash me të vogla",
     "Uppercase characters" : "Shenja me të mëdhaja",

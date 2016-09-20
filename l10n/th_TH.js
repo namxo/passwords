@@ -95,7 +95,6 @@ OC.L10N.register(
     "Choose one or more users and press Share." : "เลือกผู้ใช้หนึ่งหรือมากกว่าแล้วกดแชร์",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "ป้อนค่าและกดบันทึกเพื่อเก็บค่าใหม่ นี้จะไม่สามารถยกเลิกได้",
     "There are no users available you can share with." : "ยังไม่มีผู้ใช้ที่คุณสามารถแชร์ได้",
-    "LDAP is unsupported in this version." : "ownCloud รุ่นนี้ไม่สนับสนุน LDAP",
     "Add new password" : "เพิ่มรหัสผ่านใหม่",
     "Lowercase characters" : "ตัวอักษรตัวพิมพ์เล็ก",
     "Uppercase characters" : "อักขระตัวพิมพ์ใหญ่",

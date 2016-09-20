@@ -95,7 +95,6 @@ OC.L10N.register(
     "Choose one or more users and press Share." : "Escull un o més usuaris i prem Compartir.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Introdueix un nou valor i prem Desar per emmagatzemmar el nou valor.\nNo es pot desfer.",
     "There are no users available you can share with." : "No hi ha usuaris disponibles amb qui compartir.",
-    "LDAP is unsupported in this version." : "LDAP no està suportat en aquesta versió.",
     "Add new password" : "Afegir nova contrasenya",
     "Lowercase characters" : "Minúscules",
     "Uppercase characters" : "Majúscules",

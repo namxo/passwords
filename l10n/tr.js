@@ -95,7 +95,6 @@ OC.L10N.register(
     "Choose one or more users and press Share." : "Bir veya daha fazla kullanıcı seçin ve Paylaş'a tıklayın.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Yeni değeri girin ve Kaydet'e tıklayarak yeni değeri kaydedin.\nBu işlem geri alınamaz.",
     "There are no users available you can share with." : "Paylaşım yapacagınız uygun kullanıcı yok",
-    "LDAP is unsupported in this version." : "LDAP Bu sürümde desteklenmiyor.",
     "Add new password" : "yeni şifre ekle",
     "Lowercase characters" : "Küçük harf karakterleri",
     "Uppercase characters" : "Büyük harf karakterleri",

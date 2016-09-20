@@ -93,7 +93,6 @@
     "Choose one or more users and press Share." : "Välj en eller flera användare och klicka på Dela.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Skriv in ett nytt värde och tryck på \"Spara\". Detta går inte att ångra",
     "There are no users available you can share with." : "Det finns inga användare tillgängliga som du kan dela med.",
-    "LDAP is unsupported in this version." : "LDAP stöds inte i denna version.",
     "Add new password" : "Lägg till nytt lösenord",
     "Lowercase characters" : "Gemener",
     "Uppercase characters" : "Versaler",

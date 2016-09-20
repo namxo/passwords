@@ -93,7 +93,6 @@
     "Choose one or more users and press Share." : "Elige uno o más usuarios y presiona Compartir.",
     "Enter a new value and press Save to keep the new value.\nThis cannot be undone." : "Introduce un nuevo valor y pulsa Guardar para almacenar el nuevo valor.\nNo se puede deshacer.",
     "There are no users available you can share with." : "No hay usuarios disponibles con quien compartir.",
-    "LDAP is unsupported in this version." : "LDAP no está soportado en esta versión.",
     "Add new password" : "Añadir nueva contraseña",
     "Lowercase characters" : "Minúsculas",
     "Uppercase characters" : "Mayúsculas",
