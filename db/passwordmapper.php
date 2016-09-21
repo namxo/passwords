@@ -17,8 +17,16 @@ class PasswordMapper extends Mapper {
 
 	public function findAll($userId) {
 
+		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', 'sqlite3');
+
+		if ($dbtype == 'pgsql') {
+			$CHARtype = 'VARCHAR';
+		} else {
+			$CHARtype = 'CHAR';
+		}
+
 		// get all passwords of this user and all passwords that are shared with this user (still encrypted)
-		$sql = 'SELECT CAST(id AS CHAR) AS id, user_id, loginname, website, address, pass, properties, notes, creation_date, deleted FROM *PREFIX*passwords ' . 
+		$sql = 'SELECT CAST(id AS ' . $CHARtype . ') AS id, user_id, loginname, website, address, pass, properties, notes, creation_date, deleted FROM *PREFIX*passwords ' . 
 				'WHERE user_id = ? OR id IN (SELECT pwid FROM *PREFIX*passwords_share WHERE sharedto = ?) ';
 
 		// now get all uid's and displaynames this user is eligable to share with
@@ -44,7 +52,7 @@ class PasswordMapper extends Mapper {
 			if ($onlyShareWithOwnGroup) {
 				$sql = $sql . 'UNION ALL ' .
 					'SELECT  ' .
-						'DISTINCT CAST(displaynames.uid AS CHAR) AS id, ' .
+						'DISTINCT CAST(displaynames.uid AS ' . $CHARtype . ') AS id, ' .
 						'displaynames.displayname AS user_id, ' .
 						'NULL AS loginname, ' .
 						'displaynames.uid AS website, ' .
@@ -56,7 +64,7 @@ class PasswordMapper extends Mapper {
 						'NULL AS deleted ' .
 					'FROM *PREFIX*group_user AS users ' .
 						'LEFT JOIN  ' .
-						'(SELECT CAST(uid AS CHAR) AS uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
+						'(SELECT CAST(uid AS ' . $CHARtype . ') AS uid, CASE WHEN displayname IS NULL THEN uid ELSE displayname END AS displayname FROM *PREFIX*users) AS displaynames ON users.uid = displaynames.uid  ' .
 					'WHERE gid IN (SELECT DISTINCT gid FROM *PREFIX*group_user WHERE uid = ?) ';
 			} else {
 				$sql = $sql . 'UNION ALL ' .
@@ -79,7 +87,6 @@ class PasswordMapper extends Mapper {
 		$sql = 'SELECT * FROM (' . $sql . ') AS t1';
 
 		// order by website according to database used
-		$dbtype = \OC::$server->getConfig()->getSystemValue('dbtype', 'sqlite3');
 		if ($dbtype == 'mysql') {
 			$sql = $sql . ' ORDER BY LOWER(website) COLLATE utf8_general_ci ASC';
 		} else if ($dbtype == 'sqlite' OR $dbtype == 'sqlite3') {
