@@ -160,7 +160,7 @@ Use one of the following options, login as admin on ownCloud/NextCloud and enabl
  * Use these commands (assuming `/var/www/owncloud` as your ownCloud root location). The first one is optional to remove an existing folder with contents.
  ```
 rm -rf /var/www/owncloud/apps/passwords
-git clone https://github.com/fcturner/passwords.git /var/www/owncloud/apps/passwords
+git clone --branch 19 https://github.com/fcturner/passwords.git /var/www/owncloud/apps/passwords
 ```
 * **Manual download and installation** 
  * [Click here to view the latest official release](https://github.com/fcturner/passwords/releases/latest) or, for the very last master version, [click here to download the zip](https://github.com/fcturner/passwords/archive/master.zip) or [here to download the tar.gz](https://github.com/fcturner/passwords/archive/master.tar.gz).
