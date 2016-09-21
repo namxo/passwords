@@ -103,7 +103,7 @@ class PasswordMapper extends Mapper {
 	}
 
 	public function insertShare($pwid, $shareto, $sharekey) {
-		$sql = 'INSERT INTO *PREFIX*passwords_share (id, pwid, sharedto, sharekey) VALUES (NULL, ?, ?, ?)';
+		$sql = 'INSERT INTO *PREFIX*passwords_share (pwid, sharedto, sharekey) VALUES (?, ?, ?)';
 		$sql = $this->db->prepare($sql);
 		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
 		$sql->bindParam(2, $shareto, \PDO::PARAM_STR);
