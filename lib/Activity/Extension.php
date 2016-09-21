@@ -78,9 +78,9 @@ class Extension implements IExtension {
 			list(, $id) = explode('#', $text);
 
 			try {
-				$password = $this->manager->getAnnouncement($id, true);
+				$password = $this->manager->getPassword($id, true);
 			} catch (\InvalidArgumentException $e) {
-				return (string) $l->t('Announcement does not exist anymore', $params);
+				return (string) $l->t('Password does not exist anymore', $params);
 			}
 
 			if (strpos($text, 'passwordmessage#') === 0) {
