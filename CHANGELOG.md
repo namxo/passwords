@@ -7,6 +7,7 @@
  * Sending emails is not available for use with the API; this is intended
 * Add more picture sizes
 * Fix for sharing using LDAP
+* Fix for sharing using PostgresSQL
 
 ####19 - Sept 15th, 2016
 * Support for ownCloud 9.1 and NextCloud 9 and 10 (now works on all versions of OC 8 and OC 9, and NC 9 and NC 10 too)
