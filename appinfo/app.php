@@ -22,3 +22,7 @@ $navigationEntry = function () use ($container) {
 	];
 };
 $container->getServer()->getNavigationManager()->add($navigationEntry);
+
+\OC::$server->getActivityManager()->registerExtension(function() use ($app) {
+	return $app->getContainer()->query('OCA\Passwords\Activity\Extension');
+});
