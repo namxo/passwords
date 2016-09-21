@@ -162,7 +162,7 @@ class PasswordService {
 		$password->setCreationDate('1970-01-01');
 		
 		//add to Activity stream
-		Activity::addPassword($userId);
+		//Activity::addPassword($userId);
 
 		$password->setUserId($userId);
 		$password->setWebsite($website);
@@ -279,7 +279,7 @@ class PasswordService {
 			$password->setDeleted($deleted);
 			
 			//add to Activity stream
-			Activity::editPassword($userId);
+			//Activity::editPassword($userId);
 
 			return $this->mapper->update($password);
 		} catch(Exception $e) {
@@ -305,9 +305,9 @@ class Activity {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		//$new_activity->setType('announcementcenter');
+		$new_activity->setType('password');
 		$new_activity->setAffectedUser($userId);
-		$new_activity->setSubject('added!', []);
+		$new_activity->setSubject('added', []);
 		$new_activity->setTimestamp($time);
 		\OC::$server->getActivityManager()->publish($new_activity);
 	}
@@ -316,9 +316,9 @@ class Activity {
 		$time = time();
 		$new_activity = \OC::$server->getActivityManager()->generateEvent();
 		$new_activity->setApp('passwords');
-		//$new_activity->setType('announcementcenter');
+		$new_activity->setType('password');
 		$new_activity->setAffectedUser($userId);
-		$new_activity->setSubject('changed!', []);
+		$new_activity->setSubject('changed', []);
 		$new_activity->setTimestamp($time);
 		\OC::$server->getActivityManager()->publish($new_activity);
 	}
