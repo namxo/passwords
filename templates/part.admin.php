@@ -41,7 +41,17 @@ $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$
 			<p><?php p($l->t('The latest version is already installed') . ': v' . $thisVersion . '.'); ?></p>
 		<?php } ?>
 	</div>
-
+	
+	<?php
+	// Block extra auth when using user_saml, so let admin know:
+	$user_saml = OC::$server->getConfig()->getAppValue('user_saml', 'enabled', 'no');
+	if ($user_saml == 'yes') { ?>
+		<div>
+			<h3><?php p($l->t('Extra authentication')); ?></h3>
+			<p><strong><?php p($l->t('Extra authentication is disabled for all users with their own %s password, since you are using user_saml authentication.', $theme->getName())); ?></strong></p>
+		</div>
+	<?php } ?>
+	
 	<div>
 		<h3><?php p($l->t('App location')); ?></h3>
 		<label> 

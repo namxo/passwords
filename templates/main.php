@@ -10,7 +10,7 @@
 
 		// test if at least one is true in:
 		// (1) header, (2) port number, (3/4) config.php setting, (5) admin setting
-	  	return
+		return
 		(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 		|| $_SERVER['SERVER_PORT'] == 443
 		|| \OC::$server->getConfig()->getSystemValue('forcessl', '')
@@ -26,6 +26,14 @@
 	if (isSecure()) {
 
 		$auth_type = \OC::$server->getConfig()->getUserValue(\OC::$server->getUserSession()->getUser()->getUID(), 'passwords', 'extra_auth_type', 'owncloud');
+		
+		// kill ownCloud/NextCloud auth when user_saml is enabled, it won't work. Master pw DOES work.
+		// https://github.com/fcturner/passwords/issues/263
+		$user_saml = \OC::$server->getConfig()->getAppValue('user_saml', 'enabled', 'no');
+		if ($auth_type == 'owncloud' AND $user_saml == 'yes') {
+			$auth_type = 'none';
+		}
+
 		$auth_cookie = '';
 		if (isset($_COOKIE["oc_passwords_auth"])) {
 			$auth_cookie = $_COOKIE["oc_passwords_auth"];

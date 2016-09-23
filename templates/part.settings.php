@@ -53,9 +53,14 @@ instance-name="<?php p($theme->getName()) ?>"
 			<label for="extra_password"><?php p($l->t('When entering app, require:')); ?></label>
 			<select id="extra_password">
 				<option value="none"><?php p($l->t('No extra password')); ?></option>
-				<option value="owncloud"><?php 
-					// easier for translators than '%s password'
-					p(preg_replace('/owncloud/i', $theme->getName(), $l->t('ownCloud password'))); ?></option>
+				<?php 
+				$user_saml = OC::$server->getConfig()->getAppValue('user_saml', 'enabled', 'no');
+				// block ownCloud/NextCloud authentication when using user_saml.
+				if ($user_saml == 'no') { ?>
+					<option value="owncloud"><?php 
+						// easier for translators than '%s password'
+						p(preg_replace('/owncloud/i', $theme->getName(), $l->t('ownCloud password'))); ?></option>
+				<?php } ?>
 				<option value="master"><?php p($l->t('Master password')); ?></option>
 			</select>
 			<div id="div_edit_master_password">
