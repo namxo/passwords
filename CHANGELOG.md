@@ -5,6 +5,7 @@
  * Theme name of your ownCloud/NextCloud instance is supported, so the senders name can be MyGreatCloud Passwords (e.g. if the recipients language is German, this will be MyGreatCloud Passwörter)
  * HTML body and plain body are both supported
  * Sending emails is not available for use with the API; this is intended
+ * The button for sharing is only available when at least one user is selected
 * Add more picture sizes for website/company name
 * Temporary fix for use with the `user_saml` authentication: the extra ownCloud/NextCloud authentication doesn't work and will be blocked. A notice will be displayed on the admin page.
 * Fix for sharing using LDAP
