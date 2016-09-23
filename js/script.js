@@ -1588,6 +1588,7 @@ function formatTable(update_only, rows) {
 				var uid = row.website;
 				var uid_escaped = uid.replace(/[^a-zA-Z 0-9]+/g, '');
 				var displayname = row.user_id;
+				var displayname_escaped = displayname.replace(/[^a-zA-Z 0-9]+/g, '');
 				$('#ShareUsersTableContent').append('<tr>' + 
 					'<td class="share_uid">' + uid + '</td>' +
 					'<td class="share_displayname">' + displayname + '</td>' +
@@ -1595,8 +1596,8 @@ function formatTable(update_only, rows) {
 				);
 				if (displayname != $('#expandDisplayName').text()) { // do not include yourself
 					if (user_backend == 'LDAP') { // With LDAP, uid is ownCloud login name, and displayname is GUID
-						$('#ShareUsers').append('<label><input type="checkbox" value=' + displayname + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + uid + '</span></label><br>');
-						$('.avatar_' + uid_escaped).avatar(displayname, 32);
+						$('#ShareUsers').append('<label><input type="checkbox" value=' + displayname + '><div class="share_avatar avatar_' + displayname_escaped + '"></div><span>' + uid + '</span></label><br>');
+						$('.avatar_' + displayname_escaped).avatar(displayname, 32);
 					} else {
 						// 'displayname' will be 'uid' when real ownCloud display name is unavailable
 						$('#ShareUsers').append('<label><input type="checkbox" value=' + uid + '><div class="share_avatar avatar_' + uid_escaped + '"></div><span>' + displayname + '</span></label><br>');
