@@ -3248,7 +3248,27 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 					$('#accept').click();
 				});
 			}
+
+			// mail button
 			$('<button/>', {id:'mail', text:t('passwords', 'Send email')}).appendTo($('#popupButtons'));
+			// hide when not yet shared 
+			if (!is_shared) {
+				$('#mail').css('display', 'none');
+			}
+			// but show when at least one user is checked
+			$('#new_value_popup input').click(function() {
+				var showmail = false;
+				$('#new_value_popup input').each(function() {
+					if (this.checked == true) {
+						showmail = true;
+					}
+				});
+				if (showmail) {
+					$('#mail').css('display', 'block');
+				} else {
+					$('#mail').css('display', 'none');
+				}
+			});
 		} else {
 			if (type == 'new_password') {
 				$('<button/>', {id:'accept', text:t('core', 'Add')}).appendTo($('#popupButtons'));
