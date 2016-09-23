@@ -9,6 +9,7 @@
 * Temporary fix for use with the `user_saml` authentication: the extra ownCloud/NextCloud authentication doesn't work and will be blocked. A notice will be displayed on the admin page.
 * Fix for sharing using LDAP
 * Fix for sharing using PostgresSQL
+* Fix for category filter
 
 ####19 - Sept 15th, 2016
 * Support for ownCloud 9.1 and NextCloud 9 and 10 (now works on all versions of OC 8 and OC 9, and NC 9 and NC 10 too)
