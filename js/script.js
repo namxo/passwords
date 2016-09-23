@@ -1242,40 +1242,6 @@
 							$('#new_category select').attr('style', '');
 						}
 					});
-					// for select box above search bar
-					$('#nav_category_list').change(function() {
-
-						if ($('#nav_category_list select').val() == '(change)') {
-							$('#nav_category_list select').val(0);
-							$('#nav_category_list select').attr('style', '');
-							if ($('#app-settings').attr("active-table") == 'active') {
-								$('#list_active').click();
-							} else {
-								$('#list_trash').click();
-							}
-							$('#editCategories').click();
-						} else if ($('#nav_category_list select').val() != 0) {
-							$('#list_active').click(); // first to active list; filter must not work on trashed items
-							var bg = $('#nav_category_list').find(':selected').attr('bg');
-							var fg = $('#nav_category_list').find(':selected').attr('fg')
-							$('#nav_category_list select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important;');
-							// filter
-							var $rows = $('#PasswordsTableContent tr').not('thead tr').not('.is_deleted');
-							var val = $('#nav_category_list select option:selected').text();
-							$rows.show().filter(function() {
-								var text = $(this).find('.cell_category').text();
-								return !~text.indexOf(val);
-							}).hide();
-						} else {
-							// 'none' chosen
-							$('#nav_category_list select').attr('style', '');
-							if ($('#app-settings').attr("active-table") == 'active') {
-								$('#list_active').click();
-							} else {
-								$('#list_trash').click();
-							}
-						}
-					});
 
 					// allow tabs in textareas (notes)
 					$("textarea").keydown(function(e) {
@@ -1335,6 +1301,41 @@
 						$('#new_password').val(generate_new);
 					});
 
+				});
+
+				// for select box above search bar
+				$('#nav_category_list').change(function() {
+
+					if ($('#nav_category_list select').val() == '(change)') {
+						$('#nav_category_list select').val(0);
+						$('#nav_category_list select').attr('style', '');
+						if ($('#app-settings').attr("active-table") == 'active') {
+							$('#list_active').click();
+						} else {
+							$('#list_trash').click();
+						}
+						$('#editCategories').click();
+					} else if ($('#nav_category_list select').val() != 0) {
+						$('#list_active').click(); // first to active list; filter must not work on trashed items
+						var bg = $('#nav_category_list').find(':selected').attr('bg');
+						var fg = $('#nav_category_list').find(':selected').attr('fg')
+						$('#nav_category_list select').attr('style', 'color: #' + fg + ' !important; background-color: ' + bg + ' !important;');
+						// filter
+						var $rows = $('#PasswordsTableContent tr').not('thead tr').not('.is_deleted');
+						var val = $('#nav_category_list select option:selected').text();
+						$rows.show().filter(function() {
+							var text = $(this).find('.cell_category').text();
+							return !~text.indexOf(val);
+						}).hide();
+					} else {
+						// 'none' chosen
+						$('#nav_category_list select').attr('style', '');
+						if ($('#app-settings').attr("active-table") == 'active') {
+							$('#list_active').click();
+						} else {
+							$('#list_trash').click();
+						}
+					}
 				});
 			
 				// edit categories
