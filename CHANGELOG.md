@@ -6,7 +6,8 @@
  * HTML body and plain body are both supported
  * Sending emails is not available for use with the API; this is intended
  * The button for sharing is only available when at least one user is selected
-* Add more picture sizes for website/company name
+* Added more picture sizes for website/company name
+* Added changelog button on admin page when new version is available
 * Temporary fix for use with the `user_saml` authentication: the extra ownCloud/NextCloud authentication doesn't work and will be blocked. A notice will be displayed on the admin page.
 * Fix for sharing using LDAP
 * Fix for sharing using PostgresSQL
