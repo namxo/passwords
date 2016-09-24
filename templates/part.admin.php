@@ -24,13 +24,18 @@ $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$
 		<h3><?php p($l->t('Version')); ?></h3>
 		<?php if (version_compare($thisVersion, $githubVersion) != 0) { ?>
 			<p><?php p($l->t('A new master version is available! This might however be a beta version.')); ?></p>
-			<p><?php p($l->t('Installed') . ': v' . $thisVersion); ?></p>
-			<p><strong><?php p($l->t('Available') . ': v' . $githubVersion); ?></strong></p>
+			<ul>
+				<li><?php p($l->t('Installed') . ': v' . $thisVersion); ?></li>
+				<li>
+					<strong><?php p($l->t('Available') . ': v' . $githubVersion); ?></strong> 
+					<a href="https://github.com/fcturner/passwords/archive/master.zip" class="button""><?php p($l->t('Download %s', 'ZIP')); ?></a>
+					<a href="https://github.com/fcturner/passwords/archive/master.tar.gz" class="button"><?php p($l->t('Download %s', 'TAR')); ?></a>
+				</li>
+			</ul>
 			<br>
-			<a href="https://github.com/fcturner/passwords" class="button" target="_blank"><?php p($l->t('Visit %s', 'GitHub')); ?></a>
-			<a href="https://github.com/fcturner/passwords/archive/master.zip" class="button""><?php p($l->t('Download %s', 'ZIP')); ?></a>
-			<a href="https://github.com/fcturner/passwords/archive/master.tar.gz" class="button"><?php p($l->t('Download %s', 'TAR')); ?></a>
+			<a href="https://github.com/fcturner/passwords/blob/master/CHANGELOG.md" class="button" target="_blank"><?php p($l->t('List of changes since %s', 'v' . $thisVersion)); ?></a>
 			<a href="https://github.com/fcturner/passwords/releases" class="button" target="_blank"><?php p($l->t('View all releases')); ?></a>
+			<a href="https://github.com/fcturner/passwords" class="button" target="_blank"><?php p($l->t('Visit %s', 'GitHub')); ?></a>
 			<br>
 			<br>
 			<p><?php p($l->t('Or update with CLI')); ?>:</p>
