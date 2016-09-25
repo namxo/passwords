@@ -167,7 +167,7 @@ class PasswordService {
 		return $this->mapper->insert($password);
 	}
 	
-	public function sendmail($website, $sharewith, $domain, $fullurl, $instancename, $userId) {
+	public function sendmail($kind, $website, $sharewith, $domain, $fullurl, $instancename, $userId) {
 		try {
 			if (count($sharewith) > 0 AND $sharewith != '') {
 				$mailer = \OC::$server->getMailer();
@@ -193,11 +193,56 @@ class PasswordService {
 	
 					if (filter_var($useremail, FILTER_VALIDATE_EMAIL)) {
 						$message = $mailer->createMessage();
-						$message->setSubject($userlang->t('A password has been shared with you'));
 						$message->setFrom([$senderaddress => $instancename . ' ' . $appname]);
 						$message->setTo([$useremail => $userdisplayname]);
-						$message->setPlainBody($userdisplayname . ',\n\n' . $userlang->t('A password has been shared with you') . '.\n\n' . $userlang->t('Sender') . ': ' . $me_displayname . ' ' . $me_email . '\n' . $userlang->t('Website or company') . ': ' . $website . '\n\n' . $userlang->t('Login on %s to view the password', $instancename . ' ' . $appname) . ': ' . $fullurl . '.');
-						$message->setHtmlBody($userdisplayname . ',<br><br>' . $userlang->t('A password has been shared with you') . '.<br><br><strong>' . $userlang->t('Sender') . ':</strong> ' . $me_displayname . ' ' . $me_email . '<br><strong>' . $userlang->t('Website or company') . ':</strong> ' . $website . '<br><br>' . $userlang->t('Login on %s to view the password', '<a href="' . $fullurl . '" target="_blank">' . $instancename . ' ' . $appname . '</a>') . '.');
+
+						if ($kind == 'start') {
+							$message->setSubject($userlang->t('A password has been shared with you'));
+							$message->setPlainBody(
+								$userdisplayname .
+								',\n\n' .
+								$userlang->t('A password has been shared with you') .
+								'.\n\n' .
+								$userlang->t('Sender') . ':\n' .
+								$me_displayname . ' ' . $me_email .
+								'\n' .
+								$userlang->t('Website or company') . ':\n' .
+								$website .
+								'\n\n' .
+								$userlang->t('Login on %s to view the password', $instancename . ' ' . $appname) . ': ' . $fullurl . '.'
+							);
+							$message->setHtmlBody(
+								$userdisplayname .
+								',<br><br>' .
+								$userlang->t('A password has been shared with you') .
+								'.<br><br><strong>' .
+								$userlang->t('Sender') . ':</strong><br>' .
+								$me_displayname . ' ' . $me_email .
+								'<br><strong>' .
+								$userlang->t('Website or company') . ':</strong><br>' .
+								$website .
+								'<br><br>' .
+								$userlang->t('Login on %s to view the password', '<a href="' . $fullurl . '" target="_blank">' . $instancename . ' ' . $appname . '</a>') . '.'
+							);
+
+						} elseif ($kind == 'stop') {
+							$message->setSubject($userlang->t('A password is no longer shared with you'));
+							$message->setPlainBody(
+								$userdisplayname .
+								',\n\n' .
+								$userlang->t('A password is no longer shared with you') . '. ' . $userlang->t('%s no longer shares the password for %s', array($me_displayname . ' ' . $me_email, $website)) . '.' .
+								'\n\n' .
+								$userlang->t('Login on %s to view your other passwords', $instancename . ' ' . $appname) . ': ' . $fullurl . '.'
+							);
+							$message->setHtmlBody(
+								$userdisplayname .
+								',<br><br>' .
+								$userlang->t('A password is no longer shared with you') . '. ' . $userlang->t('%s no longer shares the password for %s', array($me_displayname . ' ' . $me_email, '<strong>' . $website . '</strong>')) . '.' .
+								'<br><br>' .
+								$userlang->t('Login on %s to view your other passwords', '<a href="' . $fullurl . '" target="_blank">' . $instancename . ' ' . $appname . '</a>') . '.'
+							);
+						}
+
 						$mailer->send($message);
 					}
 				}

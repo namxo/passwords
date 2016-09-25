@@ -108,7 +108,7 @@
 				});
 				return deferred.promise();
 			},
-			sendmail: function(website, sharewith, domain, fullurl, instancename) {
+			sendmail: function(kind, website, sharewith, domain, fullurl, instancename) {
 				var sharewithArr = [];
 				if ($.isArray(sharewith)) {
 					sharewithArr = sharewith;
@@ -124,6 +124,7 @@
 				var request = $.ajax({
 					url: generateUrl('/mail'),
 					data: {
+						'kind' : kind,
 						'website' : website,
 						'sharewith' : sharewithArr,
 						'domain' : domain,
@@ -847,6 +848,28 @@
 							}
 							removePopup();
 						});
+						$('#stop').click(function() {
+							var usernames = [];
+							var displaynames = [];
+							$("#new_value_popup input:checked").each(function() {
+								usernames.push($(this).val());
+								displaynames.push($(this).siblings('span').text());
+							});
+							$('#new_value_popup input').each(function() {
+								this.checked = false;
+							});
+							$('#accept').click();
+							OCdialogs.confirm(t('passwords', 'Would you like to send a notification by email to %s?').replace('%s', displaynames.join(', ')), t('passwords', 'Send email'), function(res) {
+								if (res) {
+									var success = passwords.sendmail('stop', website, usernames, URLtoDomain(window.location.href), window.location.href, $('#app-settings').attr('instance-name'));
+									if (success) {
+										OCdialogs.info(t('passwords', 'The email has been sent to %s users.').replace('%s', usernames.length), t('passwords', 'Send email'), function() { return false; }, true);
+									} else {
+										OCdialogs.alert(t('passwords', 'Error: Could not send email.'), t('passwords', 'Send email'), function() { return false; }, true);
+									}
+								}
+							});
+						});
 						$('#mail').click(function() {
 							var usernames = [];
 							var displaynames = [];
@@ -857,7 +880,7 @@
 
 							OCdialogs.confirm(t('passwords', 'This will send a notification email for %s to the following users').replace('%s', website) + ": " + displaynames.join(', ') + ". " + t('passwords', 'The email will not contain your password.') + ' ' + t('passwords', 'Are you sure?'), t('passwords', 'Send email'), function(res) {
 								if (res) {
-									var success = passwords.sendmail(website, usernames, URLtoDomain(window.location.href), window.location.href, $('#app-settings').attr('instance-name'));
+									var success = passwords.sendmail('start', website, usernames, URLtoDomain(window.location.href), window.location.href, $('#app-settings').attr('instance-name'));
 									if (success) {
 										OCdialogs.info(t('passwords', 'The email has been sent to %s users.').replace('%s', usernames.length), t('passwords', 'Send email'), function() { return false; }, true);
 									} else {
@@ -1657,7 +1680,6 @@ function formatTable(update_only, rows) {
 
 			// start website
 			if (isUrl(row.website) || row.address != '') {
-				html_row += '<td type="website" sorttable_customkey=' + row.website + ' class="is_website cell_website">';
 				var show_icons = ($('#app-settings').attr("icons-show") == 'true');
 
 				// set real website url if available
@@ -1671,11 +1693,15 @@ function formatTable(update_only, rows) {
 					var websiteURL = 'http://' + row.website;
 				}
 
+				html_row += '<td type="website" sorttable_customkey=' + row.website + ' class="is_website cell_website">';
+
 				if (show_icons) {
 					var icons_service = $('#app-settings').attr("icons-service");
 					var icons_size = $('#app-settings').attr("icons-size");
 					if (icons_service == 'ddg') { // DuckDuckGo
 						html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" style="width:' + icons_size + 'px;height:' + icons_size + 'px;" src="https://icons.duckduckgo.com/ip2/' + URLtoDomain(websiteURL) + '.ico">' + row.website + '</a>';
+						// idea: blur of image
+						// html_row += '<div style="background-image: url(\'https://icons.duckduckgo.com/ip2/' + URLtoDomain(websiteURL) + '.ico\'); background-size: 5px 5px; filter: blur(5px) opacity(60%); -webkit-filter: blur(3px) opacity(60%); width: 100%; height: 40px; margin-top:-33px; position: fixed;"></div>';
 					}
 					if (icons_service == 'ggl') { // Google
 						html_row += '<a href="' + websiteURL + '" target="_blank"><img class="websitepic" style="width:' + icons_size + 'px;height:' + icons_size + 'px;" src="https://www.google.com/s2/favicons?domain=' + URLtoDomain(websiteURL) + '">' + row.website + '</a>';
@@ -3241,12 +3267,6 @@ function popUp(title, value, type, address_value, website, username, sharedby) {
 			if (is_shared) {
 				// only show Stop Sharing button when the link has been shared already
 				$('<button/>', {id:'stop', text:t('passwords', 'Stop sharing')}).appendTo($('#popupButtons'));
-				$('#stop').click(function() {
-					$('#new_value_popup input').each(function() {
-						this.checked = false;
-					});
-					$('#accept').click();
-				});
 			}
 
 			// mail button
