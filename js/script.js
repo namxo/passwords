@@ -1614,7 +1614,7 @@ function formatTable(update_only, rows) {
 				is_sharedby = false;
 			}
 
-			if (row.deleted == 1) {
+			if (~~row.deleted == '1') {
 				if (is_sharedby) {
 					var html_row = '<tr class="is_deleted is_sharedby" sharedby="' + row.user_id + '" ';
 				} else {
@@ -1795,7 +1795,7 @@ function formatTable(update_only, rows) {
 			}
 
 			// sidebar (info icon)
-			if (~~row.deleted == 1) {
+			if (~~row.deleted == '1') {
 				// replace the info-icon by a revert icon when a password is in trash
 				html_row += '<td class="icon-history"></td>';
 			} else {
