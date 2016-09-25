@@ -6,6 +6,7 @@
  * HTML body and plain body are both supported
  * Sending emails is not available for use with the API; this is intended
  * The button for sharing is only available when at least one user is selected
+ * When a users stops a share, a notification mail can be sent
 * Added more picture sizes for website/company name
 * Added changelog button on admin page when new version is available
 * Temporary fix for use with the `user_saml` authentication: the extra ownCloud/NextCloud authentication doesn't work and will be blocked. A notice will be displayed on the admin page.
