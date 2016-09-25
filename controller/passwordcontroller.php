@@ -47,13 +47,14 @@ class PasswordController extends Controller {
 	 * @NoAdminRequired
 	 */	
 	public function sendmail() {
+		$kind = $_POST['kind'];
 		$website = $_POST['website'];
 		$sharewith = $_POST['sharewith'];
 		$domain = $_POST['domain'];
 		$fullurl = $_POST['fullurl'];
 		$instancename = $_POST['instancename'];
-		return $this->handleNotFound(function () use ($website, $sharewith, $domain, $fullurl, $instancename) {
-			return $this->service->sendmail($website, $sharewith, $domain, $fullurl, $instancename, $this->userId);
+		return $this->handleNotFound(function () use ($kind, $website, $sharewith, $domain, $fullurl, $instancename) {
+			return $this->service->sendmail($kind, $website, $sharewith, $domain, $fullurl, $instancename, $this->userId);
 		});
 	}
 
