@@ -1,14 +1,26 @@
 <?php
+// get installed version and latest master version
 $thisVersion = OC::$server->getConfig()->getAppValue('passwords', 'installed_version', '');
 $doc = new DOMDocument();
 $doc->load('https://raw.githubusercontent.com/fcturner/passwords/master/appinfo/info.xml');
-
 $root = $doc->getElementsByTagName("info");
 foreach($root as $element) {
 	$versions = $element->getElementsByTagName("version");
 	$version = $versions->item(0)->nodeValue;
 }
 $githubVersion = $version;
+
+// get latest release
+$url = 'https://github.com/fcturner/passwords/releases/latest';
+$headers = get_headers($url);
+$headers = array_reverse($headers);
+foreach($headers as $header) {
+	if (stripos($header,'Location:') === 0) {
+		$url = trim(substr($header, strlen('Location:')));
+		break;
+	}
+}
+$latestRelease = str_replace('https://github.com/fcturner/passwords/releases/tag/', '', $url);
 
 $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$SERVERROOT . '/apps');
 ?>
@@ -28,9 +40,10 @@ $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$
 				<li><?php p($l->t('Installed') . ': v' . $thisVersion); ?></li>
 				<li>
 					<strong><?php p($l->t('Available') . ': v' . $githubVersion); ?></strong> 
-					<a href="https://github.com/fcturner/passwords/archive/master.zip" class="button""><?php p($l->t('Download %s', 'ZIP')); ?></a>
+					<a href="https://github.com/fcturner/passwords/archive/master.zip" class="button"><?php p($l->t('Download %s', 'ZIP')); ?></a>
 					<a href="https://github.com/fcturner/passwords/archive/master.tar.gz" class="button"><?php p($l->t('Download %s', 'TAR')); ?></a>
 				</li>
+				<li><?php p($l->t('Latest official release') . ': v' . $latestRelease); ?></li>
 			</ul>
 			<br>
 			<a href="https://github.com/fcturner/passwords/blob/master/CHANGELOG.md" class="button" target="_blank"><?php p($l->t('List of changes since %s', 'v' . $thisVersion)); ?></a>
