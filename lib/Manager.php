@@ -88,7 +88,7 @@ class Manager {
 	 * @return array
 	 * @throws \InvalidArgumentException when the id is invalid
 	 */
-	public function getAnnouncement($id, $parseStrings = true) {
+	public function getPassword($id, $parseStrings = true) {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('passwords')
@@ -117,7 +117,7 @@ class Manager {
 	 * @param bool $parseStrings
 	 * @return array
 	 */
-	public function getAnnouncements($limit = 15, $offset = 0, $parseStrings = true) {
+	public function getPasswords($limit = 15, $offset = 0, $parseStrings = true) {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('passwords')
