@@ -57,7 +57,7 @@ $app_path = OC::$server->getConfig()->getAppValue('passwords', 'app_path', OC::$
 			<p class="gitcode">sudo -u <?php p(posix_getpwuid(fileowner(OC::$SERVERROOT . '/config/config.php'))['name']) ?> php <?php p(OC::$SERVERROOT); ?>/occ upgrade</p>
 		<?php } else { ?>
 			<p><?php p($l->t('The latest version is already installed') . ': v' . $thisVersion . '.'); ?></p>
-			<p><?php p($l->t('Latest official release') . ': v' . $latestRelease); ?></p>
+			<p><?php p($l->t('Latest official release') . ': v' . $latestRelease . '.'); ?></p>
 		<?php } ?>
 	</div>
 	
