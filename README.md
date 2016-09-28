@@ -87,11 +87,13 @@ This app allows full remote control by using a RESTful API. Read here about how 
 Browser plugins are available for [Firefox here](https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords) (thanks to [@eglia](https://github.com/eglia)) and for [Chrome here](https://github.com/thefirstofthe300/ownCloud-Passwords) (thanks to [@thefirstofthe300](https://github.com/thefirstofthe300)).
 
 ## Website icons
-There is a built in option to view website icons in the password table. This can be set by the administrator on the settings page of ownCloud/NextCloud. The admin has two services to choose from: DuckDuckGo (default) and Google. Icons are downloaded from their secured server when a user loads the page. Nothing fancy or unsafe (even using Google... although [they track you](http://donttrack.us)), it's just about icons. The icon for the ownCloud's website for example (replace *owncloud.org* with your own domain to try): 
+There is a built in option to view website icons in the password table. This can be set by the administrator on the settings page of ownCloud/NextCloud. The admin has two services to choose from: DuckDuckGo (default) and Google. Icons are downloaded from their secured server when a user loads the page. Nothing fancy or unsafe (even using Google... although [they track you](http://donttrack.us)), it's just about icons. The icon for the websites of ownCloud and NextCloud for example (replace *owncloud.org* with your own domain to try): 
 * [https://icons.duckduckgo.com/ip2/owncloud.org.ico](https://icons.duckduckgo.com/ip2/owncloud.org.ico) (32x32 pixels)
  * <img src="https://icons.duckduckgo.com/ip2/owncloud.org.ico"/> 
+ * <img src="https://icons.duckduckgo.com/ip2/nextcloud.com.ico"/> 
 * [https://www.google.com/s2/favicons?domain=owncloud.org](https://www.google.com/s2/favicons?domain=owncloud.org) (16x16 pixels)
  * <img src="https://www.google.com/s2/favicons?domain=owncloud.org"/> 
+ * <img src="https://www.google.com/s2/favicons?domain=nextcloud.com"/> 
 
 ## Translations
 ownCloud/NextCloud Passwords is available in:
@@ -157,7 +159,7 @@ From v19 on: Login as admin on ownCloud/NextCloud and **go to the passwords sect
 ### Initial installation
 Use one of the following options, login as admin on ownCloud/NextCloud and enable the app. The database tables `oc_passwords`, `oc_passwords_categories` and `oc_passwords_share` will be created automatically (assuming `_oc` as prefix).
 * **Git clone (fastest)** 
- * Use these commands (assuming `/var/www/owncloud` as your ownCloud root location). The first one is optional to remove an existing folder with contents.
+ * Use these commands (assuming `/var/www/owncloud` as your ownCloud/NextCloud root location). The first one is optional to remove an existing folder with contents.
  ```
 rm -rf /var/www/owncloud/apps/passwords
 git clone --branch 19 https://github.com/fcturner/passwords.git /var/www/owncloud/apps/passwords
