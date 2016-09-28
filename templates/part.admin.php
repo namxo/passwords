@@ -1,6 +1,8 @@
 <?php
-// get installed version and latest master version
+// get installed version
 $thisVersion = OC::$server->getConfig()->getAppValue('passwords', 'installed_version', '');
+
+// get latest master version
 $doc = new DOMDocument();
 $doc->load('https://raw.githubusercontent.com/fcturner/passwords/master/appinfo/info.xml');
 $root = $doc->getElementsByTagName("info");
