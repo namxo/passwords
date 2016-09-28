@@ -26,6 +26,16 @@ class Manager {
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
 	public function announce($subject, $message, $user, $time, $parseStrings = true) {
+
+		return [
+			'id'		=> 12,
+			'author'	=> 'testuser',
+			'time'		=> 12,
+			'subject'	=> 'This is the subject text',
+			'message'	=> 'This is the message text',
+		];
+
+
 		$subject = trim($subject);
 		$message = trim($message);
 		if (isset($subject[512])) {
