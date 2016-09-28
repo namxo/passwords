@@ -25,6 +25,7 @@ class SettingsService {
 				// admin settings
 				'app_path' => (string)$this->settings->getAppValue($this->appName, 'app_path', \OC::$SERVERROOT.'/apps'),
 				'backup_allowed' => (string)$this->settings->getAppValue($this->appName, 'backup_allowed', 'false'),
+				'check_version' => (string)$this->settings->getAppValue($this->appName, 'check_version', 'false'),
 				'days_orange' => (string)$this->settings->getAppValue($this->appName, 'days_orange', '150'),
 				'days_red' => (string)$this->settings->getAppValue($this->appName, 'days_red', '365'),
 				'disable_contextmenu' => (string)$this->settings->getAppValue($this->appName, 'disable_contextmenu', 'false'),
