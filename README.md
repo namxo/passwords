@@ -87,7 +87,7 @@ This app allows full remote control by using a RESTful API. Read here about how 
 Browser plugins are available for [Firefox here](https://addons.mozilla.org/en-US/firefox/addon/firefox-owncloud-passwords) (thanks to [@eglia](https://github.com/eglia)) and for [Chrome here](https://github.com/thefirstofthe300/ownCloud-Passwords) (thanks to [@thefirstofthe300](https://github.com/thefirstofthe300)).
 
 ## Website icons
-There is a built in option to view website icons in the password table. This can be set by the administrator on the settings page of ownCloud/NextCloud. The admin has two services to choose from: DuckDuckGo (default) and Google. Icons are downloaded from their secured server when a user loads the page. Nothing fancy or unsafe (even using Google... although [they track you](http://donttrack.us)), it's just about icons. The icon for the websites of ownCloud and NextCloud for example (replace *owncloud.org* with your own domain to try): 
+There is a built in option to view website icons in the password table. This can be set by the administrator on the settings page of ownCloud/NextCloud. The admin has two services to choose from: DuckDuckGo (default) and Google. Icons are downloaded from their secured server when a user loads the page. Nothing fancy or unsafe (even using Google... although [they track you](http://donttrack.us)), it's just about icons. The icons for the websites of ownCloud and NextCloud for example (replace *owncloud.org* with your own domain to try): 
 * [https://icons.duckduckgo.com/ip2/owncloud.org.ico](https://icons.duckduckgo.com/ip2/owncloud.org.ico) (32x32 pixels)
  * <img src="https://icons.duckduckgo.com/ip2/owncloud.org.ico"/> 
  * <img src="https://icons.duckduckgo.com/ip2/nextcloud.com.ico"/> 
