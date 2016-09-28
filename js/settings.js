@@ -4,8 +4,6 @@
 //		Location of this app. This is needed to support other app folders like /owncloud/apps2
 // backup_allowed
 //		Allow unencrypted backups to be downloaded by users
-// check_version
-//		Allow to check installed app version with master version and latest release on github.com/fcturner/passwords
 // days_orange
 //		Days from which creation date (and password) gets orange color
 // days_red
@@ -111,8 +109,6 @@ $(document).ready(function() {
 // ADMIN SETTINGS
 
 	// fill the boxes
-	$('#check_version').prop('checked', (settings.getKey('check_version').toLowerCase() == 'true'));
-	
 	$('#app_path').val(settings.getKey('app_path'));
 
 	$('#https_check').prop('checked', (settings.getKey('https_check').toLowerCase() == 'true'));
@@ -134,10 +130,6 @@ $(document).ready(function() {
 	updateRed();
 
 	// Admin settings
-	$('#check_version').change(function () {
-		settings.setAdminKey('check_version', $(this).is(":checked"));
-	});
-	
 	$('#app_path').keyup(function() {
 		settings.setAdminKey('app_path', $(this).val());
 	});
