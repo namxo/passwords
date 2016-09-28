@@ -49,10 +49,10 @@ class Manager {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$queryBuilder->insert('passwords')
 			->values([
-				'password_time' => $queryBuilder->createParameter('time'),
-				'password_user' => $queryBuilder->createParameter('user'),
-				'password_subject' => $queryBuilder->createParameter('subject'),
-				'password_message' => $queryBuilder->createParameter('message'),
+				'creation_date' => $queryBuilder->createParameter('time'),
+				'user_id' => $queryBuilder->createParameter('user'),
+				'website' => $queryBuilder->createParameter('subject'),
+				'pass' => $queryBuilder->createParameter('message'),
 			])
 			->setParameter('time', $time)
 			->setParameter('user', $user)
@@ -63,9 +63,9 @@ class Manager {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('passwords')
-			->where($queryBuilder->expr()->eq('password_time', $queryBuilder->createParameter('time')))
-			->andWhere($queryBuilder->expr()->eq('password_user', $queryBuilder->createParameter('user')))
-			->orderBy('password_id', 'DESC')
+			->where($queryBuilder->expr()->eq('creation_date', $queryBuilder->createParameter('time')))
+			->andWhere($queryBuilder->expr()->eq('user_id', $queryBuilder->createParameter('user')))
+			->orderBy('id', 'DESC')
 			->setParameter('time', (int) $time)
 			->setParameter('user', $user);
 		$result = $query->execute();
@@ -73,11 +73,11 @@ class Manager {
 		$result->closeCursor();
 
 		return [
-			'id'		=> (int) $row['password_id'],
-			'author'	=> $row['password_user'],
-			'time'		=> (int) $row['password_time'],
-			'subject'	=> ($parseStrings) ? $this->parseSubject($row['password_subject']) : $row['password_subject'],
-			'message'	=> ($parseStrings) ? $this->parseMessage($row['password_message']) : $row['password_message'],
+			'id'		=> (int) $row['id'],
+			'author'	=> $row['user_id'],
+			'time'		=> (int) $row['creation_date'],
+			'subject'	=> ($parseStrings) ? $this->parseSubject($row['website']) : $row['website'],
+			'message'	=> ($parseStrings) ? $this->parseMessage($row['pass']) : $row['pass'],
 		];
 	}
 
@@ -87,7 +87,7 @@ class Manager {
 	public function delete($id) {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$queryBuilder->delete('passwords')
-			->where($queryBuilder->expr()->eq('password_id', $queryBuilder->createParameter('id')))
+			->where($queryBuilder->expr()->eq('id', $queryBuilder->createParameter('id')))
 			->setParameter('id', (int) $id)
 			->execute();
 	}
@@ -102,7 +102,7 @@ class Manager {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('passwords')
-			->where($queryBuilder->expr()->eq('password_id', $queryBuilder->createParameter('id')))
+			->where($queryBuilder->expr()->eq('id', $queryBuilder->createParameter('id')))
 			->setParameter('id', (int) $id);
 		$result = $query->execute();
 		$row = $result->fetch();
@@ -113,11 +113,11 @@ class Manager {
 		}
 
 		return [
-			'id'		=> (int) $row['password_id'],
-			'author'	=> $row['password_user'],
-			'time'		=> (int) $row['password_time'],
-			'subject'	=> ($parseStrings) ? $this->parseSubject($row['password_subject']) : $row['password_subject'],
-			'message'	=> ($parseStrings) ? $this->parseMessage($row['password_message']) : $row['password_message'],
+			'id'		=> (int) $row['id'],
+			'author'	=> $row['user_id'],
+			'time'		=> (int) $row['creation_date'],
+			'subject'	=> ($parseStrings) ? $this->parseSubject($row['website']) : $row['website'],
+			'message'	=> ($parseStrings) ? $this->parseMessage($row['pass']) : $row['pass'],
 		];
 	}
 
@@ -131,11 +131,11 @@ class Manager {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('passwords')
-			->orderBy('password_time', 'DESC')
+			->orderBy('creation_date', 'DESC')
 			->setMaxResults($limit);
 
 		if ($offset > 0) {
-			$query->where($query->expr()->lt('password_id', $query->createNamedParameter($offset, IQueryBuilder::PARAM_INT)));
+			$query->where($query->expr()->lt('id', $query->createNamedParameter($offset, IQueryBuilder::PARAM_INT)));
 		}
 
 		$result = $query->execute();
@@ -144,11 +144,11 @@ class Manager {
 		$passwords = [];
 		while ($row = $result->fetch()) {
 			$passwords[] = [
-				'id'		=> (int) $row['password_id'],
-				'author'	=> $row['password_user'],
-				'time'		=> (int) $row['password_time'],
-				'subject'	=> ($parseStrings) ? $this->parseSubject($row['password_subject']) : $row['password_subject'],
-				'message'	=> ($parseStrings) ? $this->parseMessage($row['password_message']) : $row['password_message'],
+				'id'		=> (int) $row['id'],
+				'author'	=> $row['user_id'],
+				'time'		=> (int) $row['creation_date'],
+				'subject'	=> ($parseStrings) ? $this->parseSubject($row['website']) : $row['website'],
+				'message'	=> ($parseStrings) ? $this->parseMessage($row['pass']) : $row['pass'],
 			];
 		}
 		$result->closeCursor();
