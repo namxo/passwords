@@ -168,13 +168,18 @@ class PasswordService {
 	}
 	
 	public function sendmail($kind, $website, $sharewith, $domain, $fullurl, $instancename, $userId) {
+                $has_ldap = (\OC::$server->getUserSession()->getUser()->getBackendClassName() == 'LDAP');
 		try {
 			if (count($sharewith) > 0 AND $sharewith != '') {
 				$mailer = \OC::$server->getMailer();
 				$senderaddress = \OC::$server->getConfig()->getSystemValue('mail_smtpname', 'noreply@' . $domain);
 				$me_username = $userId;
-				$me_displayname = \OC::$server->getUserManager()->get($me_username)->getDisplayName();
-				$me_email = \OC::$server->getUserManager()->get($me_username)->getEMailAddress();
+
+			        if (!$has_ldap || ($has_ldap && preg_match('/(^\{?[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}\}?)$/i', $me_username))) {
+					$me_displayname = \OC::$server->getUserManager()->get($me_username)->getDisplayName();
+                                        $me_email = \OC::$server->getUserManager()->get($me_username)->getEMailAddress();
+				    
+			        }
 				if (!filter_var($me_email, FILTER_VALIDATE_EMAIL)) {
 					$me_email = '';
 				} else {
@@ -182,8 +187,11 @@ class PasswordService {
 				}
 				for ($x = 0; $x < count($sharewith); $x++) {
 					$username = $sharewith[$x];
-					$userdisplayname = \OC::$server->getUserManager()->get($username)->getDisplayName();
-					$useremail = \OC::$server->getUserManager()->get($username)->getEMailAddress();
+                                        if (!$has_ldap || ($has_ldap && preg_match('/(^\{?[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}\}?)$/i', $username))) {
+					    $userdisplayname = \OC::$server->getUserManager()->get($username)->getDisplayName();
+                                            $useremail = \OC::$server->getUserManager()->get($username)->getEMailAddress();
+				    
+			                }
 					// You want to mail in the recipients language:
 					$userlanguage = \OC::$server->getConfig()->getUserValue($username, 'core', 'lang', 'en');
 					// object that holds users langage:
