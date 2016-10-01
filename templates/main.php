@@ -13,6 +13,7 @@
 		return
 		(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 		|| $_SERVER['SERVER_PORT'] == 443
+		|| \OC::$server->getConfig()->getSystemValue('overwriteprotocol', '') == 'https'
 		|| \OC::$server->getConfig()->getSystemValue('forcessl', '')
 		|| substr(\OC::$server->getConfig()->getSystemValue('overwrite.cli.url', 'http:'), 0, 5) == 'https'
 		|| \OC::$server->getConfig()->getAppValue('passwords', 'https_check', 'true') == 'false';
