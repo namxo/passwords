@@ -29,7 +29,7 @@ class Password extends Entity implements JsonSerializable {
 			'properties' => $this->properties,
 			'notes' => $this->notes,
 			'creation_date' => $this->creationDate,
-			'deleted' => $this->deleted
+			'deleted' => (bool)$this->deleted
 		];
 	}
 }
