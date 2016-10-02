@@ -107,8 +107,10 @@ class Activity implements IExtension {
 				return 'icon-change';
 			case self::TYPE_SHARED:
 			case self::TYPE_SHARED_TO_ME:
-				return 'icon-share';
 			case self::TYPE_SHARE_STOP:
+				return 'icon-share';
+			case self::TYPE_DELETED:
+			case self::TYPE_DELETED_PERMANENT:
 				return 'icon-delete';
 		}
 
