@@ -18,6 +18,7 @@
 * Fix for sharing using LDAP
 * Fix for sharing using PostgreSQL
 * Fix for category filter
+* Small design fix for double horizontal break lines on personal page when icons are disabled
 
 ####19 - Sept 15th, 2016
 * Support for ownCloud 9.1 and NextCloud 9 and 10 (now works on all versions of OC 8 and OC 9, and NC 9 and NC 10 too)
