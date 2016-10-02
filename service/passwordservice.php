@@ -240,8 +240,17 @@ class PasswordService {
 			if ($isShared > 0) {
 				Activity::deleteShare($userId, $website, $loginname);
 			} else {
-				// so the password wasn't shared, then it's just an edit
-				Activity::editPassword($userId, $website, $loginname);
+				// so the password wasn't shared
+
+				// now check if the password is being trashed here
+				$isTrashed = $this->mapper->isTrashed($id);
+				if ($isTrashed == 0 && $deleted == 1) {
+					Activity::deletePassword($userId, $website, $loginname);
+				} else {
+					// then it's just an edit
+					Activity::editPassword($userId, $website, $loginname);
+				}
+				
 			}
 		}
 
