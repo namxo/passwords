@@ -456,11 +456,11 @@ class Calculations {
 	public static function uniord($c) {
 		// http://stackoverflow.com/a/10333324
 		// used to replace JS's 'charCodeAt' function
-		try {
-			$h = ord($c{0});
-		} catch (Exception $e) {
+		if ($c == '') {
 			return false;
-		}	
+		}
+		
+		$h = ord($c{0});	
 		if ($h <= 0x7F) {
 			return $h;
 		} else if ($h < 0xC2) {
