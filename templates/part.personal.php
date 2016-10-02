@@ -46,9 +46,9 @@
 			<tr>
 			</tr>
 		</table>
+		
+		<hr>
 	</div>
-
-	<hr>
 
 	<div>
 		<input class="checkbox" type="checkbox" id="hide_usernames">
