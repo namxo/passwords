@@ -95,6 +95,29 @@ class PasswordMapper extends Mapper {
 		}
 	}
 
+	public function isShared($pwid) {
+		// checks if passwords is already shared
+		$sql = "SELECT SUM(CASE WHEN pwid = ? AND sharedto <> '' THEN 1 ELSE 0 END) AS count FROM *PREFIX*passwords_share";
+		$sql = $this->db->prepare($sql);
+		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
+		$sql->execute();
+		$row = $sql->fetch();
+		$sql->closeCursor();
+		return $row;
+	}
+
+	public function isSharedWithUser($pwid, $shareduserid) {
+		// checks if passwords is already shared with a specific user
+		$sql = 'SELECT SUM(CASE WHEN pwid = ? AND sharedto = ? THEN 1 ELSE 0 END) AS count FROM *PREFIX*passwords_share';
+		$sql = $this->db->prepare($sql);
+		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
+		$sql->bindParam(2, $shareduserid, \PDO::PARAM_STR);
+		$sql->execute();
+		$row = $sql->fetch();
+		$sql->closeCursor();
+		return $row;
+	}
+
 	public function insertShare($pwid, $shareto, $sharekey) {
 		$sql = 'INSERT INTO *PREFIX*passwords_share (id, pwid, sharedto, sharekey) VALUES (NULL, ?, ?, ?)';
 		$sql = $this->db->prepare($sql);
