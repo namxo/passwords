@@ -103,7 +103,18 @@ class PasswordMapper extends Mapper {
 		$sql->execute();
 		$row = $sql->fetch();
 		$sql->closeCursor();
-		return $row;
+		return (int) $row['count'];
+	}
+
+	public function isTrashed($pwid) {
+		// checks if passwords is already shared
+		$sql = 'SELECT SUM(CASE WHEN id = ? AND deleted = 1 THEN 1 ELSE 0 END) AS count FROM *PREFIX*passwords';
+		$sql = $this->db->prepare($sql);
+		$sql->bindParam(1, $pwid, \PDO::PARAM_INT);
+		$sql->execute();
+		$row = $sql->fetch();
+		$sql->closeCursor();
+		return (int) $row['count'];
 	}
 
 	public function isSharedWithUser($pwid, $shareduserid) {
@@ -115,7 +126,7 @@ class PasswordMapper extends Mapper {
 		$sql->execute();
 		$row = $sql->fetch();
 		$sql->closeCursor();
-		return $row;
+		return (int) $row['count'];
 	}
 
 	public function insertShare($pwid, $shareto, $sharekey) {
